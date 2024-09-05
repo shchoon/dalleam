@@ -8,7 +8,6 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'gray' | 'orange' | 'tomato' | 'red';
   size?: 'sm' | 'lg';
   fillState: 'full' | 'empty';
-  text: string;
 };
 
 type ButtonVariantType = VariantProps<typeof buttonVariants>['variant'];
@@ -18,7 +17,7 @@ export default function Button({
   variant = 'orange',
   size = 'lg',
   fillState,
-  text,
+  children,
   ...props
 }: ButtonProps) {
   const buttonVariant = (fillState === 'empty' ? 'E' + variant : variant) as ButtonVariantType;
@@ -35,7 +34,7 @@ export default function Button({
         className,
       )}
     >
-      {text}
+      {children}
     </button>
   );
 }
