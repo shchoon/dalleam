@@ -4,7 +4,7 @@ import localFont from 'next/font/local';
 const pretendard = localFont({
   src: '../static/font/Pretendard-Light.otf',
   display: 'swap',
-  weight: '45 920',
+  weight: '100 200 300 400 500 600 700 800 900',
   variable: '--font-pretendard',
 });
 
