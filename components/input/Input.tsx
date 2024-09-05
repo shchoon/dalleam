@@ -11,14 +11,14 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   toggleType?: () => void;
 }
 
-const baseClasses = 'w-full rounded-xl px-4 py-[10px] text-sm md:text-base border border-black';
+const baseClasses = 'w-full rounded-xl px-4 py-[10px] text-sm md:text-base border border-gray-900';
 
-const errorClasses = '!border-red-500 !outline-red-500';
+const errorClasses = '!border-red-600 !outline-red-600';
 
 const outlineColors = {
-  none: '',
-  yellow: 'outline-yellow-500',
-  orange: 'outline-orange-500',
+  none: 'outline-gray-900',
+  yellow: 'outline-orange-300',
+  orange: 'outline-orange-600',
 };
 
 const placeholderColors = {
@@ -45,14 +45,14 @@ const Input = forwardRef<HTMLInputElement, Props>(
           ref={ref}
           type={type}
           placeholder={placeholder}
-          className={`${baseClasses} ${outlineColors[outlineColor]} ${placeholderColors[placeholderColor]} ${errorMsg && errorClasses} pr-10`} // 오른쪽 공간 확보
+          className={`${baseClasses} ${outlineColors[outlineColor]} ${placeholderColors[placeholderColor]} ${errorMsg && errorClasses}`}
           {...props}
         />
         {toggleType && (
           <button
             type="button"
             onClick={toggleType}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500"
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-sm text-gray-500"
           >
             {type === 'password' ? <VisiblityOff /> : <VisiblityON />}
           </button>

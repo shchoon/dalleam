@@ -3,5 +3,5 @@ interface Props {
 }
 
 export default function ErrorMsg({ children }: Props) {
-  return <div className="text-red-500 text-sm">{children}</div>;
+  return <div className="text-red-600 text-sm">{children}</div>;
 }
