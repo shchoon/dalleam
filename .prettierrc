@@ -5,6 +5,6 @@
   "trailingComma": "all",
   "singleQuote": true,
   "arrowParens": "always",
-  "endOfLine": "lf",
-  "useTabs": false
+  "useTabs": false,
+  "endOfLine": "auto"
 }
