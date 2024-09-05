@@ -5,19 +5,27 @@ import Button from './Button';
 
 describe('버튼 렌더링 테스트', () => {
   it('기본 버튼 렌더링', () => {
-    render(<Button fillState="full" text="테스트하기1" />);
+    render(<Button fillState="full">테스트하기1</Button>);
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveClass('w-[332px] bg-orange-600 text-white hover:brightness-75');
     expect(buttonElement).toHaveTextContent('테스트하기1');
   });
   it('스몰 색상 버튼 렌더링', () => {
-    render(<Button variant="gray" fillState="full" size="sm" text="테스트하기2" />);
+    render(
+      <Button variant="gray" fillState="full" size="sm">
+        테스트하기2
+      </Button>,
+    );
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveClass('w-[120px] h-10 bg-gray-400 text-white');
     expect(buttonElement).toHaveTextContent('테스트하기2');
   });
   it('라지 빈색상 버튼 렌더링', () => {
-    render(<Button variant="red" fillState="empty" size="lg" text="테스트하기3" />);
+    render(
+      <Button variant="red" fillState="empty" size="lg">
+        테스트하기3
+      </Button>,
+    );
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveClass(
       'w-[332px] h-11 border-[1px] border-orange-800 text-orange-800',
@@ -25,7 +33,11 @@ describe('버튼 렌더링 테스트', () => {
     expect(buttonElement).toHaveTextContent('테스트하기3');
   });
   it('스몰 빈색상 버튼 렌더링', () => {
-    render(<Button variant="tomato" fillState="empty" size="sm" text="테스트하기4" />);
+    render(
+      <Button variant="tomato" fillState="empty" size="sm">
+        테스트하기4
+      </Button>,
+    );
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveClass(
       'w-[120px] h-10 border-[1px] border-orange-700 text-orange-700',
@@ -34,13 +46,9 @@ describe('버튼 렌더링 테스트', () => {
   });
   it('버튼 className 처리 및 텍스트 처리 확인', () => {
     render(
-      <Button
-        className="w-full h-11 md:h-10"
-        variant="tomato"
-        fillState="empty"
-        size="sm"
-        text="테스트하기"
-      />,
+      <Button className="w-full h-11 md:h-10" variant="tomato" fillState="empty" size="sm">
+        테스트하기
+      </Button>,
     );
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveClass(
