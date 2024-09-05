@@ -17,6 +17,7 @@ export default function Button({
   variant = 'orange',
   size = 'lg',
   fillState,
+  children,
   ...props
 }: ButtonProps) {
   const buttonVariant = (fillState === 'empty' ? 'E' + variant : variant) as ButtonVariantType;
@@ -33,7 +34,7 @@ export default function Button({
         className,
       )}
     >
-      생성하기
+      {children}
     </button>
   );
 }
