@@ -23,5 +23,13 @@ export default function PasswordInput({
     setType((prev) => (prev === 'text' ? 'password' : 'text'));
   };
 
-  return <Input type={type} toggleType={toggleType} placeholder={placeholder} {...props} />;
+  return (
+    <Input
+      type={type}
+      toggleType={toggleType}
+      placeholder={placeholder}
+      errorMsg={errorMsg}
+      {...props}
+    />
+  );
 }
