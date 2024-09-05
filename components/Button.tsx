@@ -30,6 +30,7 @@ export default function Button({
           variant: buttonVariant,
           size,
         }),
+        className,
       )}
     >
       생성하기
@@ -37,7 +38,7 @@ export default function Button({
   );
 }
 
-const buttonVariants = cva(`font-semibold h-11 rounded-xl text-base hover:brightness-75`, {
+const buttonVariants = cva(`font-semibold rounded-xl text-base hover:brightness-75`, {
   variants: {
     variant: {
       gray: 'bg-gray-400 text-white',
@@ -50,8 +51,8 @@ const buttonVariants = cva(`font-semibold h-11 rounded-xl text-base hover:bright
       Ered: 'border-[1px] border-orange-800 text-orange-800',
     },
     size: {
-      sm: 'w-[120px]',
-      lg: 'w-[332px]',
+      sm: 'w-[120px] h-10',
+      lg: 'w-[332px] h-11',
     },
   },
   defaultVariants: {
