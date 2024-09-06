@@ -1,14 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, InputHTMLAttributes } from 'react';
 import Input from './Input';
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   placeholder?: string;
   outlineColor?: 'none' | 'yellow' | 'orange';
   placeholderColor?: 'gray' | 'black';
   errorMsg?: string;
-}
+};
 
 export default function PasswordInput({
   placeholder,

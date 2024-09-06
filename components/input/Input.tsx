@@ -1,18 +1,18 @@
-import React, { forwardRef } from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 import ErrorMsg from './ErrorMsg';
 import VisiblityOff from '@/public/icons/visibility_off.svg';
 import VisiblityON from '@/public/icons/visibility_on.svg';
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   placeholder?: string;
   outlineColor?: 'none' | 'yellow' | 'orange';
   placeholderColor?: 'gray' | 'black';
   errorMsg?: string;
   toggleType?: () => void;
-}
+};
 
 const baseClasses =
-  'w-full h-10 md:h-11 rounded-xl px-4 py-[10px] text-sm md:text-base border border-gray-900';
+  'w-full h-10 md:h-11 rounded-xl px-4 py-10pxr text-sm md:text-base border border-gray-900';
 
 const errorClasses = '!border-red-600 !outline-red-600';
 

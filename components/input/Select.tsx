@@ -1,17 +1,17 @@
 'use client';
 
 import DropdownIcon from '@/public/icons/drop_down.svg';
-import { forwardRef, useState } from 'react';
+import { SelectHTMLAttributes, forwardRef, useState } from 'react';
 import ErrorMsg from './ErrorMsg';
 
-interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
+type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   placeholder?: string;
   outlineColor?: 'default' | 'yellow' | 'orange';
   placeholderColor?: 'gray' | 'black';
   errorMsg?: string;
-}
+};
 
-const baseClasses = 'w-full rounded-xl px-4 py-[10px] text-sm md:text-base border border-gray-900';
+const baseClasses = 'w-full rounded-xl px-4 py-10pxr text-sm md:text-base border border-gray-900';
 
 const errorClasses = '!border-red-600 !outline-red-600';
 
