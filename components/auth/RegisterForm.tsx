@@ -53,7 +53,7 @@ export default function RegisterForm() {
               <label className={labelStyle} htmlFor="name">
                 이름
               </label>
-              <Input id="name" {...field} />
+              <Input id="name" placeholder="이름을 입력해 주세요." {...field} />
             </div>
           )}
         />
@@ -68,6 +68,7 @@ export default function RegisterForm() {
               <Input
                 type="email"
                 id="email"
+                placeholder="이메일을 입력해 주세요."
                 errorMsg={errors.email && errors.email.message}
                 {...field}
               />
@@ -80,10 +81,11 @@ export default function RegisterForm() {
           render={({ field }) => (
             <div className={controllerStyle}>
               <label className={labelStyle} htmlFor="companyName">
-                회사 이름
+                회사명
               </label>
               <Input
                 id="companyName"
+                placeholder="회사명을 입력해 주세요."
                 errorMsg={errors.companyName && errors.companyName.message}
                 {...field}
               />
@@ -100,6 +102,7 @@ export default function RegisterForm() {
               </label>
               <PasswordInput
                 id="password"
+                placeholder="비밀번호를 입력해 주세요."
                 errorMsg={errors.password && errors.password.message}
                 {...field}
               />
@@ -116,6 +119,7 @@ export default function RegisterForm() {
               </label>
               <PasswordInput
                 id="passwordCheck"
+                placeholder="비밀번호를 다시 한 번 입력해 주세요."
                 errorMsg={errors.passwordCheck && errors.passwordCheck.message}
                 {...field}
               />

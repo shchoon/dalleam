@@ -56,7 +56,7 @@ export default function LoginForm() {
               <Input
                 type="email"
                 id="email"
-                placeholder="이메일을 입력해주세요."
+                placeholder="이메일을 입력해 주세요."
                 errorMsg={errors.email && errors.email.message}
                 {...field}
               />
@@ -73,7 +73,7 @@ export default function LoginForm() {
               </label>
               <PasswordInput
                 id="password"
-                placeholder="비밀번호를 입력해주세요."
+                placeholder="비밀번호를 입력해 주세요."
                 errorMsg={errors.password && errors.password.message}
                 {...field}
               />
