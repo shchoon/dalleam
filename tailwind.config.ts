@@ -1,5 +1,12 @@
 import type { Config } from 'tailwindcss';
 
+const pxToRem = (px: number, base = 16) => `${px / base}rem`;
+
+const range = (start: number, end: number) => {
+  const length = end - start;
+  return Array.from({ length }, (_, i) => start + i);
+};
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -12,6 +19,12 @@ const config: Config = {
       lg: '1128px',
     },
     extend: {
+      spacing: {
+        ...range(1, 2401).reduce<Record<string, string>>((acc, px) => {
+          acc[`${px}pxr`] = pxToRem(px);
+          return acc;
+        }, {}),
+      },
       fontSize: {
         xs: ['12px', '16px'],
         sm: ['14px', '20px'],
