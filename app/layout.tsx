@@ -2,10 +2,9 @@ import './globals.css';
 import localFont from 'next/font/local';
 
 const pretendard = localFont({
-  src: '../static/font/Pretendard-Light.otf',
+  src: '../fonts/PretendardVariable.woff2',
   display: 'swap',
-  weight: '100 200 300 400 500 600 700 800 900',
-  variable: '--font-pretendard',
+  weight: '45 920',
 });
 
 export default function RootLayout({
@@ -14,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${pretendard.variable}`}>
+    <html lang="en">
       <body className={pretendard.className}>{children}</body>
     </html>
   );
