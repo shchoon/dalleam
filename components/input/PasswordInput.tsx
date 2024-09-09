@@ -15,6 +15,7 @@ export default function PasswordInput({
   placeholderColor = 'gray',
   outlineColor = 'none',
   errorMsg,
+  className,
   ...props
 }: Props) {
   const [type, setType] = useState<'text' | 'password'>('password');
@@ -29,6 +30,7 @@ export default function PasswordInput({
       toggleType={toggleType}
       placeholder={placeholder}
       errorMsg={errorMsg}
+      className={className}
       {...props}
     />
   );
