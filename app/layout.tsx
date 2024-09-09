@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.className}>
-        <div className="flex flex-col w-[100vw] h-[100vh]">
+        <div className="flex flex-col w-full h-full">
           <div className="w-full h-56pxr md:h-60pxr bg-orange-600 text-center text-3xl">
             네비게이션 들어가는 곳
           </div>

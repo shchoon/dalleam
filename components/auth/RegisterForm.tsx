@@ -14,8 +14,8 @@ import Link from 'next/link';
 
 type FormData = z.infer<typeof registerSchema>;
 
-const controllerStyle = 'flex flex-col gap-2';
-const labelStyle = 'text-sm font-semibold';
+export const controllerStyle = 'w-full flex flex-col gap-2';
+export const labelStyle = 'text-sm font-semibold';
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -42,7 +42,7 @@ export default function RegisterForm() {
   return (
     <>
       <div className="w-full mb-8">
-        <h1 className="w-full text-center text-xl font-semibold">회원가입</h1>
+        <h1 className="w-full text-center text-xl md:text-2xl font-semibold">회원가입</h1>
       </div>
       <form className="w-full flex flex-col gap-6" onSubmit={submit}>
         <Controller

@@ -11,11 +11,9 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button';
 import Link from 'next/link';
+import { controllerStyle, labelStyle } from './RegisterForm';
 
 type FormData = z.infer<typeof loginSchema>;
-
-const controllerStyle = 'flex flex-col gap-2';
-const labelStyle = 'text-sm font-semibold';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -42,7 +40,7 @@ export default function LoginForm() {
   return (
     <>
       <div className="w-full mb-8">
-        <h1 className="w-full text-center text-xl font-semibold">로그인</h1>
+        <h1 className="w-full text-center text-xl md:text-2xl font-semibold">로그인</h1>
       </div>
       <form className="w-full flex flex-col gap-6" onSubmit={submit}>
         <Controller
