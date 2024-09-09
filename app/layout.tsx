@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className={`${pretendard.variable}`}>
+    <html lang="ko">
       <body className={pretendard.className}>
         <div className="flex flex-col w-[100vw] h-[100vh]">
           <div className="w-full h-56pxr md:h-60pxr bg-orange-600 text-center text-3xl">
