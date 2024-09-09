@@ -12,6 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button';
 import Link from 'next/link';
 import { controllerStyle, labelStyle } from './RegisterForm';
+import { getUserMutationOptions } from '@/services/auths/user';
+import useUserStore from '@/stores/userStore';
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -26,15 +28,25 @@ export default function LoginForm() {
     mode: 'onChange',
   });
 
-  const mutation = useMutation({
+  const { setUser } = useUserStore();
+
+  const login = useMutation({
     ...loginMutationOptions,
     onSuccess: () => {
+      getUser.mutate();
+    },
+  });
+
+  const getUser = useMutation({
+    ...getUserMutationOptions,
+    onSuccess: (user) => {
+      setUser(user);
       router.push('/');
     },
   });
 
   const submit = handleSubmit(({ email, password }: FormData) => {
-    mutation.mutate({ email, password });
+    login.mutate({ email, password });
   });
 
   return (

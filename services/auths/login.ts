@@ -1,14 +1,14 @@
 import { UseMutationOptions } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 
-interface Body {
+type Body = {
   email: string;
   password: string;
-}
+};
 
-interface Response {
+type Response = {
   token: string;
-}
+};
 
 const login = async (body: Body) => {
   const res = await axios.post<Response>('/api/login', body);

@@ -7,7 +7,7 @@ export default function Layout({
 }>) {
   return (
     <div className="flex w-full min-h-[calc(100vh-3.5rem)] md:min-h-[calc(100vh-3.75rem)] h- items-start lg:items-center justify-center bg-gray-50 pt-8">
-      <div className="w-full flex flex-col items-center justify-center lg:flex-row">
+      <div className="w-full flex flex-col items-center justify-center lg:flex-row lg:gap-102pxr">
         <div className="flex flex-col">
           <div className="flex flex-col gap-2 text-gray-800 text-center">
             <h2 className="text-xl md:text-2xl font-semibold">Welcome to 같이 달램!</h2>
