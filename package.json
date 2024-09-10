@@ -11,18 +11,19 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@tanstack/react-query": "^5.53.3",
     "@tanstack/react-query-devtools": "^5.54.0",
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "js-cookie": "^3.0.5",
     "next": "14.2.7",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.0",
     "react-intersection-observer": "^9.13.0",
     "tailwind-merge": "^2.5.2",
+    "zod": "^3.23.8",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

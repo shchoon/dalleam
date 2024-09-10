@@ -1,23 +1,25 @@
-import React, { forwardRef } from 'react';
+import { forwardRef, InputHTMLAttributes } from 'react';
 import ErrorMsg from './ErrorMsg';
 import VisiblityOff from '@/public/icons/visibility_off.svg';
 import VisiblityON from '@/public/icons/visibility_on.svg';
+import clsx from 'clsx';
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+type Props = InputHTMLAttributes<HTMLInputElement> & {
   placeholder?: string;
-  outlineColor?: 'none' | 'yellow' | 'orange';
+  outlineColor?: 'none' | 'default' | 'yellow' | 'orange';
   placeholderColor?: 'gray' | 'black';
   errorMsg?: string;
   toggleType?: () => void;
-}
+};
 
 const baseClasses =
-  'w-full h-10 md:h-11 rounded-xl px-4 py-[10px] text-sm md:text-base border border-gray-900';
+  'w-full h-10 md:h-11 rounded-xl px-16pxr py-10pxr text-sm md:text-base bg-gray-50';
 
 const errorClasses = '!border-red-600 !outline-red-600';
 
 const outlineColors = {
-  none: 'outline-gray-900',
+  none: 'outline-none',
+  default: 'outline-gray-900',
   yellow: 'outline-orange-300',
   orange: 'outline-orange-600',
 };
@@ -36,18 +38,27 @@ const Input = forwardRef<HTMLInputElement, Props>(
       outlineColor = 'none',
       errorMsg,
       toggleType,
+      className,
       ...props
     },
     ref,
   ) => {
+    const computedClassName = clsx(
+      baseClasses,
+      outlineColors[outlineColor],
+      placeholderColors[placeholderColor],
+      errorMsg && errorClasses,
+      className,
+    );
+
     return (
-      <div className="flex flex-col gap-2">
-        <div className="relative">
+      <div className="w-full flex flex-col gap-2">
+        <div className="w-full relative">
           <input
             ref={ref}
             type={type}
             placeholder={placeholder}
-            className={`${baseClasses} ${outlineColors[outlineColor]} ${placeholderColors[placeholderColor]} ${errorMsg && errorClasses}`}
+            className={computedClassName}
             {...props}
           />
           {toggleType && (
