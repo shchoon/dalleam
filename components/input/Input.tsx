@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   placeholder?: string;
-  outlineColor?: 'none' | 'yellow' | 'orange';
+  outlineColor?: 'none' | 'default' | 'yellow' | 'orange';
   placeholderColor?: 'gray' | 'black';
   errorMsg?: string;
   toggleType?: () => void;
@@ -18,7 +18,8 @@ const baseClasses =
 const errorClasses = '!border-red-600 !outline-red-600';
 
 const outlineColors = {
-  none: 'outline-gray-900',
+  none: 'outline-none',
+  default: 'outline-gray-900',
   yellow: 'outline-orange-300',
   orange: 'outline-orange-600',
 };

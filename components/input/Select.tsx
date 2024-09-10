@@ -12,34 +12,20 @@ type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   errorMsg?: string;
 };
 
-const baseClasses = 'w-full rounded-xl px-16pxr py-10pxr text-sm md:text-base bg-gray-50';
+const baseClasses =
+  'w-full rounded-xl px-16pxr py-10pxr text-sm md:text-base bg-gray-50 appearance-none';
 
 const errorClasses = '!border-red-600 !outline-red-600';
 
 const outlineColors = {
+  none: 'outline-none',
   default: 'outline-gray-900',
   yellow: 'outline-orange-300',
   orange: 'outline-orange-600',
 };
 
-const placeholderColors = {
-  gray: 'placeholder-gray-400',
-  black: 'placeholder-black',
-};
-
 const Select = forwardRef<HTMLSelectElement, Props>(
-  (
-    {
-      placeholder,
-      placeholderColor = 'gray',
-      outlineColor = 'default',
-      errorMsg,
-      children,
-      className,
-      ...props
-    },
-    ref,
-  ) => {
+  ({ outlineColor = 'default', errorMsg, children, className, ...props }, ref) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleDropdown = () => setIsOpen((prev) => !prev);
@@ -48,7 +34,6 @@ const Select = forwardRef<HTMLSelectElement, Props>(
     const selectClassName = clsx(
       baseClasses,
       outlineColors[outlineColor],
-      placeholderColors[placeholderColor],
       { [errorClasses]: errorMsg },
       className,
     );
@@ -63,9 +48,6 @@ const Select = forwardRef<HTMLSelectElement, Props>(
             onBlur={closeDropdown}
             onMouseDown={toggleDropdown}
           >
-            <option value="" disabled hidden>
-              {placeholder}
-            </option>
             {children}
           </select>
           <span
