@@ -13,6 +13,7 @@ const config: Config = {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
+    '\\.svg$': '<rootDir>/__mocks__/svg.js',
   },
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
   transformIgnorePatterns: ['/node_modules/'],
