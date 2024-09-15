@@ -14,6 +14,15 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    animation: {
+      'expand-line': 'expandLine 2s ease-in-out',
+    },
+    keyframes: {
+      expandLine: {
+        '0%': { transform: 'translateX(-100%)' },
+        '100%': { transform: 'translateX(0)' },
+      },
+    },
     screens: {
       md: '744px',
       lg: '1128px',
