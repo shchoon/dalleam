@@ -16,11 +16,31 @@ const config: Config = {
   theme: {
     animation: {
       'expand-line': 'expandLine 2s ease-in-out',
+      'heart-stroke': 'heartStroke 2s ease-in-out',
+      'fill-heart': 'fillHeart 2s ease-in-out',
+      'saved-bg': 'savedBg 2s ease-in-out',
     },
     keyframes: {
       expandLine: {
         '0%': { transform: 'translateX(-100%)' },
         '100%': { transform: 'translateX(0)' },
+      },
+      savedBg: {
+        '0%': {},
+        '100%': {
+          'background-color': '#FFF7ED',
+          border: 'none',
+        },
+      },
+      heartStroke: {
+        '0%': { transform: 'scale(1)', stroke: '#9CA3AF' },
+        '30%': { transform: 'scale(0.9)', stroke: '#9CA3AF' },
+        '60%': { transform: 'scale(1.1)', stroke: '#9CA3AF' },
+        '100%': { transform: 'scale(1)', stroke: '#EA580C' },
+      },
+      fillHeart: {
+        '0%': { transform: 'scale(0.1)' },
+        '100%': { transform: 'scale(1)' },
       },
     },
     screens: {
