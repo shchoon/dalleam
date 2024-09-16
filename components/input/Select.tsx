@@ -8,7 +8,6 @@ import ErrorMsg from './ErrorMsg';
 type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   placeholder?: string;
   outlineColor?: 'default' | 'yellow' | 'orange';
-  placeholderColor?: 'gray' | 'black';
   errorMsg?: string;
 };
 
@@ -39,7 +38,7 @@ const Select = forwardRef<HTMLSelectElement, Props>(
     );
 
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full">
         <div className="relative">
           <select
             ref={ref}
