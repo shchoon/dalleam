@@ -13,7 +13,7 @@ type props = {
   updateTimeSlots?: (newDate: Date) => void;
 };
 
-export default function DalleomCalendar({ date, setDate, updateTimeSlots }: props) {
+export default function DallaemCalendar({ date, setDate, updateTimeSlots }: props) {
   const handleDateChange = (newDate: Value): void => {
     if (newDate instanceof Date) {
       const updatedDate = convertDate(newDate);
@@ -21,7 +21,6 @@ export default function DalleomCalendar({ date, setDate, updateTimeSlots }: prop
       updateTimeSlots && updateTimeSlots(new Date(updatedDate));
     }
   };
-
   const tileDisabled = ({ date }: { date: Date }) => {
     const todayDate = new Date();
     todayDate.setHours(0, 0, 0, 0);
