@@ -17,7 +17,7 @@ describe('버튼 렌더링 테스트', () => {
       </Button>,
     );
     const buttonElement = screen.getByRole('button');
-    expect(buttonElement).toHaveClass('w-[120px] h-10 bg-gray-400 text-white');
+    expect(buttonElement).toHaveClass('w-[120px] h-8 bg-gray-400 text-white');
     expect(buttonElement).toHaveTextContent('테스트하기2');
   });
   it('라지 빈색상 버튼 렌더링', () => {
@@ -27,9 +27,7 @@ describe('버튼 렌더링 테스트', () => {
       </Button>,
     );
     const buttonElement = screen.getByRole('button');
-    expect(buttonElement).toHaveClass(
-      'w-[332px] h-11 border-[1px] border-orange-800 text-orange-800',
-    );
+    expect(buttonElement).toHaveClass('w-[332px] h-11 border border-orange-800 text-orange-800');
     expect(buttonElement).toHaveTextContent('테스트하기3');
   });
   it('스몰 빈색상 버튼 렌더링', () => {
@@ -40,7 +38,7 @@ describe('버튼 렌더링 테스트', () => {
     );
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveClass(
-      'w-[120px] h-10 border-[1px] border-orange-700 text-orange-700',
+      'w-[120px] h-8 md:h-10 border border-orange-700 text-orange-700',
     );
     expect(buttonElement).toHaveTextContent('테스트하기4');
   });
@@ -52,7 +50,7 @@ describe('버튼 렌더링 테스트', () => {
     );
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveClass(
-      'w-full h-11 md:h-10 border-[1px] border-orange-700 text-orange-700',
+      'w-full h-11 md:h-10 border border-orange-700 text-orange-700',
     );
     expect(buttonElement).toHaveTextContent('테스트하기');
   });
