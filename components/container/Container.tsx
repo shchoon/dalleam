@@ -42,17 +42,19 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
   }, []);
 
   return (
-    <div className="w-486pxr py-6 border-2 border-gray-200 rounded-3xl">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col min-h-111pxr lg:min-h-129pxr justify-between">
+    <div className="w-343pxr md:w-340pxr lg:w-486pxr min-h-240pxr lg:min-h-270pxr py-6 border-2 border-gray-200 rounded-3xl">
+      <div className="flex flex-col gap-3 lg:gap-6">
+        <div className="flex flex-col  justify-between">
           <div className="flex px-6 justify-between">
             <div className="flex flex-col gap-3">
-              <div className="flex flex-col gap-0.5 max-w-374pxr">
+              <div className="flex flex-col gap-0.5">
                 <span className="text-lg font-semibold ">{gatheringDetails.name}</span>
-                <span className="text-sm font-medium">{gatheringDetails.location}</span>
+                <span className="text-sm font-medium max-w-211pxr lg:max-w-374pxr">
+                  {gatheringDetails.location}
+                </span>
               </div>
               <div className="flex gap-2">
-                <span className="text-sm px-2 py-0.5  font-medium bg-gray-900 text-white rounded">
+                <span className="text-sm px-2 py-0.5 font-medium bg-gray-900 text-white rounded">
                   {formatDateTime(gatheringDetails.dateTime)?.formattedDate}
                 </span>
                 <span className="text-sm px-2 py-0.5 font-medium bg-gray-900 text-orange-600 rounded">
