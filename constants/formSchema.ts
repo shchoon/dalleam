@@ -24,3 +24,31 @@ export const loginSchema = z.object({
   email: z.string().min(1, '이메일을 입력해 주세요.'),
   password: z.string().min(1, '비밀번호를 입력해 주세요.'),
 });
+
+export type reviewSchema = {
+  dateTime: string;
+  location: string;
+  image: Blob;
+  type: string;
+  registrationEnd: string;
+  capacity: string;
+};
+
+export const reviewRules = {
+  location: {
+    required: '장소를 선택해주세요',
+  },
+  type: {
+    required: '서비스를 선택해주세요',
+  },
+  dateTime: {
+    required: '모임 날짜를 선택해주세요',
+  },
+  capacity: {
+    required: '모임 인원을 입력해주세요',
+    min: {
+      value: 5,
+      message: '최소 5인 이상을 입력해주세요',
+    },
+  },
+};
