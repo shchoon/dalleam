@@ -4,7 +4,7 @@ export type User = {
   email: string;
   name: string;
   companyName: string;
-  image: string;
+  image: string | null;
   createdAt: string;
   updatedAt: string;
 };
