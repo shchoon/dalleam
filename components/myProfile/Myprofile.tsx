@@ -9,7 +9,6 @@ import Mobile from '/public/icons/profileBg/mobile.svg';
 import Tablet from '/public/icons/profileBg/tablet.svg';
 import Desktop from '/public/icons/profileBg/deskTop.svg';
 import Edit from '/public/icons/edit.svg';
-import DefaultProfile from '/public/icons/profileBg/profile.svg';
 
 export default function MyProfile() {
   const [profileInfo, setProfileInfo] = useState<User>();

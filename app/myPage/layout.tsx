@@ -1,4 +1,5 @@
 import MyProfile from '@/components/myProfile/Myprofile';
+import ModifyProfile from '@/components/modal/ModifyProfile';
 
 export default function myPageLayout({
   children, // will be a page or nested layout
@@ -10,6 +11,7 @@ export default function myPageLayout({
       <div className="w-347pxr md:w-700pxr lg:w-996pxr">
         <MyProfile />
       </div>
+      <ModifyProfile />
     </div>
   );
 }
