@@ -19,7 +19,6 @@ type FormData = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const {
     control,
@@ -44,7 +43,7 @@ export default function LoginForm() {
     ...getUserMutationOptions,
     onSuccess: (user) => {
       setUser(user);
-      const currentParams = searchParams.toString();
+      const currentParams = window.location.search;
       const redirectUrl = currentParams ? `/?${currentParams}` : '/';
       router.push(redirectUrl);
     },
