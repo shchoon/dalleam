@@ -33,7 +33,7 @@ export default function LoginForm() {
   const login = useMutation({
     ...loginMutationOptions,
     onSuccess: (data) => {
-      document.cookie = `token=${data.token}; path=/`;
+      document.cookie = `token=${data.token}; path=/; max-age=3600`;
       getUser.mutate();
     },
   });
