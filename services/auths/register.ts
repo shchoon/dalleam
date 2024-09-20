@@ -26,7 +26,7 @@ export const registerMutationOptions: UseMutationOptions<Response, Error, Body> 
     const defaultMsg = '알 수 없는 오류로 회원가입에 실패하였습니다.';
 
     if (error instanceof AxiosError) {
-      alert(error);
+      alert(error.response?.data.message ?? defaultMsg);
       return;
     }
 
