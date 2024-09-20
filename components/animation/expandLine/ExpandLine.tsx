@@ -7,7 +7,7 @@ type Props = {
 
 export default function ExpandLine({ capacity, participant }: Props) {
   return (
-    <div className="relative w-full h-1 overflow-hidden">
+    <div className="relative z-0 w-full h-1 overflow-hidden">
       <div className="absolute w-full h-full bg-orange-50" />
       <div
         data-testid="expandLine"

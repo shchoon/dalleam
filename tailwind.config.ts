@@ -26,7 +26,7 @@ const config: Config = {
         '100%': { transform: 'translateX(0)' },
       },
       savedBg: {
-        '0%': {},
+        '0%': { border: 'none' },
         '100%': {
           'background-color': '#FFF7ED',
           border: 'none',
