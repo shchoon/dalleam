@@ -38,7 +38,6 @@ export default function Saved({ gatheringId }: { gatheringId: number }) {
 
   const handleClickCancelSaved = () => {
     const savedGathering = JSON.parse(localStorage.getItem('saved') as string);
-    console.log(userId, savedGathering);
 
     const deletedSaved = savedGathering[userId].saved.filter((id: number) => id !== gatheringId);
 

@@ -29,127 +29,15 @@ export type ParticipantInfo = {
 export default function Container({ gatheringDetails }: { gatheringDetails: Gathering }) {
   const [profileImages, setProfileImages] = useState<string[]>([]);
 
-  const testParticipants: ParticipantInfo[] = [
-    {
-      teamId: 'FESI3-3',
-      userId: 702,
-      gatheringId: 975,
-      joinedAt: '2024-09-09T08:25:22.446Z',
-      User: {
-        id: 702,
-        email: '1234@gmail.com',
-        name: 'test',
-        companyName: 'samsung',
-        image:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1725523682003_31afece92f2fe68650a2648890a02cbb.jpeg',
-      },
-    },
-    {
-      teamId: 'FESI3-3',
-      userId: 702,
-      gatheringId: 975,
-      joinedAt: '2024-09-09T08:25:22.446Z',
-      User: {
-        id: 702,
-        email: '1234@gmail.com',
-        name: 'test',
-        companyName: 'samsung',
-        image:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1725523682003_31afece92f2fe68650a2648890a02cbb.jpeg',
-      },
-    },
-    {
-      teamId: 'FESI3-3',
-      userId: 702,
-      gatheringId: 975,
-      joinedAt: '2024-09-09T08:25:22.446Z',
-      User: {
-        id: 702,
-        email: '1234@gmail.com',
-        name: 'test',
-        companyName: 'samsung',
-        image:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1725523682003_31afece92f2fe68650a2648890a02cbb.jpeg',
-      },
-    },
-    {
-      teamId: 'FESI3-3',
-      userId: 702,
-      gatheringId: 975,
-      joinedAt: '2024-09-09T08:25:22.446Z',
-      User: {
-        id: 702,
-        email: '1234@gmail.com',
-        name: 'test',
-        companyName: 'samsung',
-        image:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1725523682003_31afece92f2fe68650a2648890a02cbb.jpeg',
-      },
-    },
-    {
-      teamId: 'FESI3-3',
-      userId: 702,
-      gatheringId: 975,
-      joinedAt: '2024-09-09T08:25:22.446Z',
-      User: {
-        id: 702,
-        email: '1234@gmail.com',
-        name: 'test',
-        companyName: 'samsung',
-        image:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1725523682003_31afece92f2fe68650a2648890a02cbb.jpeg',
-      },
-    },
-    {
-      teamId: 'FESI3-3',
-      userId: 702,
-      gatheringId: 975,
-      joinedAt: '2024-09-09T08:25:22.446Z',
-      User: {
-        id: 702,
-        email: '1234@gmail.com',
-        name: 'test',
-        companyName: 'samsung',
-        image:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1725523682003_31afece92f2fe68650a2648890a02cbb.jpeg',
-      },
-    },
-    {
-      teamId: 'FESI3-3',
-      userId: 702,
-      gatheringId: 975,
-      joinedAt: '2024-09-09T08:25:22.446Z',
-      User: {
-        id: 702,
-        email: '1234@gmail.com',
-        name: 'test',
-        companyName: 'samsung',
-        image:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1725523682003_31afece92f2fe68650a2648890a02cbb.jpeg',
-      },
-    },
-  ];
-
   useEffect(() => {
-    /* 모임 상세 조회 데이터 요청하고 받은 데이터 아래 코드로 포맷 */
-    // const limitLength = Math.min(testParticipants.length, 4);
+    /* 특정 모임의 참가자 목록 조회 API 요청하고 받은 데이터 아래 코드로 포맷 */
     // const imageList = testParticipants
     //   .map((data) => data.User.image)
-    //   .filter((image) => image !== null)
-    //   .slice(0, limitLength);
-    // while (imageList.length < limitLength) {
+    //   .filter((image) => image !== null);
+    // while (imageList.length < gatheringDetails.participantCount) {
     //   imageList.push('defaultProfile');
     // }
-
-    const imageList = testParticipants
-      .map((data) => data.User.image)
-      .filter((image) => image !== null);
-
-    while (imageList.length < gatheringDetails.participantCount) {
-      imageList.push('defaultProfile');
-    }
-
-    setProfileImages(imageList);
+    // setProfileImages(imageList);
   }, []);
 
   return (
@@ -183,10 +71,7 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
               <div className="flex gap-3 items-center">
                 <div className="flex gap-1.5 text-sm font-semibold">
                   <span>모집 정원</span>
-                  <span>
-                    {/* {gatheringDetails.participantCount} */}
-                    {CountAnimation(gatheringDetails.participantCount)}명
-                  </span>
+                  <span>{CountAnimation(gatheringDetails.participantCount)}명</span>
                 </div>
                 {/* profile images */}
                 <div className="group relative flex -space-x-2.5">
