@@ -2,10 +2,12 @@ import { User } from '@/types/user';
 import { getInstance } from '@/utils/axios';
 import { UseMutationOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import UniteSaved from '@/utils/uniteSaved';
 
 const getUser = async () => {
   const instance = getInstance();
   const res = await instance.get<User>('/auths/user');
+  UniteSaved(res.data.id);
 
   return res.data;
 };

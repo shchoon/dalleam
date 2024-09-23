@@ -38,6 +38,7 @@ export default function Saved({ gatheringId }: { gatheringId: number }) {
 
   const handleClickCancelSaved = () => {
     const savedGathering = JSON.parse(localStorage.getItem('saved') as string);
+    console.log(userId, savedGathering);
 
     const deletedSaved = savedGathering[userId].saved.filter((id: number) => id !== gatheringId);
 
@@ -51,7 +52,7 @@ export default function Saved({ gatheringId }: { gatheringId: number }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('saved');
-    if (saved && userId !== '0') {
+    if (saved) {
       const savedGathering = JSON.parse(saved);
 
       if (savedGathering[userId] && savedGathering[userId].saved.includes(gatheringId)) {
