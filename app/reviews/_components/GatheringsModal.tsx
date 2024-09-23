@@ -29,7 +29,7 @@ export default function GatheringModal() {
   };
 
   return (
-    <div className="w-full md:p-4 lg:p-0 flex justify-center absolute left-0 top-0 z-50">
+    <div className="w-full self-stretch md:p-4 lg:p-0 flex justify-center absolute left-0 top-0 z-50">
       <form
         onSubmit={handleSubmit(reviewHandler)}
         className="md:max-w-520pxr w-full self-stretch flex flex-col p-6 items-start rounded-xl bg-white gap-2 lg:gap-4"

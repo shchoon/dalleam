@@ -1,8 +1,8 @@
 import React from 'react';
-import GatheringModal from './_components/GatheringsModal';
+import Reviews from './_components/Reviews';
 
 function page() {
-  return <GatheringModal />;
+  return <Reviews />;
 }
 
 export default page;
