@@ -2,7 +2,7 @@ import Container from '@/components/container/Container';
 import { Gathering } from '@/types/types';
 
 export default function Home() {
-  const testGatheringData: Gathering = {
+  const testData1: Gathering = {
     teamId: 'FESI3-3',
     id: 104,
     type: 'WORKATION',
@@ -17,9 +17,14 @@ export default function Home() {
     canceledAt: null,
   };
 
+  const testData2 = { ...testData1, id: 105 };
+  const testData3 = { ...testData1, id: 106 };
+
   return (
-    <div className="flex justify-center">
-      <Container gatheringDetails={testGatheringData} />
+    <div className="flex flex-col gap-5 items-center">
+      <Container gatheringDetails={testData1} />
+      <Container gatheringDetails={testData2} />
+      <Container gatheringDetails={testData3} />
     </div>
   );
 }

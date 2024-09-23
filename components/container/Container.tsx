@@ -144,7 +144,6 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
     const imageList = testParticipants
       .map((data) => data.User.image)
       .filter((image) => image !== null);
-    // .slice(0, 4);
 
     while (imageList.length < gatheringDetails.participantCount) {
       imageList.push('defaultProfile');
@@ -152,7 +151,6 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
 
     setProfileImages(imageList);
   }, []);
-  console.log(profileImages);
 
   return (
     <div className="w-347pxr h-244pxr md:w-344pxr lg:w-490pxr lg:h-274pxr py-6 border-2 border-gray-200 rounded-3xl">
@@ -194,15 +192,14 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
                 <div className="group relative flex -space-x-2.5">
                   {profileImages.map((profile, i) => {
                     return (
-                      <>
+                      <div key={i}>
                         {i < 4 && (
                           <Profile
-                            key={i}
                             usedIn="container"
                             image={profile === 'defaultProfile' ? null : profile}
                           />
                         )}
-                      </>
+                      </div>
                     );
                   })}
                   {gatheringDetails.participantCount > 4 && (
