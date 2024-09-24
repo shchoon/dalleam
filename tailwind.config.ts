@@ -27,7 +27,7 @@ const config: Config = {
         '100%': { transform: 'translateX(0)' },
       },
       savedBg: {
-        '0%': { border: 'none' },
+        '0%': {},
         '100%': {
           'background-color': '#FFF7ED',
           border: 'none',
@@ -46,7 +46,7 @@ const config: Config = {
     },
     screens: {
       md: '744px',
-      lg: '1200px',
+      lg: '1128px',
     },
     extend: {
       spacing: {
