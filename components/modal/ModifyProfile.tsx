@@ -1,15 +1,16 @@
 'use client';
-import Input from '../input/Input';
-
-import Modify from '/public/icons/profileBg/modifyProfile.svg';
-import Delete from '/public/icons/delete.svg';
-import { getInstance } from '@/utils/axios';
-import { User } from '@/types/user';
-import Button from '../Button';
 import { useMutation } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import Image from 'next/image';
+
+import Input from '../input/Input';
+import { getInstance } from '@/utils/axios';
+import { User } from '@/types/user';
+import Button from '../Button';
+
+import Modify from '/public/icons/profileBg/modifyProfile.svg';
+import Delete from '/public/icons/delete.svg';
 
 type FormData = {
   companyName: string;
