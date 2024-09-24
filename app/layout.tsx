@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={`${pretendard.className} relative`}>
-        <div className="relative flex flex-col w-full">
+        <div className="flex flex-col w-full">
           <div className="w-full text-3xl text-center bg-orange-600 h-56pxr md:h-60pxr">
             네비게이션 들어가는 곳
           </div>
