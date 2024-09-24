@@ -7,7 +7,7 @@ import Check from '/public/icons/ic_check.svg';
 import Arrow from '/public/icons/arrow_right.svg';
 import Bye from '/public/icons/bye.svg';
 
-import { Gathering } from '@/lib/definition';
+import { Gathering } from '@/types/types';
 import ExpandLine from '../animation/expandLine/ExpandLine';
 import Saved from '../animation/saved/Saved';
 import { formatDateTime } from '@/utils/gathering';
@@ -22,6 +22,7 @@ const ProgressCard = ({ gathering }: Props) => {
     formattedDate: '',
     formattedTime: '',
   };
+
   // 개설확정 충족 조건
   const minParticipants = gathering.participantCount >= 5;
 
