@@ -1,9 +1,10 @@
 import React from 'react';
 import FillHeart from '/public/icons/fill_heart.svg';
 
+
 export default function ReviewPoints() {
   return (
-    <div className="flex w-full h-180pxr justify-center lg:w-995pxr shrink-0 bg-white border-y-2 border-gray-200 my-5">
+    <div className="flex w-full h-180pxr justify-center shrink-0 bg-white border-y-2 border-gray-200 my-5">
       <div className="flex h-full w-294pxr justify-between md:w-full md:gap-120pxr md:justify-center items-center">
         {/* 하트 */}
         <div className="flex flex-col items-center gap-2">

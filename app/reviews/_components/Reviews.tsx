@@ -1,8 +1,6 @@
 import React from 'react';
 import Review from '/public/icons/review.svg';
 import ReviewsTabs from './ReviewsTabs';
-import Chip from '@/components/chip/Chip';
-import Image from 'next/image';
 import ReviewPoints from './ReviewPoints';
 import ReviewList from './ReviewList';
 
