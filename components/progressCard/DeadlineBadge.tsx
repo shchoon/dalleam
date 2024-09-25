@@ -8,16 +8,14 @@ type Props = {
 };
 
 const DeadlineBadge = ({ registrationEnd, roundedTopRight = true }: Props) => {
-  const registrationEndDate = new Date(registrationEnd);
-
   const now = new Date();
 
-  const daysDiff = differenceInDays(registrationEndDate, now);
-  const hoursDiff = differenceInHours(registrationEndDate, now);
+  const daysDiff = differenceInDays(registrationEnd, now);
+  const hoursDiff = differenceInHours(registrationEnd, now);
 
   // 24시간 이상 남으면 일수로, 그렇지 않으면 시간으로 표시
   let remainingTime;
-  if (hoursDiff < 0) {
+  if (hoursDiff <= 0) {
     remainingTime = '마감';
   } else if (hoursDiff <= 23) {
     remainingTime = `${hoursDiff}시간 남음`;
