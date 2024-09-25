@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getServerSideCookie } from './serverSideCookies';
 import { redirect } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const ENV_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -15,8 +16,7 @@ const instanceForSS = axios.create({
 
 // Request 인터셉터
 instanceForCS.interceptors.request.use(async (config) => {
-  const tokenRespone = await axios.get<string>('/api/getToken');
-  const token = tokenRespone.data;
+  const token = Cookies.get('token');
 
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;

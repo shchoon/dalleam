@@ -2,11 +2,11 @@ import { User } from '@/types/user';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-interface UserStore {
+type UserStore = {
   user: User | null;
   setUser: (user: User) => void;
   clearUser: () => void;
-}
+};
 
 const useUserStore = create(
   persist<UserStore>(

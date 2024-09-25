@@ -2,7 +2,7 @@
 
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { loginMutationOptions } from '@/services/auths/login';
 import Input from '../input/Input';
 import PasswordInput from '../input/PasswordInput';
@@ -19,6 +19,7 @@ type FormData = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
   const router = useRouter();
+
   const {
     control,
     handleSubmit,
@@ -32,7 +33,8 @@ export default function LoginForm() {
 
   const login = useMutation({
     ...loginMutationOptions,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      document.cookie = `token=${data.token}; path=/; max-age=3600`;
       getUser.mutate();
     },
   });
@@ -41,7 +43,9 @@ export default function LoginForm() {
     ...getUserMutationOptions,
     onSuccess: (user) => {
       setUser(user);
-      router.push('/');
+      const currentParams = window.location.search;
+      const redirectUrl = currentParams ? `/?${currentParams}` : '/';
+      router.push(redirectUrl);
     },
   });
 

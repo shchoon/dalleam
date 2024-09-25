@@ -1,5 +1,6 @@
+import { getInstance } from '@/utils/axios';
 import { UseMutationOptions } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 
 type Body = {
   email: string;
@@ -11,7 +12,8 @@ type Response = {
 };
 
 const login = async (body: Body) => {
-  const res = await axios.post<Response>('/api/login', body);
+  const instance = getInstance();
+  const res = await instance.post<Response>('/auths/signin', body);
 
   return res.data;
 };
@@ -22,7 +24,7 @@ export const loginMutationOptions: UseMutationOptions<Response, Error, Body> = {
     const defaultMsg = '알 수 없는 오류로 로그인에 실패하였습니다.';
 
     if (error instanceof AxiosError) {
-      alert(error);
+      alert(error.response?.data.message ?? defaultMsg);
       return;
     }
 
