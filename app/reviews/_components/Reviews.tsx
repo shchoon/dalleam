@@ -4,11 +4,11 @@ import ReviewsTabs from './ReviewsTabs';
 import ReviewPoints from './ReviewPoints';
 import ReviewList from './ReviewList';
 
+// use query로 데이터 받아오기
 export default function Reviews() {
   return (
     <div className="flex flex-col items-center bg-gray-100">
-      <div className="bg-gray-50 justify-center min-h-screen py-24pxr md:py-46pxr px-3 lg:px-20 box-border lg:w-1200pxr lg:h-1021pxr flex-shrink-0">
-        {/* 리뷰 헤더 */}
+      <div className="bg-gray-50 justify-center min-h-screen py-24pxr md:py-46pxr px-3 lg:px-20 box-border lg:w-1200pxr flex-shrink-0">
         <div className="inline-flex gap-4 items:center mb-24pxr md:mb-46pxr">
           <Review />
           <div className="flex flex-col items-start gap-2">
