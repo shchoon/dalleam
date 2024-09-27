@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import DefaultProfile from '/public/icons/DefaultProfile.svg';
 import DefaultMyProfile from '/public/icons/DefaultMyProfile.svg';
 
 type Props = {
-  image: null | string;
+  image?: string;
   usedIn: 'navbar' | 'container' | 'myPage';
 };
 
 export default function Profile({ image, usedIn }: Props) {
+  const [hasError, setHasError] = useState(false);
+
   const profileSettings = {
     navbar: {
       DefaultComponent: DefaultProfile,
@@ -35,15 +37,18 @@ export default function Profile({ image, usedIn }: Props) {
 
   const { DefaultComponent, className, width, height, testId } = profileSettings[usedIn];
 
-  return image === null ? (
-    <DefaultComponent data-testid={testId} className={className} />
-  ) : (
+  if (!image || hasError) {
+    return <DefaultComponent data-testid={testId} className={className} />;
+  }
+
+  return (
     <Image
       className={`rounded-full ${className}`}
       src={image}
       width={width}
       height={height}
       alt="profile"
+      onError={() => setHasError(true)}
     />
   );
 }

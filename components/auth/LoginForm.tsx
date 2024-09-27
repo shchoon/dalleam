@@ -44,7 +44,7 @@ export default function LoginForm() {
     onSuccess: (user) => {
       setUser(user);
       const currentParams = window.location.search;
-      const redirectUrl = currentParams ? `/?${currentParams}` : '/';
+      const redirectUrl = currentParams ? `/${currentParams}` : '/';
       router.push(redirectUrl);
     },
   });
