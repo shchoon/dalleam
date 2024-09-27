@@ -4,7 +4,7 @@ import DefaultProfile from '/public/icons/DefaultProfile.svg';
 import DefaultMyProfile from '/public/icons/DefaultMyProfile.svg';
 
 type Props = {
-  image?: string;
+  image?: string | null;
   usedIn: 'navbar' | 'container' | 'myPage';
 };
 
