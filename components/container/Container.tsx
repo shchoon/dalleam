@@ -12,7 +12,7 @@ import CountAnimation from '../animation/count/Count';
 import VectorIcon from '/public/icons/Vector.svg';
 import CheckedIcon from '/public/icons/Checked.svg';
 
-export type ParticipantInfo = {
+type ParticipantInfo = {
   teamId: string;
   userId: number;
   gatheringId: number;
