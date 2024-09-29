@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { controllerStyle, labelStyle } from './RegisterForm';
 import { getUserMutationOptions } from '@/services/auths/user';
 import useUserStore from '@/stores/userStore';
+import useSavedStore from '@/stores/savedStore';
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -30,6 +31,7 @@ export default function LoginForm() {
   });
 
   const { setUser } = useUserStore();
+  const { setSavedUserId } = useSavedStore();
 
   const login = useMutation({
     ...loginMutationOptions,
@@ -43,8 +45,9 @@ export default function LoginForm() {
     ...getUserMutationOptions,
     onSuccess: (user) => {
       setUser(user);
+      setSavedUserId(user.id);
       const currentParams = window.location.search;
-      const redirectUrl = currentParams ? `/?${currentParams}` : '/';
+      const redirectUrl = currentParams ? `/${currentParams}` : '/';
       router.push(redirectUrl);
     },
   });

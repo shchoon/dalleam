@@ -7,11 +7,12 @@ import ExpandLine from '../animation/expandLine/ExpandLine';
 import Profile from '../profile/Profile';
 import { formatDateTime } from '@/utils/gathering';
 import { Gathering } from '@/types/types';
+import CountAnimation from '../animation/count/Count';
 
 import VectorIcon from '/public/icons/Vector.svg';
 import CheckedIcon from '/public/icons/Checked.svg';
 
-export type ParticipantInfo = {
+type ParticipantInfo = {
   teamId: string;
   userId: number;
   gatheringId: number;
@@ -29,22 +30,20 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
   const [profileImages, setProfileImages] = useState<string[]>([]);
 
   useEffect(() => {
-    /* 모임 상세 조회 데이터 요청하고 받은 데이터 아래 코드로 포맷 */
-    // const limitLength = Math.min(testParticipants.length, 4);
+    /* 특정 모임의 참가자 목록 조회 API 요청하고 받은 데이터 아래 코드로 포맷 */
     // const imageList = testParticipants
     //   .map((data) => data.User.image)
-    //   .filter((image) => image !== null)
-    //   .slice(0, limitLength);
-    // while (imageList.length < limitLength) {
+    //   .filter((image) => image !== null);
+    // while (imageList.length < gatheringDetails.participantCount) {
     //   imageList.push('defaultProfile');
     // }
     // setProfileImages(imageList);
   }, []);
 
   return (
-    <div className="w-343pxr md:w-340pxr lg:w-486pxr min-h-240pxr lg:min-h-270pxr py-6 border-2 border-gray-200 rounded-3xl">
+    <div className="w-347pxr h-244pxr md:w-344pxr lg:w-490pxr lg:h-274pxr py-6 border-2 border-gray-200 rounded-3xl">
       <div className="flex flex-col gap-3 lg:gap-6">
-        <div className="flex flex-col  justify-between">
+        <div className="flex flex-col justify-between min-h-111pxr lg:min-h-129pxr">
           <div className="flex px-6 justify-between">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-0.5">
@@ -71,21 +70,23 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
             <div className="flex justify-between">
               <div className="flex gap-3 items-center">
                 <div className="flex gap-1.5 text-sm font-semibold">
-                  <span>현재 모집 인원</span>
-                  <span>{gatheringDetails.participantCount}명</span>
+                  <span>모집 정원</span>
+                  <span>{CountAnimation(gatheringDetails.participantCount)}명</span>
                 </div>
                 {/* profile images */}
-                <div className="flex -space-x-2.5">
+                <div className="group relative flex -space-x-2.5">
                   {profileImages.map((profile, i) => {
                     return (
-                      <Profile
-                        key={i}
-                        usedIn="container"
-                        image={profile === 'defaultProfile' ? null : profile}
-                      />
+                      <div key={i}>
+                        {i < 4 && (
+                          <Profile
+                            usedIn="container"
+                            image={profile === 'defaultProfile' ? null : profile}
+                          />
+                        )}
+                      </div>
                     );
                   })}
-
                   {gatheringDetails.participantCount > 4 && (
                     <div className="w-29pxr h-29pxr flex items-center justify-center bg-gray-100 rounded-full -ml-2.5">
                       <span
@@ -96,6 +97,19 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
                       </span>
                     </div>
                   )}
+                  <div className="absolute hidden group-hover:block z-10 top-28pxr w-150pxr p-2 rounded-md min-h-10 max-h-120pxr bg-gray-50 overflow-y-auto scrollbar">
+                    <div className="grid grid-cols-4 gap-1">
+                      {profileImages.map((profile, i) => {
+                        return (
+                          <Profile
+                            key={i}
+                            usedIn="container"
+                            image={profile === 'defaultProfile' ? null : profile}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
               {gatheringDetails.participantCount >= 5 && (
@@ -112,12 +126,12 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
             />
           </div>
           <div className="flex justify-between text-xs font-medium">
-            <div className="flex gap-1.5 text-gray-700">
+            <div className="flex gap-1.5">
               <span>최소인원</span>
               <span>5명</span>
             </div>
             <div
-              className={`flex gap-1.5 ${gatheringDetails.participantCount == gatheringDetails.capacity ? 'text-oranage-400' : 'text-gray-700'}`}
+              className={`flex gap-1.5 ${gatheringDetails.participantCount == gatheringDetails.capacity ? 'text-orange-400' : 'text-gray-700'}`}
             >
               <span>최대인원</span>
               <span>{gatheringDetails.capacity}명</span>
