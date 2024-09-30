@@ -17,9 +17,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.className}>
-        <div className="flex flex-col w-full relative">
+        <div className="flex flex-col w-full h-dvh relative">
           <NavBar />
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <div className="bg-gray-100 flex flex-col items-center">{children}</div>
+          </QueryProvider>
         </div>
         <div id="global-modal"></div>
       </body>
