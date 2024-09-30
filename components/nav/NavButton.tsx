@@ -24,7 +24,7 @@ export default function NavButton() {
       <button onClick={handleOpenDropdown}>
         <Profile image={user?.image} usedIn="navbar" />
       </button>
-      <Dropdown ref={dropdownRef}>
+      <Dropdown ref={dropdownRef} ulClassName="top-27pxr md:top-29pxr right-10pxr">
         <Link href="/myPage">마이페이지</Link>
         <button onClick={logout}>로그아웃</button>
       </Dropdown>

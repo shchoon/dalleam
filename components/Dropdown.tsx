@@ -51,7 +51,7 @@ const Dropdown = forwardRef<DropdownHandles, Props>(
         {isOpen && (
           <ul
             className={clsx(
-              'border-var-gray-6 absolute top-27pxr md:top-29pxr right-10pxr z-10 w-110pxr list-none rounded-xl border bg-white shadow-md transition-all duration-300',
+              'border-var-gray-6 absolute z-10 w-110pxr list-none rounded-xl border bg-white shadow-md transition-all duration-300',
               ulClassName,
             )}
           >
