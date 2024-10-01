@@ -6,39 +6,24 @@ import Saved from '../animation/saved/Saved';
 import ExpandLine from '../animation/expandLine/ExpandLine';
 import Profile from '../profile/Profile';
 import { formatDateTime } from '@/utils/gathering';
-import { Gathering } from '@/types/types';
+import { Gathering, Participant } from '@/lib/definition';
 import CountAnimation from '../animation/count/Count';
 
 import VectorIcon from '/public/icons/Vector.svg';
 import CheckedIcon from '/public/icons/Checked.svg';
 
-type ParticipantInfo = {
-  teamId: string;
-  userId: number;
-  gatheringId: number;
-  joinedAt: string;
-  User: {
-    id: number;
-    email: string;
-    name: string;
-    companyName: string;
-    image: null | string;
-  };
+type Props = {
+  gatheringDetails: Gathering;
+  participants: Participant[];
 };
 
-export default function Container({ gatheringDetails }: { gatheringDetails: Gathering }) {
-  const [profileImages, setProfileImages] = useState<string[]>([]);
+export default function Container({ gatheringDetails, participants }: Props) {
+  const sortedParticipants = participants.sort((a, b) => {
+    const first = a.User.image !== null ? 1 : 0;
+    const second = b.User.image != null ? 1 : 0;
 
-  useEffect(() => {
-    /* 특정 모임의 참가자 목록 조회 API 요청하고 받은 데이터 아래 코드로 포맷 */
-    // const imageList = testParticipants
-    //   .map((data) => data.User.image)
-    //   .filter((image) => image !== null);
-    // while (imageList.length < gatheringDetails.participantCount) {
-    //   imageList.push('defaultProfile');
-    // }
-    // setProfileImages(imageList);
-  }, []);
+    return second - first;
+  });
 
   return (
     <div className="w-347pxr h-244pxr md:w-344pxr lg:w-490pxr lg:h-274pxr py-6 border-2 border-gray-200 rounded-3xl">
@@ -47,7 +32,7 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
           <div className="flex px-6 justify-between">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-0.5">
-                <span className="text-lg font-semibold ">{gatheringDetails.name}</span>
+                <span className="text-lg font-semibold ">{gatheringDetails.type}</span>
                 <span className="text-sm font-medium max-w-211pxr lg:max-w-374pxr">
                   {gatheringDetails.location}
                 </span>
@@ -63,7 +48,7 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
             </div>
             <Saved gatheringId={gatheringDetails.id} />
           </div>
-          <VectorIcon className="w-full h-1/2" />
+          <VectorIcon className="w-full" />
         </div>
         <div className="px-6 flex flex-col gap-2">
           <div className="flex flex-col gap-3">
@@ -71,45 +56,52 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
               <div className="flex gap-3 items-center">
                 <div className="flex gap-1.5 text-sm font-semibold">
                   <span>모집 정원</span>
-                  <span>{CountAnimation(gatheringDetails.participantCount)}명</span>
+                  <span>
+                    {gatheringDetails.participantCount === 0
+                      ? '0'
+                      : CountAnimation(gatheringDetails.participantCount)}{' '}
+                    명
+                  </span>
                 </div>
                 {/* profile images */}
                 <div className="group relative flex -space-x-2.5">
-                  {profileImages.map((profile, i) => {
+                  {sortedParticipants.slice(0, 4).map((data, i) => {
+                    const profile = data.User.image;
                     return (
                       <div key={i}>
-                        {i < 4 && (
-                          <Profile
-                            usedIn="container"
-                            image={profile === 'defaultProfile' ? null : profile}
-                          />
-                        )}
+                        <Profile
+                          usedIn="container"
+                          image={profile === 'defaultProfile' ? null : profile}
+                        />
                       </div>
                     );
                   })}
                   {gatheringDetails.participantCount > 4 && (
-                    <div className="w-29pxr h-29pxr flex items-center justify-center bg-gray-100 rounded-full -ml-2.5">
-                      <span
-                        className="text-sm font-semibold
+                    <>
+                      <div className="w-29pxr h-29pxr flex items-center justify-center bg-gray-100 rounded-full">
+                        <span
+                          className="text-sm font-semibold
                  text-gray-800"
-                      >
-                        +{gatheringDetails.participantCount - 4}
-                      </span>
-                    </div>
+                        >
+                          +{gatheringDetails.participantCount - 4}
+                        </span>
+                      </div>
+                      <div className="absolute hidden group-hover:block z-10 bottom-29pxr left-50pxr w-150pxr p-2 rounded-md max-h-70pxr lg:max-h-120pxr bg-gray-50 overflow-y-auto scrollbar">
+                        <div className="grid grid-cols-4 gap-1">
+                          {sortedParticipants.map((data, i) => {
+                            const profile = data.User.image;
+                            return (
+                              <Profile
+                                key={i}
+                                usedIn="container"
+                                image={profile === 'defaultProfile' ? null : profile}
+                              />
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </>
                   )}
-                  <div className="absolute hidden group-hover:block z-10 top-28pxr w-150pxr p-2 rounded-md min-h-10 max-h-120pxr bg-gray-50 overflow-y-auto scrollbar">
-                    <div className="grid grid-cols-4 gap-1">
-                      {profileImages.map((profile, i) => {
-                        return (
-                          <Profile
-                            key={i}
-                            usedIn="container"
-                            image={profile === 'defaultProfile' ? null : profile}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
                 </div>
               </div>
               {gatheringDetails.participantCount >= 5 && (
