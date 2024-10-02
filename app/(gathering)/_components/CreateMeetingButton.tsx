@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 
 // import GatheringModal from '@/app/reviews/_components/GatheringsModal';
 import useUserStore from '@/stores/userStore';
@@ -10,7 +10,7 @@ import LoginAlert from '@/components/loginAlert/LoginAlert';
 import Modal from '@/components/Modal';
 import useModal from '@/hooks/useModal';
 
-const CreateMeetingButton = () => {
+const CreateMeetingButton1 = () => {
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
 
   const searchParams = useSearchParams();
@@ -40,4 +40,11 @@ const CreateMeetingButton = () => {
   );
 };
 
+const CreateMeetingButton = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CreateMeetingButton1 />
+    </Suspense>
+  );
+};
 export default CreateMeetingButton;
