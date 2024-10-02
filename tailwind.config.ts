@@ -45,7 +45,7 @@ const config: Config = {
     },
     screens: {
       md: '744px',
-      lg: '1128px',
+      lg: '1200px',
     },
     extend: {
       spacing: {
