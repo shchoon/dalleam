@@ -12,6 +12,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: Props) => {
   const getPagesToShow = () => {
     const pages = [];
 
+    console.log(totalPages);
     if (totalPages <= 7) {
       // 페이지가 7 이하일 경우
       for (let i = 1; i <= totalPages; i++) {
