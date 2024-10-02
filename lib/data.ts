@@ -12,11 +12,7 @@ export const fetchGatherings = async () => {
     return { data: response.data, error: null };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      let errorMessage = 'Unknown error';
-      if (error.response?.status === 400) {
-        errorMessage = error.response?.data.message;
-      }
-      return { data: null, errorMessage: errorMessage };
+      return { data: null, errorMessage: error.response?.data.message ?? 'Unknown error' };
     }
     return { data: null, errorMessage: 'Gathering fetch failed' };
   }
@@ -27,18 +23,8 @@ export const fetchDetailGathering = async (id: number) => {
     return { data: response.data, error: null };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      let errorMessage = 'Unknown error';
-      if (error.response?.status === 400) {
-        errorMessage = error.response?.data.message;
-      } else if (error.response?.status === 404) {
-        errorMessage = error.response?.data.message;
-      } else if (error.response?.status === 500) {
-        errorMessage = error.response?.data.message;
-      }
-
-      return { data: null, errorMessage: errorMessage };
+      return { data: null, errorMessage: error.response?.data.message ?? 'Unknown error' };
     }
-
     return { data: null, errorMessage: 'Gathering detail fetch failed' };
   }
 };
@@ -51,13 +37,7 @@ export const fetchDetailReviews = async (id: number) => {
     return { data: response.data, error: null };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      let errorMessage = 'Unknown error';
-      if (error.response?.status === 400) {
-        errorMessage = error.response?.data.message;
-      } else if (error.response?.status === 500) {
-        errorMessage = error.response?.data.message;
-      }
-      return { data: null, errorMessage: errorMessage };
+      return { data: null, errorMessage: error.response?.data.message ?? 'Unknown error' };
     }
     return { data: null, errorMessage: 'Gathering detail reviews fetch failed' };
   }
@@ -74,15 +54,7 @@ export const fetchJoinedGatheringIds = async (gatheringId: number) => {
     return { data: response.data, error: null };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      let errorMessage = 'Unknown error';
-      if (error.response?.status === 400) {
-        errorMessage = error.response?.data.message;
-      } else if (error.response?.status === 404) {
-        errorMessage = error.response?.data.message;
-      } else if (error.response?.status === 500) {
-        errorMessage = error.response?.data.message;
-      }
-      return { data: null, errorMessage: errorMessage };
+      return { data: null, errorMessage: error.response?.data.message ?? 'Unknown error' };
     }
     return { data: null, errorMessage: 'joinedGathering Ids fetch failed' };
   }
