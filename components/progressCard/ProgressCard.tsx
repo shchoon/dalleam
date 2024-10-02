@@ -45,15 +45,19 @@ const ProgressCard = ({ gathering }: Props) => {
           {/* date, time, title, location */}
           <div className="flex items-center justify-between px-4 w-343pxr h-60pxr md:pt-4 md:pr-4 md:pb-21pxr md:pl-6 md:h-97pxr md:w-full">
             <div className="flex flex-col items-center gap-2">
-              <div className="flex w-full gap-2">
-                <span className="text-lg font-semibold text-gray-800">{gathering.type}</span>
-                <div className="w-75pxr h-28pxr">
-                  <span className="text-lg font-semibold text-gray-900 w-7pxr h-7 mr-7pxr">|</span>
-                  <span className="text-sm font-medium text-gray-700 w-61pxr h-20pxr">
-                    {gathering.location}
-                  </span>
+              <Link href={`/gatherings/${gathering.id}`}>
+                <div className="flex w-full gap-2">
+                  <span className="text-lg font-semibold text-gray-800">{gathering.type}</span>
+                  <div className="w-75pxr h-28pxr">
+                    <span className="text-lg font-semibold text-gray-900 w-7pxr h-7 mr-7pxr">
+                      |
+                    </span>
+                    <span className="text-sm font-medium text-gray-700 w-61pxr h-20pxr">
+                      {gathering.location}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </Link>
               <div className="flex self-start gap-2">
                 <span className="px-2 text-sm font-medium text-white bg-gray-900 rounded-[4px] py-2pxr">
                   {formattedDate}
@@ -86,10 +90,12 @@ const ProgressCard = ({ gathering }: Props) => {
               {/* ProgrssBar */}
               <ExpandLine capacity={gathering.capacity} participant={gathering.participantCount} />
             </div>
-            <div className="flex items-center self-end gap-2">
-              <span className="text-base font-semibold text-orange-600">join now</span>
-              <Arrow />
-            </div>
+            <Link href={`/gatherings/${gathering.id}`}>
+              <div className="flex items-center self-end gap-2">
+                <span className="text-base font-semibold text-orange-600">join now</span>
+                <Arrow />
+              </div>
+            </Link>
           </div>
         </div>
       </div>

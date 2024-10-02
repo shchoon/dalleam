@@ -35,3 +35,45 @@ export type Review = {
   >;
   User: User;
 };
+
+export type Points = {
+  teamId: 'FESI';
+  type: GatheringType;
+  oneStar: number;
+  twoStars: number;
+  threeStars: number;
+  fourStars: number;
+  fiveStars: number;
+};
+
+export type JoinedGathering = {
+  teamId: string;
+  id: number;
+  type: GatheringType;
+  name: null;
+  dateTime: string;
+  registrationEnd: string;
+  location: Location;
+  participantCount: number;
+  capacity: number;
+  image: string;
+  createdBy: number;
+  canceledAt: string | null;
+  joinedAt: string;
+  isCompleted: boolean;
+  isReviewed: boolean;
+};
+
+export type Participant = {
+  teamId: string;
+  userId: number;
+  gatheringId: number;
+  joinedAt: string;
+  User: {
+    id: number;
+    email: string;
+    name: string;
+    companyName: string;
+    image: string | null;
+  };
+};

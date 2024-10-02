@@ -19,7 +19,9 @@ export default function RootLayout({
       <body className={pretendard.className}>
         <div className="flex flex-col w-full relative">
           <NavBar />
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <div className="bg-gray-100 flex items-center flex-col">{children}</div>
+          </QueryProvider>
         </div>
         <div id="global-modal"></div>
       </body>

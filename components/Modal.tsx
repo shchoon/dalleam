@@ -34,7 +34,7 @@ const Modal = forwardRef<ModalHandles, ModalProp>(({ children }, ref) => {
     createPortal(
       <dialog
         ref={dialogRef}
-        className="fixed bottom-0 left-0 right-0 z-100 w-full h-full t-0 bg-black/50 flex items-center justify-center"
+        className="fixed bottom-0 left-0 right-0 z-100 w-full h-full t-0 bg-black/50 flex items-center justify-center z-50"
         onClick={handleModalClose}
         open
       >
