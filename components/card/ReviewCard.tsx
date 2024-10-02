@@ -22,13 +22,13 @@ export default function ReviewCard({ isMyPage, ...review }: props) {
   return (
     <div className="flex flex-col md:flex-row items-start gap-6 self-stretch">
       {/* 리뷰 이미지 */}
-      <div className="flex pt-px pl-px justify-center items-center rounded-3xl">
+      <div className="flex pt-px pl-px justify-center items-center ">
         <div className="relative w-310pxr h-170pxr bg-cover bg-center bg-no-repeat">
           <Image
             src={review?.Gathering.image ? review.Gathering.image : '/card-image.png'}
             alt="Image"
             fill
-            className="object-cover"
+            className="object-cover rounded-3xl"
           />
         </div>
       </div>
