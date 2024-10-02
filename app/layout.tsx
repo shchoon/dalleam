@@ -1,6 +1,7 @@
 import QueryProvider from '@/components/QueryProvider';
 import './globals.css';
 import localFont from 'next/font/local';
+import NavBar from '@/components/nav/NavBar';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
