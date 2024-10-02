@@ -37,7 +37,7 @@ export type Review = {
 };
 
 export type Points = {
-  teamId: 'FESI';
+  teamId: string;
   type: GatheringType;
   oneStar: number;
   twoStars: number;
@@ -77,3 +77,19 @@ export type Participant = {
     image: string | null;
   };
 };
+export type reviewQueryKeys = [
+  'reviews',
+  {
+    type: GatheringType;
+    location?: Location;
+  },
+];
+
+export type reviewScoresQueryKeys = [
+  'reviews',
+  'scores',
+  {
+    type: GatheringType;
+    location?: Location;
+  },
+];

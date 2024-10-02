@@ -1,7 +1,12 @@
-import { Review, Points, GatheringType } from '@/lib/definition';
+import {
+  Review,
+  Points,
+  GatheringType,
+  reviewQueryKeys,
+  reviewScoresQueryKeys,
+} from '@/lib/definition';
 import { getInstance } from '@/utils/axios';
 import { QueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { reviewQueryKeys, reviewScoresQueryKeys } from '@/types/types';
 import { reviewStore } from '@/stores/reviewStore';
 
 const fetcher = getInstance();
