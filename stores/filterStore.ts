@@ -1,5 +1,3 @@
-// store.ts
-import { GatheringType } from '@/lib/definition';
 import { create } from 'zustand';
 
 type FilterState = {
