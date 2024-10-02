@@ -15,18 +15,14 @@ describe('DeadlineBadge Component', () => {
   });
 
   it('마감 날짜와 24시간 이상 차이나지 않는 경우 N시간 남음 텍스트 표시', () => {
-    // 5시간 후 마감 설정
     const registrationEnd = new Date(Date.now() + 5 * 60 * 60 * 1000).toISOString();
-    console.log('5시간 후 마감 registrationEnd:', registrationEnd); // 로그 추가
     render(<DeadlineBadge registrationEnd={registrationEnd} />);
-
     expect(screen.getByText('5시간 남음')).toBeInTheDocument();
   });
 
   it('마감 날짜와 24시간 이상 차이나는 경우 N일 후 마감 텍스트 표시', () => {
     const registrationEnd = new Date(new Date().getTime() + 2 * 24 * 60 * 60 * 1000).toISOString();
     render(<DeadlineBadge registrationEnd={registrationEnd} />);
-
     expect(screen.getByText('2일 후 마감')).toBeInTheDocument();
   });
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Gathering } from '@/types/types';
+import { Gathering } from '@/lib/definition';
 
 import CardList from './CardList';
 import React from 'react';

@@ -36,8 +36,26 @@ export type Review = {
     teamId: string;
     id: number;
     name: string;
-    image: string;
+    image: string | null;
   };
+};
+
+export type JoinedGathering = {
+  teamId: string;
+  id: number;
+  type: GatheringType;
+  name: null;
+  dateTime: string;
+  registrationEnd: string;
+  location: Location;
+  participantCount: number;
+  capacity: number;
+  image: string;
+  createdBy: number;
+  canceledAt: string | null;
+  joinedAt: string;
+  isCompleted: boolean;
+  isReviewed: boolean;
 };
 
 export type Participant = {
