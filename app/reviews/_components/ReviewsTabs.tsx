@@ -1,29 +1,31 @@
 'use client';
 
 import Chip from '@/components/chip/Chip';
-import React, { useState } from 'react';
+import React from 'react';
 import DallaemFitIcon from '/public/icons/dallaem_fit_icon.svg';
 import Workation from '/public/icons/workation_icon.svg';
 import TabsUnderline from '/public/icons/tabs_underline.svg';
 import Stroke from '/public/icons/stroke.svg';
 import clsx from 'clsx';
 import { AnimatePresence, motion } from 'framer-motion';
+import { reviewStore } from '@/stores/reviewStore';
 
 export default function ReviewsTabs() {
-  const [mainTab, setMainTab] = useState<'달램 핏' | '워케이션'>('달램 핏');
-  const [subTab, setSubTab] = useState<'전체' | '오피스 스트레칭' | '마인드풀니스'>('전체');
+  const { typeTab, setTypeTab } = reviewStore();
 
   return (
     <div className="inline-flex flex-col w-full gap-3 items-start md:mb-2">
       <div className="flex items-start gap-3 relative mb-2">
         <div className="flex flex-col items-start gap-2">
           <div
-            onClick={() => setMainTab('달램 핏')}
+            onClick={() => {
+              setTypeTab('DALLAEMFIT');
+            }}
             className="flex items-center gap-1 cursor-pointer"
           >
             <span
               className={clsx(
-                mainTab === '달램 핏' && 'text-lg font-semibold',
+                typeTab === 'DALLAEMFIT' && 'text-lg font-semibold',
                 'transition-all duration-500 linear',
               )}
             >
@@ -31,7 +33,7 @@ export default function ReviewsTabs() {
             </span>
             <DallaemFitIcon
               className={clsx(
-                mainTab === '달램 핏' ? 'text-gray-900' : 'text-gray-400',
+                typeTab !== 'WORKATION' ? 'text-gray-900' : 'text-gray-400',
                 'transition-colors duration-500 linear',
               )}
             />
@@ -39,12 +41,14 @@ export default function ReviewsTabs() {
         </div>
 
         <div
-          onClick={() => setMainTab('워케이션')}
+          onClick={() => {
+            setTypeTab('WORKATION');
+          }}
           className="flex items-center gap-1 cursor-pointer"
         >
           <span
             className={clsx(
-              mainTab === '워케이션' && 'text-lg font-semibold',
+              typeTab === 'WORKATION' && 'text-lg font-semibold',
               'transition-all duration-500 linear',
             )}
           >
@@ -52,7 +56,7 @@ export default function ReviewsTabs() {
           </span>
           <Workation
             className={clsx(
-              mainTab === '워케이션' ? 'text-gray-900' : 'text-gray-400',
+              typeTab === 'WORKATION' ? 'text-gray-900' : 'text-gray-400',
               'transition-colors duration-500 linear',
             )}
           />
@@ -62,14 +66,14 @@ export default function ReviewsTabs() {
         <TabsUnderline
           className={clsx(
             'absolute -bottom-2 h-1 transition-transform duration-300 linear',
-            mainTab === '달램 핏'
+            typeTab !== 'WORKATION'
               ? 'w-20 transform translate-x-0'
               : 'w-100pxr transform translate-x-full',
           )}
         />
       </div>
       <AnimatePresence>
-        {mainTab === '달램 핏' && (
+        {typeTab !== 'WORKATION' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -80,24 +84,24 @@ export default function ReviewsTabs() {
               <div className="flex items-start gap-2">
                 <Chip
                   className="transition-colors duration-500 linear"
-                  onClick={() => setSubTab('전체')}
-                  color={subTab === '전체' ? 'navy' : 'gray'}
+                  onClick={() => setTypeTab('DALLAEMFIT')}
+                  color={typeTab === 'DALLAEMFIT' ? 'navy' : 'gray'}
                   size="lg"
                 >
                   전체
                 </Chip>
                 <Chip
                   className="transition-colors duration-500 linear"
-                  onClick={() => setSubTab('오피스 스트레칭')}
-                  color={subTab === '오피스 스트레칭' ? 'navy' : 'gray'}
+                  onClick={() => setTypeTab('OFFICE_STRETCHING')}
+                  color={typeTab === 'OFFICE_STRETCHING' ? 'navy' : 'gray'}
                   size="lg"
                 >
                   오피스 스트레칭
                 </Chip>
                 <Chip
                   className="transition-colors duration-500 linear"
-                  onClick={() => setSubTab('마인드풀니스')}
-                  color={subTab === '마인드풀니스' ? 'navy' : 'gray'}
+                  onClick={() => setTypeTab('MINDFULNESS')}
+                  color={typeTab === 'MINDFULNESS' ? 'navy' : 'gray'}
                   size="lg"
                 >
                   마인드풀니스
