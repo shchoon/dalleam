@@ -1,7 +1,7 @@
 import { Review, Points, GatheringType } from '@/lib/definition';
 import { getInstance } from '@/utils/axios';
-import { QueryClient, useInfiniteQuery } from '@tanstack/react-query';
-import { reviewQueryKeys } from '@/types/types';
+import { QueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { reviewQueryKeys, reviewScoresQueryKeys } from '@/types/types';
 import { reviewStore } from '@/stores/reviewStore';
 
 const fetcher = getInstance();
@@ -42,20 +42,27 @@ export const useReviewPrefetchQuery = async () => {
       initialPageParam: 0,
     }),
     queryClient.prefetchQuery({
-      queryKey: ['reviews', 'scores'],
+      queryKey: ['reviews', 'scores', { type: 'DALLAEMFIT' }],
       queryFn: () => getScores(),
     }),
   ]);
   return queryClient;
 };
 
-export const useReviewsInfiniteQuery = (queryKeys: reviewQueryKeys, reviewUrl: string) => {
+export const useReviewsInfiniteQuery = (queryKey: reviewQueryKeys, reviewUrl: string) => {
   return useInfiniteQuery({
-    queryKey: queryKeys,
+    queryKey,
     queryFn: ({ pageParam = 0 }) => getReviews({ pageParam, reviewUrl: reviewUrl }), // 페이지 매개변수 처리
     getNextPageParam: (lastPage, allPages) => {
       return allPages[allPages.length - 1].length === 3 ? allPages.length : undefined;
     },
     initialPageParam: 0, // 첫 페이지는 1로 시작
+  });
+};
+
+export const useScoresQuery = (queryKey: reviewScoresQueryKeys, typeTab: GatheringType) => {
+  return useQuery({
+    queryKey,
+    queryFn: () => getScores(typeTab),
   });
 };

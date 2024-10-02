@@ -2,13 +2,12 @@
 
 import React, { useEffect } from 'react';
 
-// import GatheringModal from '@/app/reviews/_components/GatheringsModal';
 import useUserStore from '@/stores/userStore';
 import { useSearchParams } from 'next/navigation';
-
 import LoginAlert from '@/components/loginAlert/LoginAlert';
 import Modal from '@/components/Modal';
 import useModal from '@/hooks/useModal';
+import GatheringModal from './GatheringModal/GatheringsModal';
 
 const CreateMeetingButton = () => {
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
@@ -33,9 +32,13 @@ const CreateMeetingButton = () => {
       >
         모임 만들기
       </button>
-      {/* <Modal ref={modalRef}>
-        {user ? <GatheringModal /> : <LoginAlert onClose={handleCloseModal} />}
-      </Modal> */}
+      <Modal ref={modalRef}>
+        {user ? (
+          <GatheringModal onClose={handleCloseModal} />
+        ) : (
+          <LoginAlert onClose={handleCloseModal} />
+        )}
+      </Modal>
     </>
   );
 };
