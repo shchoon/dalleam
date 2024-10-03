@@ -1,11 +1,11 @@
 import Select from '@/components/input/Select';
 import React from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { reviewRules } from '@/constants/formSchema';
-import { reviewSchema } from '@/constants/formSchema';
+import { gatheringRules } from '@/constants/formSchema';
+import { gatheringSchema } from '@/constants/formSchema';
 
 type Props = {
-  control: Control<reviewSchema>;
+  control: Control<gatheringSchema>;
 };
 
 const location = ['건대입구', '을지로3가', '신림', '홍대입구'];
@@ -17,7 +17,7 @@ export default function GatheringLocation({ control }: Props) {
       <Controller
         name="location"
         control={control}
-        rules={reviewRules.location}
+        rules={gatheringRules.location}
         render={({ field }) => (
           <div className="w-full">
             <Select

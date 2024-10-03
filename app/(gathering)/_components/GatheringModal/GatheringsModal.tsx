@@ -7,7 +7,7 @@ import GatheringImg from './GatheringImg';
 import GatheringService from './GatheringService';
 import { useForm } from 'react-hook-form';
 import GatheringLocation from './GatheringLocation';
-import { reviewSchema } from '@/constants/formSchema';
+import { gatheringSchema } from '@/constants/formSchema';
 import { getInstance } from '@/utils/axios';
 
 import CloseIcon from '@/public/icons/close.svg';
@@ -19,10 +19,10 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<reviewSchema>();
-  const reviewHandler = async (review: reviewSchema) => {
-    console.log('review = ', review);
-    const result = await fetcher.post('/gatherings', review, {
+  } = useForm<gatheringSchema>();
+  const onSubmitHandler = async (gathering: gatheringSchema) => {
+    console.log('gathering = ', gathering);
+    const result = await fetcher.post('/gatherings', gathering, {
       headers: { 'Content-Type': 'multipart/form-data', charset: 'utf-8' },
     });
     console.log('result = ', result);
@@ -31,7 +31,7 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
   return (
     <div className="w-full self-stretch md:p-4 lg:p-0 flex justify-center">
       <form
-        onSubmit={handleSubmit(reviewHandler)}
+        onSubmit={handleSubmit(onSubmitHandler)}
         className="md:max-w-520pxr w-full self-stretch flex flex-col p-6 items-start rounded-xl bg-white gap-2 lg:gap-4"
       >
         <div className="w-full flex justify-between mb-3">

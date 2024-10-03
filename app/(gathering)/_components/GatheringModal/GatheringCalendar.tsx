@@ -7,13 +7,13 @@ import Input from '@/components/input/Input';
 import { convertDate } from '@/utils/convertDate';
 import DallaemCalendar from '@/components/calendar/DallaemCalendar';
 import { Control, Controller } from 'react-hook-form';
-import { reviewRules } from '@/constants/formSchema';
-import { reviewSchema } from '@/constants/formSchema';
+import { gatheringRules } from '@/constants/formSchema';
+import { gatheringSchema } from '@/constants/formSchema';
 import GatheringTimes from './GatheringTimes';
 
 type timeSlotProps = { time: string; date: string };
 
-type props = { control: Control<reviewSchema> };
+type props = { control: Control<gatheringSchema> };
 
 export default function GatheringCalendar({ control }: props) {
   const today = convertDate(new Date());
@@ -73,7 +73,7 @@ export default function GatheringCalendar({ control }: props) {
         <Controller
           control={control}
           name="capacity"
-          rules={reviewRules.capacity}
+          rules={gatheringRules.capacity}
           render={({ field }) => (
             <Input
               {...field}

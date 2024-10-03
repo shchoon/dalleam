@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Control, Controller } from 'react-hook-form';
-import { reviewSchema, reviewRules } from '@/constants/formSchema';
+import { gatheringSchema, gatheringRules } from '@/constants/formSchema';
 import Box from '@/public/icons/box.svg';
 import CheckBox from '@/public/icons/check_box.svg';
 import clsx from 'clsx';
 import { GatheringType } from '@/types/types';
 
 type Props = {
-  control: Control<reviewSchema>;
+  control: Control<gatheringSchema>;
 };
 
 export default function GatheringService({ control }: Props) {
@@ -40,7 +40,7 @@ export default function GatheringService({ control }: Props) {
               <Controller
                 control={control}
                 name="type"
-                rules={reviewRules.type}
+                rules={gatheringRules.type}
                 render={({ field }) => (
                   <span
                     onClick={() => {
