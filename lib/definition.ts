@@ -21,7 +21,7 @@ export type User = {
   teamId: string;
   id: number;
   name: string;
-  image: string;
+  image: string | null;
 };
 export type Review = {
   teamId: string;
@@ -74,7 +74,7 @@ export type Participant = {
     email: string;
     name: string;
     companyName: string;
-    image: string | null;
+    image?: string;
   };
 };
 export type reviewQueryKeys = [

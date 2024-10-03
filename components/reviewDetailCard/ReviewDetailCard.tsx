@@ -5,7 +5,7 @@ import Profile from '/public/icons/DefaultMyProfile.svg';
 import Stroke from '/public/icons/line.svg';
 
 import { format } from 'date-fns';
-import { Review } from '@/types/types';
+import { Review } from '@/lib/definition';
 
 const ReviewDetailCard = ({ review }: { review: Review }) => {
   const formattedDate = format(new Date(review.createdAt), 'yyyy.MM.dd');
