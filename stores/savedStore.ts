@@ -39,9 +39,11 @@ const useSavedStore = create(
         set((state) => {
           const currentSaved = state.saved;
           if (currentSaved[0]) {
+            const currentUserSaved = currentSaved[userId] || [];
+            const updateSaved = new Set([...currentSaved[0], ...currentUserSaved]);
             return {
               saved: {
-                [userId]: [...currentSaved[0]],
+                [userId]: [...updateSaved],
               },
             };
           }

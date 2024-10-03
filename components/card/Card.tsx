@@ -11,13 +11,20 @@ import ChipState from './ChipState';
 
 import { Gathering } from '@/types/types';
 import { formatDateTime, isDeadlinePassed } from '@/utils/gathering';
+import useGatheringId from '@/stores/useGatheringId';
+import useModalType from '@/stores/useModalType';
 
 type Props = {
   normal: boolean;
   gathering: Gathering;
+  openModal?: () => void;
+  isReviewed?: boolean;
 };
 
-const Card = ({ normal, gathering }: Props) => {
+const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
+  const { setId } = useGatheringId();
+  const { setType } = useModalType();
+
   const { formattedDate, formattedTime } = formatDateTime(gathering.dateTime) ?? {
     formattedDate: '',
     formattedTime: '',
@@ -80,12 +87,32 @@ const Card = ({ normal, gathering }: Props) => {
           {/* 버튼 컴포넌트 */}
           <>
             {!normal && !isFinished && (
-              <Button size="sm" fillState="empty" variant="orange">
+              <Button
+                size="sm"
+                fillState="empty"
+                variant="orange"
+                onClick={() => {
+                  setType('cancel');
+                  openModal && openModal();
+                  setId(gathering.id);
+                }}
+              >
                 예약 취소하기
               </Button>
             )}
             {!normal && isFinished && (
-              <Button size="sm" fillState="full" variant="orange">
+              <Button
+                size="sm"
+                fillState="full"
+                variant={`${isReviewed ? 'gray' : 'orange'}`}
+                onClick={() => {
+                  if (!isReviewed) {
+                    setType('review');
+                    openModal && openModal();
+                    setId(gathering.id);
+                  }
+                }}
+              >
                 리뷰 작성하기
               </Button>
             )}
