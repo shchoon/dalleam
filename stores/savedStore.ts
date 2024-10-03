@@ -10,6 +10,8 @@ type Savedstore = {
   setSaved: (userId: number, gatheringId: number) => void;
   cancelSaved: (userId: number, gatheringId: number) => void;
   setSavedUserId: (userId: number) => void;
+  hydrated: boolean;
+  setHydrated: (hydrated: boolean) => void;
 };
 
 const useSavedStore = create(
@@ -21,6 +23,7 @@ const useSavedStore = create(
           const currentSaved = state.saved;
           return {
             saved: {
+              ...currentSaved, // 기존 상태 유지
               [userId]: [...(currentSaved[userId] || []), gatheringId],
             },
           };
@@ -44,9 +47,16 @@ const useSavedStore = create(
           }
           return {};
         }),
+      setHydrated: (hydrated: boolean) => set({ hydrated }),
+      hydrated: false,
     }),
     {
       name: 'saved',
+      onRehydrateStorage: () => (state) => {
+        if (state && state.setHydrated) {
+          state.setHydrated(true);
+        }
+      },
     },
   ),
 );

@@ -18,6 +18,7 @@ const config: Config = {
       'expand-line': 'expandLine 2s ease-in-out',
       'heart-stroke': 'heartStroke 2s ease-in-out',
       'fill-heart': 'fillHeart 2s ease-in-out',
+      'fFill-heart': 'fillHeart 1s ease-in-out',
       'saved-bg': 'savedBg 2s ease-in-out',
     },
     keyframes: {

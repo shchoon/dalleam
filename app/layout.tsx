@@ -2,6 +2,7 @@ import QueryProvider from '@/components/QueryProvider';
 import './globals.css';
 import localFont from 'next/font/local';
 import NavBar from '@/components/nav/NavBar';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -21,6 +22,7 @@ export default function RootLayout({
           <NavBar />
           <QueryProvider>
             <div className="bg-gray-100 flex items-center flex-col">{children}</div>
+            <ReactQueryDevtools initialIsOpen={true} />
           </QueryProvider>
         </div>
         <div id="global-modal"></div>
