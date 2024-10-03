@@ -17,25 +17,49 @@ export type Gathering = {
   canceledAt: string | null;
 };
 
+export type User = {
+  teamId: string;
+  id: number;
+  name: string;
+  image: string;
+};
+
 export type Review = {
   teamId: string;
   id: number;
   score: number;
   comment: string;
   createdAt: string;
-  Gathering: {
-    teamId: string;
-    id: number;
-    type: string;
-    name: string;
-    dateTime: string;
-    location: string;
-    image: string;
-  };
-  User: {
-    teamId: string;
-    id: number;
-    name: string;
-    image: string | null;
-  };
+  Gathering: Omit<
+    Gathering,
+    'registrationEnd' | 'participantCount' | 'capacity' | 'createdBy' | 'canceledAt'
+  >;
+  User: User;
 };
+
+export type Points = {
+  teamId: 'FESI';
+  type: GatheringType;
+  oneStar: number;
+  twoStars: number;
+  threeStars: number;
+  fourStars: number;
+  fiveStars: number;
+};
+
+export type reviewQueryKeys = [
+  'reviews',
+  {
+    type: GatheringType;
+    location?: Location;
+  },
+];
+
+export type reviewScoresQueryKeys = [
+  'reviews',
+  'scores',
+  {
+    type: GatheringType;
+    location?: Location;
+  },
+];

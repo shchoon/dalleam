@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import ReviewDetailCard from './ReviewDetailCard';
 import Pagination from '../pagination/Pagination';
-import { Review } from '@/types/types';
+import { Review } from '@/lib/definition';
 
 const REVIEWS_PER_PAGE = 4;
 
