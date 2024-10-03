@@ -53,7 +53,7 @@ const buttonVariants = cva(`font-semibold rounded-xl text-sm md:text-base hover:
       Ered: 'border border-orange-800 text-orange-800',
     },
     size: {
-      sm: 'w-[120px] h-8 md:h-10',
+      sm: 'w-[120px] h-10',
       lg: 'w-[332px] h-11',
     },
   },
