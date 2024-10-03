@@ -9,7 +9,7 @@ import Stroke from '/public/icons/line.svg';
 import Button from '../Button';
 import ChipState from './ChipState';
 
-import { Gathering } from '@/types/types';
+import { Gathering } from '@/lib/definition';
 import { formatDateTime, isDeadlinePassed } from '@/utils/gathering';
 import useGatheringId from '@/stores/useGatheringId';
 import useModalType from '@/stores/useModalType';
