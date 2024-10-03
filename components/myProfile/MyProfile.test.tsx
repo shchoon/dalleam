@@ -1,5 +1,5 @@
 import React from 'react';
-import MyProfile from './MyProfile';
+import MyProfile from './Myprofile';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

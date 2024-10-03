@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, usePathname } from 'next/navigation';
 
-import MyProfile from '@/components/myProfile/MyProfile';
+import MyProfile from '@/components/myProfile/Myprofile';
 
 export default function MyPageLayout({
   children, // will be a page or nested layout
