@@ -13,11 +13,30 @@ const fetcher = getInstance();
 
 export const getReviewsUrl = () => {
   const { typeTab, locationTab, dateTab, sortTab } = reviewStore();
-  let locationUrl = !!locationTab ? `&location=${locationTab}` : '';
-  let dateUrl = !!dateTab ? `&date=${dateTab}` : '';
+  console.log('dateTab = ', dateTab);
+  let convertSortUrl = 'createdAt';
+  switch (sortTab) {
+    case '최신 순':
+      convertSortUrl = 'createdAt';
+      break;
+    case '리뷰 높은 순':
+      convertSortUrl = 'score';
+      break;
+    case '참여 인원 순':
+      convertSortUrl = 'participantCount';
+      break;
+  }
+  let locationUrl = locationTab === '지역 선택' ? '' : `&location=${locationTab}`;
+  let dateUrl = dateTab === '날짜 선택' ? '' : `&date=${dateTab}`;
   let subUrl = `${locationUrl}${dateUrl}`;
-  let reviewUrl = `type=${typeTab}&sortOrder=desc&sortBy=${sortTab}${subUrl}`;
-  return { typeTab, reviewUrl };
+  let reviewUrl = `type=${typeTab}&sortOrder=desc&sortBy=${convertSortUrl}${subUrl}`;
+  return {
+    typeTab,
+    locationTab,
+    sortTab,
+    reviewUrl,
+    dateTab,
+  };
 };
 
 export const getReviews = async ({
