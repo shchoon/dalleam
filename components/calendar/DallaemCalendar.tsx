@@ -5,6 +5,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import Calendar from 'react-calendar';
 import clsx from 'clsx';
 import useFilterStore from '@/stores/filterStore';
+import { reviewStore } from '@/stores/reviewStore';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -29,6 +30,7 @@ export default function DallaemCalendar({
   onUpdate,
 }: props) {
   const { setDate: resetDate } = useFilterStore();
+  const { setDateTab } = reviewStore();
 
   const handleDateChange = (newDate: Value): void => {
     if (newDate instanceof Date) {
@@ -48,7 +50,10 @@ export default function DallaemCalendar({
 
   const handleReset = () => {
     if (onClose) onClose();
-    resetDate('날짜 선택');
+    {
+      setDateTab('날짜 선택');
+      resetDate('날짜 선택');
+    }
   };
 
   const handleCheck = () => {

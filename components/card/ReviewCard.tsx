@@ -45,7 +45,6 @@ export default function ReviewCard({ isMyPage, ...review }: props) {
                 <FillHeart key={index} className="text-gray-400 animate-fFill-heart" />
               ))}
             </div>
-
             {/* 설명 */}
             <span className="text-sm font-base text-gray-700 font-base">{review.comment}</span>
             {/* 주소 */}
