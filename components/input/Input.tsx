@@ -1,7 +1,8 @@
+import React from 'react';
 import { forwardRef, InputHTMLAttributes } from 'react';
 import ErrorMsg from './ErrorMsg';
-import VisiblityOff from '@/public/icons/visibility_off.svg';
-import VisiblityON from '@/public/icons/visibility_on.svg';
+import VisiblityOff from '/public/icons/visibility_off.svg';
+import VisiblityON from '/public/icons/visibility_on.svg';
 import clsx from 'clsx';
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {

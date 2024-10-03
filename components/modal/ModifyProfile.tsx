@@ -1,13 +1,15 @@
 'use client';
+import React from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import Image from 'next/image';
 
 import Input from '../input/Input';
+import Button from '../Button';
 import { getInstance } from '@/utils/axios';
 import { User } from '@/types/user';
-import Button from '../Button';
+import useUserStore from '@/stores/userStore';
 
 import Modify from '/public/icons/profileBg/modifyProfile.svg';
 import Delete from '/public/icons/delete.svg';
@@ -22,10 +24,15 @@ type profileImg = {
   origin: File;
 };
 
-export default function ModifyProfile() {
+type Props = {
+  closeModal: () => void;
+};
+
+export default function ModifyProfile({ closeModal }: Props) {
+  const { setUser } = useUserStore();
   const [profileImg, setProfileImg] = useState<profileImg>();
 
-  const updateprofile = async (body: FormData) => {
+  const updateProfile = async (body: FormData) => {
     const instance = getInstance();
     const res = await instance.put<User>('/auths/user', body, {
       headers: {
@@ -33,16 +40,15 @@ export default function ModifyProfile() {
       },
     });
 
-    return res.data;
+    setUser(res.data);
   };
 
   const { handleSubmit, control } = useForm();
 
   const mutation = useMutation({
-    mutationFn: updateprofile,
+    mutationFn: updateProfile,
     onSuccess: () => {
-      /* merge하고 모달 처리 */
-      console.log('success');
+      closeModal();
     },
   });
 
@@ -55,14 +61,21 @@ export default function ModifyProfile() {
 
   return (
     <form
-      className="w-343pxr h-324pxr md:w-520pxr md:h-328pxr  px-6 flex flex-col gap-6"
+      aria-label="editProfileModal"
+      className="w-343pxr h-324pxr md:w-520pxr md:h-328pxr p-6 flex flex-col gap-6 rounded-xl bg-white"
       onSubmit={submit}
     >
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">프로필 수정하기</span>
-        <Delete />
+        <Delete
+          aria-label="closeProfileEditModal"
+          onClick={() => {
+            closeModal();
+          }}
+        />
       </div>
       <input
+        aria-label="profileImg"
         id="profileImg"
         type="file"
         className="hidden"
@@ -110,6 +123,9 @@ export default function ModifyProfile() {
           className="w-full flex justify-center items-center "
           fillState="empty"
           variant="orange"
+          onClick={() => {
+            closeModal();
+          }}
         >
           취소
         </Button>
