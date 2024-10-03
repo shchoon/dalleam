@@ -41,6 +41,8 @@ const SavedProgressCardList = () => {
     if (hydrated) {
       refetch();
     }
+
+    // if (savedIds) refetch();
   }, [location, date, sortBy, type, hydrated]); // hydrated를 의존성 배열에 추가
 
   if (!hydrated) {
