@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import Button from '../Button';
 import useGatheringId from '@/stores/useGatheringId';
-import { GatheringJoined } from '@/lib/definition';
+import { JoinedGathering } from '@/lib/definition';
 
 import Delete from '/public/icons/delete.svg';
 import { getInstance } from '@/utils/axios';
@@ -14,7 +14,7 @@ type Props = {
 
 type QueryData = {
   pageParams: number[];
-  pages: GatheringJoined[];
+  pages: JoinedGathering[];
 };
 
 export default function CheckCancel({ closeModal }: Props) {
@@ -35,7 +35,7 @@ export default function CheckCancel({ closeModal }: Props) {
       closeModal();
       clearId();
       queryClient.setQueryData(['gatheringJoined'], (oldData: QueryData) => {
-        const updateData = oldData.pages.flat().filter((data: GatheringJoined) => data.id !== id);
+        const updateData = oldData.pages.flat().filter((data: JoinedGathering) => data.id !== id);
 
         return {
           ...oldData,
