@@ -38,6 +38,14 @@ export default function ReviewModal({ closeModal }: Props) {
   });
   const [review, setReview] = useState('');
 
+  const isAvtiveButton = () => {
+    const scores = Object.values(score).filter((data) => data).length;
+    if (scores > 1 && review !== '') {
+      return true;
+    }
+    return false;
+  };
+
   const postReview = async () => {
     const scores = Object.values(score).filter((data) => data).length;
 
@@ -172,9 +180,10 @@ export default function ReviewModal({ closeModal }: Props) {
         </Button>
         <Button
           type="submit"
+          disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "
           fillState="full"
-          variant="gray"
+          variant={isAvtiveButton() ? 'orange' : 'gray'}
         >
           리뷰 등록
         </Button>

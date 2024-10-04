@@ -30,7 +30,18 @@ type Props = {
 
 export default function ModifyProfile({ closeModal }: Props) {
   const { setUser } = useUserStore();
+  const { handleSubmit, control, watch } = useForm();
+
   const [profileImg, setProfileImg] = useState<profileImg>();
+  const companyName = watch('companyName');
+
+  const isAvtiveButton = () => {
+    if (profileImg && companyName) {
+      return true;
+    }
+
+    return false;
+  };
 
   const updateProfile = async (body: FormData) => {
     const instance = getInstance();
@@ -42,8 +53,6 @@ export default function ModifyProfile({ closeModal }: Props) {
 
     setUser(res.data);
   };
-
-  const { handleSubmit, control } = useForm();
 
   const mutation = useMutation({
     mutationFn: updateProfile,
@@ -131,9 +140,10 @@ export default function ModifyProfile({ closeModal }: Props) {
         </Button>
         <Button
           type="submit"
+          disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "
           fillState="full"
-          variant="gray"
+          variant={isAvtiveButton() ? 'orange' : 'gray'}
         >
           수정하기
         </Button>
