@@ -12,10 +12,15 @@ function useDropdown() {
     dropdownRef.current?.close();
   };
 
+  const handleToggleDropdown = () => {
+    dropdownRef.current?.toggle();
+  };
+
   return {
     dropdownRef,
     handleOpenDropdown,
     handleCloseDropdown,
+    handleToggleDropdown,
   };
 }
 

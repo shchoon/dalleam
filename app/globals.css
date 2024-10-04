@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Tmoney RoundWind';
+  src: url('../fonts/TmoneyRoundWindExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
