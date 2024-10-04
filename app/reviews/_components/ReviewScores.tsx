@@ -9,12 +9,12 @@ import { useScoresQuery } from '@/services/reviews';
 export default function ReviewScores() {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
-  const { typeTab } = reviewStore();
+  const { typeTab, dateTab, locationTab, sortTab } = reviewStore();
 
   let newStars = [0, 0, 0, 0, 0];
 
   const { data, isLoading, isError } = useScoresQuery(
-    ['reviews', 'scores', { type: typeTab }],
+    ['reviews', 'scores', { type: typeTab, date: dateTab, location: locationTab, sortBy: sortTab }],
     typeTab,
   );
 
@@ -32,13 +32,9 @@ export default function ReviewScores() {
     newStars[0] + newStars[1] * 2 + newStars[2] * 3 + newStars[3] * 4 + newStars[4] * 5;
   const points = newStars[0] + newStars[1] + newStars[2] + newStars[3] + newStars[4];
 
-  // 별점 평균 계산 (가중 평균)
-  const averageScore = totalReviews / points; // 0으로 나누는 경우 대비
-  console.log('newStars = ', newStars);
-  console.log('totalReviews = ', totalReviews, ' / avr ', averageScore);
+  const averageScore = totalReviews / points;
 
   useEffect(() => {
-    // 평균 점수를 count에 애니메이션으로 반영
     const controls = animate(count, averageScore);
     return () => controls.stop();
   }, [averageScore, rounded]);

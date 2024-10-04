@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { GatheringType } from '@/lib/definition';
 import { Location } from '@/lib/definition';
 
-type sortType = 'createdAt' | 'participantCount' | 'score';
+export type sortType = '최신 순' | '참여 인원 순' | '리뷰 높은 순';
 
 export type ReviewStoreType = {
   typeTab: GatheringType;
@@ -17,9 +17,9 @@ export type ReviewStoreType = {
 
 export const reviewStore = create<ReviewStoreType>()((set) => ({
   typeTab: 'DALLAEMFIT',
-  locationTab: undefined,
-  dateTab: undefined,
-  sortTab: 'createdAt',
+  locationTab: '지역 선택',
+  dateTab: '날짜 선택',
+  sortTab: '최신 순',
   setTypeTab: (tab) => set(() => ({ typeTab: tab })),
   setLocationTab: (tab) => set(() => ({ locationTab: tab })),
   setDateTab: (tab) => set(() => ({ dateTab: tab })),

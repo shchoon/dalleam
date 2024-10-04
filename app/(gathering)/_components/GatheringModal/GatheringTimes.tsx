@@ -1,5 +1,5 @@
 import Chip from '@/components/chip/Chip';
-import { reviewRules, reviewSchema } from '@/constants/formSchema';
+import { gatheringRules, gatheringSchema } from '@/constants/formSchema';
 import { convertDate } from '@/utils/convertDate';
 import React, { Dispatch, SetStateAction } from 'react';
 import { Control, Controller } from 'react-hook-form';
@@ -7,7 +7,7 @@ import { Control, Controller } from 'react-hook-form';
 type timeSlotProps = { time: string; date: string };
 
 type props = {
-  control: Control<reviewSchema>;
+  control: Control<gatheringSchema>;
   timeSlots: timeSlotProps[];
   timeOfDay: '오전' | '오후';
   selectTime?: string;
@@ -47,7 +47,7 @@ export default function GatheringTimes({
                 key={idx}
                 control={control}
                 name="dateTime"
-                rules={reviewRules.dateTime}
+                rules={gatheringRules.dateTime}
                 render={({ field }) => (
                   <Chip
                     {...field}

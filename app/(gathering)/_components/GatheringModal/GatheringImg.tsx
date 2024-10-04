@@ -1,11 +1,11 @@
 import Button from '@/components/Button';
 import Input from '@/components/input/Input';
-import { reviewSchema } from '@/constants/formSchema';
+import { gatheringSchema } from '@/constants/formSchema';
 import React, { useRef } from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 type Props = {
-  control: Control<reviewSchema>;
+  control: Control<gatheringSchema>;
 };
 
 export default function GatheringImg({ control }: Props) {
