@@ -1,7 +1,7 @@
 'use client';
 
 import Chip from '@/components/chip/Chip';
-import React from 'react';
+import React, { useEffect } from 'react';
 import DallaemFitIcon from '/public/icons/dallaem_fit_icon.svg';
 import Workation from '/public/icons/workation_icon.svg';
 import TabsUnderline from '/public/icons/tabs_underline.svg';
@@ -11,7 +11,11 @@ import { AnimatePresence, motion } from 'framer-motion';
 import useFilterStore from '@/stores/filterStore';
 
 export default function ReviewsTabs() {
-  const { type, setType } = useFilterStore();
+  const { type, setType, resetFilters } = useFilterStore();
+  useEffect(() => {
+    resetFilters();
+    return () => resetFilters();
+  }, []);
 
   return (
     <div className="inline-flex flex-col w-full gap-3 items-start md:mb-2">
