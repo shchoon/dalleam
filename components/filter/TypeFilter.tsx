@@ -10,7 +10,7 @@ const TypeFilter = () => {
   return (
     <div className="flex gap-2">
       <Chip
-        className={`text-sm ${type === '' || type === 'DALLAEMFIT' ? 'bg-gray-900 text-white' : ''}`}
+        className={`text-sm ${type === 'DALLAEMFIT' ? 'bg-gray-900 text-white' : ''}`}
         size="md"
         color="gray"
         onClick={() => resetFilters()}

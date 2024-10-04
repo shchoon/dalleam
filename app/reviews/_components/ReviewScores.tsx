@@ -3,19 +3,19 @@
 import React, { useEffect } from 'react';
 import FillHeart from '/public/icons/fill_heart.svg';
 import { useMotionValue, useTransform, animate, motion } from 'framer-motion';
-import { reviewStore } from '@/stores/reviewStore';
 import { useScoresQuery } from '@/services/reviews';
+import useFilterStore from '@/stores/filterStore';
 
 export default function ReviewScores() {
   const count = useMotionValue(0);
   const rounded = useTransform(count, (latest) => Math.round(latest));
-  const { typeTab, dateTab, locationTab, sortTab } = reviewStore();
+  const { date, type, location, reviewSortBy } = useFilterStore();
 
   let newStars = [0, 0, 0, 0, 0];
 
   const { data, isLoading, isError } = useScoresQuery(
-    ['reviews', 'scores', { type: typeTab, date: dateTab, location: locationTab, sortBy: sortTab }],
-    typeTab,
+    [['reviews', 'scores'], { type, date, location, sortBy: reviewSortBy }],
+    type,
   );
 
   if (data) {

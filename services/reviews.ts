@@ -7,15 +7,15 @@ import {
 } from '@/lib/definition';
 import { getInstance } from '@/utils/axios';
 import { QueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import useFilterStore from '@/stores/filterStore';
 import { reviewStore } from '@/stores/reviewStore';
 
 const fetcher = getInstance();
 
 export const getReviewsUrl = () => {
-  const { typeTab, locationTab, dateTab, sortTab } = reviewStore();
-  console.log('dateTab = ', dateTab);
+  const { type, location, date, reviewSortBy } = useFilterStore();
   let convertSortUrl = 'createdAt';
-  switch (sortTab) {
+  switch (reviewSortBy) {
     case '최신 순':
       convertSortUrl = 'createdAt';
       break;
@@ -26,16 +26,16 @@ export const getReviewsUrl = () => {
       convertSortUrl = 'participantCount';
       break;
   }
-  let locationUrl = locationTab === '지역 선택' ? '' : `&location=${locationTab}`;
-  let dateUrl = dateTab === '날짜 선택' ? '' : `&date=${dateTab}`;
+  let locationUrl = location === '지역 선택' ? '' : `&location=${location}`;
+  let dateUrl = date === '날짜 선택' ? '' : `&date=${date}`;
   let subUrl = `${locationUrl}${dateUrl}`;
-  let reviewUrl = `type=${typeTab}&sortOrder=desc&sortBy=${convertSortUrl}${subUrl}`;
+  let reviewUrl = `type=${type}&sortOrder=desc&sortBy=${convertSortUrl}${subUrl}`;
   return {
-    typeTab,
-    locationTab,
-    sortTab,
+    type,
+    location,
+    reviewSortBy,
     reviewUrl,
-    dateTab,
+    date,
   };
 };
 
@@ -58,15 +58,21 @@ export const getScores = async (typeTab: GatheringType = 'DALLAEMFIT'): Promise<
 };
 
 export const useReviewPrefetchQuery = async () => {
+  const queryKeys = {
+    type: 'DALLAEMFIT',
+    location: '지역 선택',
+    sortBy: '최신 순',
+    date: '날짜 선택',
+  };
   const queryClient = new QueryClient();
   await Promise.all([
     queryClient.prefetchInfiniteQuery({
-      queryKey: ['reviews', { type: 'DALLAEMFIT' }],
+      queryKey: [['reviews'], queryKeys],
       queryFn: ({ pageParam }) => getReviews({ pageParam }),
       initialPageParam: 0,
     }),
     queryClient.prefetchQuery({
-      queryKey: ['reviews', 'scores', { type: 'DALLAEMFIT' }],
+      queryKey: [['reviews', 'scores'], queryKeys],
       queryFn: () => getScores(),
     }),
   ]);
