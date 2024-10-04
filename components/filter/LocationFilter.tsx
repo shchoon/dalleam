@@ -12,7 +12,6 @@ const locations: Location[] = ['지역 선택', '을지로3가', '건대입구',
 const LocationFilter = () => {
   const { dropdownRef, handleOpenDropdown } = useDropdown();
 
-  const { dropdownRef, handleToggleDropdown } = useDropdown();
   const { location: currentLocation, setLocation } = useFilterStore();
   const isLocationSelected = currentLocation !== '지역 선택';
 
