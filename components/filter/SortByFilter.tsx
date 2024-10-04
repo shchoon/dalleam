@@ -18,7 +18,7 @@ const SortByFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
     <div>
       <div
         className="dropdown-toggle flex items-center gap-3pxr border-2 justify-center border-gray-100 border-solid cursor-pointer p-6pxr md:py-2 md:px-3 rounded-xl w-9 md:w-130pxr md:h-10"
-        onClick={() => handleToggleDropdown()}
+        onClick={() => handleOpenDropdown()}
       >
         <Head className="size-6" />
         <div className="hidden text-sm font-medium text-gray-800 md:block">
