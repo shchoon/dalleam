@@ -18,7 +18,7 @@ const locations: (Location | '지역 선택')[] = [
 ];
 
 const LocationFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
-  const { dropdownRef, handleOpenDropdown } = useDropdown();
+  const { dropdownRef, handleToggleDropdown } = useDropdown();
   const { location: currentLocation, setLocation } = useFilterStore();
   const { locationTab, setLocationTab } = reviewStore();
   const isLocationSelected = currentLocation !== '지역 선택';
@@ -26,12 +26,12 @@ const LocationFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
   return (
     <div className="relative">
       <div
-        className={`flex items-center justify-between h-10 px-3 border-2 border-gray-100 border-solid cursor-pointer w-110pxr py-6pxr rounded-xl ${
+        className={`dropdown-toggle flex items-center justify-between h-10 px-3 border-2 border-gray-100 border-solid cursor-pointer w-110pxr py-6pxr rounded-xl ${
           (isReviewPage ? isLocationTabSelected : isLocationSelected)
             ? 'bg-gray-900 text-gray-50'
             : 'bg-white text-gray-800'
         }`}
-        onClick={() => handleOpenDropdown()}
+        onClick={() => handleToggleDropdown()}
       >
         <span className="text-sm font-medium">{isReviewPage ? locationTab : currentLocation}</span>
         <Arrow

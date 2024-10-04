@@ -12,6 +12,7 @@ interface Props {
 export interface DropdownHandles {
   open: () => void;
   close: () => void;
+  toggle: () => void;
 }
 
 const Dropdown = forwardRef<DropdownHandles, Props>(
@@ -26,11 +27,20 @@ const Dropdown = forwardRef<DropdownHandles, Props>(
       close: () => {
         setIsOpen(false);
       },
+      toggle: () => {
+        setIsOpen((prev) => !prev);
+      },
     }));
 
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        const targetElement = event.target as HTMLElement;
+
+        if (
+          dropdownRef.current &&
+          !dropdownRef.current.contains(event.target as Node) &&
+          !targetElement.closest('.dropdown-toggle')
+        ) {
           setIsOpen(false);
         }
       };
@@ -58,7 +68,7 @@ const Dropdown = forwardRef<DropdownHandles, Props>(
             {Children.map(children, (child, index) => (
               <li
                 className={clsx(
-                  'w-full text-sm lg:text-base text-gray-800 duration-300 hover:bg-var-gray7 md:text-18pxr h-40pxr flex items-center justify-center',
+                  'w-full text-sm lg:text-base text-gray-800 duration-300 hover:bg-var-gray7 md:text-18pxr h-40pxr flex items-center justify-left pl-3 lg:pl-4',
                   index < Children.count(children) - 1 && 'border-var-gray-6 border-b',
                   liClassName,
                 )}
