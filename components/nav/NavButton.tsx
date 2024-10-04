@@ -14,14 +14,14 @@ const logout = () => {
 };
 
 export default function NavButton() {
-  const { dropdownRef, handleOpenDropdown } = useDropdown();
+  const { dropdownRef, handleToggleDropdown } = useDropdown();
   const { user, hydrated } = useUserStore();
   const token = Cookies.get('token');
 
   if (!hydrated) return null;
   return token ? (
     <>
-      <button onClick={handleOpenDropdown}>
+      <button className="dropdown-toggle" onClick={handleToggleDropdown}>
         <Profile image={user?.image} usedIn="navbar" />
       </button>
       <Dropdown ref={dropdownRef} ulClassName="top-27pxr md:top-29pxr right-10pxr">

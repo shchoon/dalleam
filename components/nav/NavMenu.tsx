@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 const links = [
   { name: '모임 찾기', href: '/' },
-  { name: '찜한 모임', href: '/favorites' },
+  { name: '찜한 모임', href: '/saved-gatherings' },
   { name: '모든 리뷰', href: '/reviews' },
 ];
 

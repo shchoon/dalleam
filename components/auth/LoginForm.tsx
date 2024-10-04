@@ -46,8 +46,12 @@ export default function LoginForm() {
     onSuccess: (user) => {
       setUser(user);
       setSavedUserId(user.id);
-      const currentParams = window.location.search;
-      const redirectUrl = currentParams ? `/${currentParams}` : '/';
+      const currentParams = new URLSearchParams(window.location.search);
+      const redirectedFrom = currentParams.get('redirectedFrom');
+      const redirectUrl =
+        redirectedFrom && !isNaN(Number(redirectedFrom))
+          ? `/gatherings/${redirectedFrom}`
+          : `/${window.location.search}`;
       router.push(redirectUrl);
     },
   });

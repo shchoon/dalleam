@@ -59,6 +59,9 @@ const config: Config = {
         'progressBar-shadow':
           '-2px -2px 12px 0px rgba(219, 219, 219, 0.20), 2px 2px 12px 0px rgba(219, 219, 219, 0.20)',
       },
+      fontFamily: {
+        tmoney: ['Tmoney RoundWind'],
+      },
       fontSize: {
         xs: ['12px', '16px'],
         sm: ['14px', '20px'],

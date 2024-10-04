@@ -34,7 +34,7 @@ const SavedProgressCardList = () => {
       });
       return response.data;
     },
-    enabled: savedIds.length > 0, // savedIds가 있을 때만 쿼리 실행
+    enabled: savedIds?.length > 0, // savedIds가 있을 때만 쿼리 실행
   });
 
   useEffect(() => {
