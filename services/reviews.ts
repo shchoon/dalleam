@@ -8,7 +8,6 @@ import {
 import { getInstance } from '@/utils/axios';
 import { QueryClient, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import useFilterStore from '@/stores/filterStore';
-import { reviewStore } from '@/stores/reviewStore';
 
 const fetcher = getInstance();
 
