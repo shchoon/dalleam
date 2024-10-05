@@ -1,8 +1,8 @@
-import { sortType } from '@/stores/reviewStore';
-
 export type GatheringType = 'OFFICE_STRETCHING' | 'MINDFULNESS' | 'WORKATION' | 'DALLAEMFIT';
 
 export type Location = '건대입구' | '을지로3가' | '신림' | '홍대입구' | '지역 선택';
+
+export type sortType = '최신 순' | '참여 인원 순' | '리뷰 높은 순' | '마감 임박';
 
 export type Gathering = {
   teamId: string;
@@ -80,7 +80,7 @@ export type Participant = {
   };
 };
 export type reviewQueryKeys = [
-  'reviews',
+  ['reviews'],
   {
     type: GatheringType;
     location?: Location;
@@ -90,8 +90,7 @@ export type reviewQueryKeys = [
 ];
 
 export type reviewScoresQueryKeys = [
-  'reviews',
-  'scores',
+  ['reviews', 'scores'],
   {
     type: GatheringType;
     location?: Location;

@@ -1,6 +1,5 @@
 'use client';
 
-import Chip from '@/components/chip/Chip';
 import React from 'react';
 import ReviewCard from '@/components/card/ReviewCard';
 import { useInfiniteObserver } from '@/hooks/useInfiniteObserver';
@@ -12,11 +11,11 @@ import SortByFilter from '@/components/filter/SortByFilter';
 
 // 클라이언트로 수정하기
 export default function ReviewList() {
-  const { typeTab, locationTab, reviewUrl, sortTab, dateTab } = getReviewsUrl();
+  const { type, location, reviewUrl, reviewSortBy, date } = getReviewsUrl();
 
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
     useReviewsInfiniteQuery(
-      ['reviews', { type: typeTab, location: locationTab, sortBy: sortTab, date: dateTab }],
+      [['reviews'], { type: type, location: location, sortBy: reviewSortBy, date: date }],
       reviewUrl,
     );
 
@@ -30,10 +29,10 @@ export default function ReviewList() {
         {/* 리뷰 드롭다운 Tab */}
         <div className="flex justify-between items-start self-stretch">
           <div className="flex items-start gap-2">
-            <LocationFilter isReviewPage={true} />
-            <DateFilter isReviewPage={true} />
+            <LocationFilter />
+            <DateFilter />
           </div>
-          <SortByFilter isReviewPage={true} />
+          <SortByFilter />
         </div>
         {/* 리뷰 리스트 */}
         {isLoading ? (
