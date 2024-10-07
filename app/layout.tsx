@@ -3,6 +3,10 @@ import './globals.css';
 import localFont from 'next/font/local';
 import NavBar from '@/components/nav/NavBar';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Metadata } from 'next';
+import { getMetadata } from '@/constants/metadata';
+
+export const metadata: Metadata = getMetadata();
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
