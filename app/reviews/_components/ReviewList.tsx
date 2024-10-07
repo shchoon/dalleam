@@ -29,7 +29,7 @@ export default function ReviewList() {
             <LocationFilter />
             <DateFilter />
           </div>
-          <SortByFilter />
+          <SortByFilter isReviewPage={true} />
         </div>
 
         <div className="relative flex flex-col items-start gap-6 self-stretch">
