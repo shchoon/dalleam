@@ -67,7 +67,7 @@ export default function ReviewCard({ isMyPage, ...review }: props) {
             <span className="text-xs font-base text-gray-500">{review.createdAt}</span>
           </div>
         </div>
-        <Vector className="w-311pxr lg:w-644pxr h-2pxr my-3 text-gray-200" />
+        <Vector className="w-full" />
       </div>
     </div>
   );
