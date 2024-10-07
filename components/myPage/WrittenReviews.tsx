@@ -63,7 +63,7 @@ export default function WrittenReviews({ initialWrittenReviews, userId }: Props)
 
   return (
     <div className="flex justify-center min-h-[60vh] bg-white">
-      {initialWrittenReviews.length === 0 ? (
+      {writtenReviews.pages.flat().length === 0 ? (
         <div className="flex items-center">
           <span className="text-sm font-medium text-gray-500">아직 작성한 리뷰가 없어요</span>
         </div>
@@ -74,9 +74,7 @@ export default function WrittenReviews({ initialWrittenReviews, userId }: Props)
           })}
         </div>
       )}
-      {!isFetching && hasNextPage && writtenReviews.pages.flat().length >= 10 && (
-        <div ref={ref}></div>
-      )}
+      {!isFetching && hasNextPage && <div ref={ref}></div>}
     </div>
   );
 }
