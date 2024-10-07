@@ -5,8 +5,8 @@ import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import Image from 'next/image';
 
-import Input from '../input/Input';
-import Button from '../Button';
+import Input from '../../input/Input';
+import Button from '../../Button';
 import { getInstance } from '@/utils/axios';
 import { User } from '@/lib/definition';
 import useUserStore from '@/stores/userStore';
@@ -103,6 +103,7 @@ export default function ModifyProfile({ closeModal }: Props) {
       <label htmlFor="profileImg">
         {profileImg?.preview ? (
           <Image
+            aria-label="previewImg"
             src={profileImg.preview}
             width={56}
             height={56}
@@ -122,13 +123,19 @@ export default function ModifyProfile({ closeModal }: Props) {
               <label className="text-base font-semibold text-gray-800" htmlFor="companyName">
                 회사
               </label>
-              <Input id="companyName" placeholder="회사명을 입력해주세요." {...field} />
+              <Input
+                aria-label="companyName"
+                id="companyName"
+                placeholder="회사명을 입력해주세요."
+                {...field}
+              />
             </div>
           )}
         />
       </div>
       <div className="w-full flex gap-4">
         <Button
+          aria-label="cancelBtn"
           className="w-full flex justify-center items-center "
           fillState="empty"
           variant="orange"
@@ -139,6 +146,7 @@ export default function ModifyProfile({ closeModal }: Props) {
           취소
         </Button>
         <Button
+          aria-label="modifyBtn"
           type="submit"
           disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "

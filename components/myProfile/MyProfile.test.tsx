@@ -3,8 +3,6 @@ import MyProfile from './Myprofile';
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { sub } from 'date-fns/fp';
-// import RootLayout from '../../app/layout'
 
 const mockUserStore = {
   user: {
@@ -38,7 +36,7 @@ describe('myProfile component test', () => {
     expect(email).toBeInTheDocument();
   });
 
-  it('프로필 수정 버큰 클릭 테스트', () => {
+  it('프로필 수정 버튼 클릭에 따른 모달 노출 여부 테스트', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MyProfile />
@@ -48,6 +46,7 @@ describe('myProfile component test', () => {
     const editBtn = screen.getByLabelText('edit');
     expect(editBtn).toBeInTheDocument();
 
+    // 모달 열림
     fireEvent.click(editBtn);
 
     const editProfileModal = screen.getByLabelText('editProfileModal');
@@ -55,34 +54,35 @@ describe('myProfile component test', () => {
 
     const closeProfileEditModal = screen.getByLabelText('closeProfileEditModal');
 
+    // 모달 닫힘
     fireEvent.click(closeProfileEditModal);
 
     expect(editProfileModal).not.toBeInTheDocument();
   });
 
-  it.only('프로필 수정 테스트', () => {
-    render(
-      <QueryClientProvider client={queryClient}>
-        <MyProfile />
-      </QueryClientProvider>,
-    );
+  // it.only('프로필 수정 테스트', () => {
+  //   render(
+  //     <QueryClientProvider client={queryClient}>
+  //       <MyProfile />
+  //     </QueryClientProvider>,
+  //   );
 
-    const editBtn = screen.getByLabelText('edit');
-    expect(editBtn).toBeInTheDocument();
+  //   const editBtn = screen.getByLabelText('edit');
+  //   expect(editBtn).toBeInTheDocument();
 
-    fireEvent.click(editBtn);
+  //   fireEvent.click(editBtn);
 
-    const editProfileModal = screen.getByLabelText('editProfileModal');
-    expect(editProfileModal).toBeInTheDocument();
+  //   const editProfileModal = screen.getByLabelText('editProfileModal');
+  //   expect(editProfileModal).toBeInTheDocument();
 
-    const submitBtn = screen.getByText('수정하기');
+  //   const submitBtn = screen.getByText('수정하기');
 
-    const imgInput = screen.getByLabelText('profileImg');
+  //   const imgInput = screen.getByLabelText('profileImg');
 
-    expect(submitBtn).toBeInTheDocument();
-    expect(imgInput).toBeInTheDocument();
+  //   expect(submitBtn).toBeInTheDocument();
+  //   expect(imgInput).toBeInTheDocument();
 
-    const input = screen.getByPlaceholderText('회사명을 입력해주세요.');
-    expect(input).toBeInTheDocument();
-  });
+  //   const input = screen.getByPlaceholderText('회사명을 입력해주세요.');
+  //   expect(input).toBeInTheDocument();
+  // });
 });

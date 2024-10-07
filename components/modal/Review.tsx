@@ -60,6 +60,7 @@ export default function ReviewModal({ closeModal }: Props) {
     return res;
   };
 
+  // 해당 모임의 review 값 변경
   const updateGateringJoined = () => {
     queryClient.setQueryData(['gatheringJoined'], (oldData: queryGatheringJoined) => {
       if (oldData) {

@@ -74,7 +74,9 @@ export default function WrittenReviews({ initialWrittenReviews, userId }: Props)
           })}
         </div>
       )}
-      {!isFetching && hasNextPage && <div ref={ref}></div>}
+      {!isFetching && hasNextPage && writtenReviews.pages.flat().length >= 10 && (
+        <div ref={ref}></div>
+      )}
     </div>
   );
 }
