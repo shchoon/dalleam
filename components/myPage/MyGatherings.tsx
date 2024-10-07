@@ -5,9 +5,9 @@ import { useInView } from 'react-intersection-observer';
 import Modal from '../Modal';
 import useModal from '@/hooks/useModal';
 import { getInstance } from '@/utils/axios';
-import Review from '../modal/Review';
+import Review from '../modal/review/Review';
 
-import CheckCancel from '../modal/CheckCancel';
+import CheckCancel from '../modal/checkCancel/CheckCancel';
 import Card from '../card/Card';
 
 import { JoinedGathering } from '@/lib/definition';
@@ -19,10 +19,6 @@ type Props = {
 };
 
 export default function MyGatherings({ initialMyGatherings }: Props) {
-  const queryClient = useQueryClient();
-  console.log('queryClient', queryClient.getQueryData(['gatheringJoined']));
-  console.log('queryClient', queryClient.getQueryData(['newReviews']));
-
   const { ref, inView } = useInView();
   const { modalRef, handleCloseModal, handleOpenModal } = useModal();
   const { type } = useModalType();
@@ -46,7 +42,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
     initialPageParam: 0,
     initialData: {
       pages: initialMyGatherings,
-      pageParams: [10],
+      pageParams: [0],
     },
     queryFn: ({ pageParam }) => getMyGatheringData(pageParam),
     getNextPageParam: (lastPage, allPages) => {
@@ -57,9 +53,10 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
     },
     staleTime: 1000 * 5 * 60,
   });
+  console.log(hasNextPage);
 
   useEffect(() => {
-    if (inView && gatheringJoined.pages.flat().length >= 10) {
+    if (inView) {
       fetchNextPage();
     }
   }, [inView]);

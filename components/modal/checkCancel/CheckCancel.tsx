@@ -1,7 +1,8 @@
 'use client';
+import React from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import Button from '../Button';
+import Button from '@/components/Button';
 import useGatheringId from '@/stores/useGatheringId';
 import { JoinedGathering } from '@/lib/definition';
 
@@ -68,6 +69,7 @@ export default function CheckCancel({ closeModal }: Props) {
       </div>
       <div className="w-full flex gap-4">
         <Button
+          aria-label="cancelBtn"
           onClick={() => {
             closeModal();
             clearId();
@@ -79,6 +81,7 @@ export default function CheckCancel({ closeModal }: Props) {
           취소
         </Button>
         <Button
+          aria-label="submitBtn"
           type="submit"
           className="w-full flex justify-center items-center "
           fillState="full"

@@ -1,15 +1,15 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import Button from '../Button';
+import Button from '@/components/Button';
 import useGatheringId from '@/stores/useGatheringId';
+import { getInstance } from '@/utils/axios';
+import { JoinedGathering, Review } from '@/lib/definition';
 
 import Delete from '/public/icons/delete.svg';
 import EmptyHeart from '/public/icons/reviewEmptyHeart.svg';
 import FillHeart from '/public/icons/reviewFillHeart.svg';
-import { getInstance } from '@/utils/axios';
-import { JoinedGathering, Review } from '@/lib/definition';
 
 type Props = {
   closeModal: () => void;
@@ -40,7 +40,7 @@ export default function ReviewModal({ closeModal }: Props) {
 
   const isAvtiveButton = () => {
     const scores = Object.values(score).filter((data) => data).length;
-    if (scores > 1 && review !== '') {
+    if (scores >= 1 && review !== '') {
       return true;
     }
     return false;
@@ -85,6 +85,7 @@ export default function ReviewModal({ closeModal }: Props) {
     });
   };
 
+  // 작성 가능한 리뷰 데이터 변경
   const updateNewReviews = () => {
     queryClient.setQueryData(['newReviews'], (oldData: queryGatheringJoined) => {
       if (oldData) {
@@ -98,13 +99,9 @@ export default function ReviewModal({ closeModal }: Props) {
     });
   };
 
-  // const updatewrittenReviews = () => {
-  //   queryClient.setQueryData(['writtenReviews'], (oldData: queryWrittenReviews) => {
-  //     if(oldData) {
-  //       const updateData = oldData.pages.
-  //     }
-  //   })
-  // }
+  const updateWrittenReviews = () => {
+    queryClient.invalidateQueries({ queryKey: ['writtenReviews'] });
+  };
 
   const { mutate } = useMutation({
     mutationFn: postReview,
@@ -112,7 +109,7 @@ export default function ReviewModal({ closeModal }: Props) {
       clearId();
       closeModal();
       updateGateringJoined();
-      updateNewReviews();
+      updateWrittenReviews();
     },
   });
 
@@ -148,8 +145,9 @@ export default function ReviewModal({ closeModal }: Props) {
                   }));
                 }}
               >
-                <EmptyHeart className={`absolute`} />
+                <EmptyHeart aria-label="emptyHeart" className={`absolute`} />
                 <FillHeart
+                  aria-label="fillHeart"
                   className={`absolute  ${score[i] ? 'animate-fFill-heart' : 'hidden'} `}
                 />
               </div>
@@ -172,6 +170,7 @@ export default function ReviewModal({ closeModal }: Props) {
       </div>
       <div className="w-full flex gap-4">
         <Button
+          aria-label="cancelBtn"
           className="w-full flex justify-center items-center "
           fillState="empty"
           variant="orange"
@@ -180,6 +179,7 @@ export default function ReviewModal({ closeModal }: Props) {
           취소
         </Button>
         <Button
+          aria-label="submitBtn"
           type="submit"
           disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "
