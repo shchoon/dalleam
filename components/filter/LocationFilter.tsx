@@ -1,6 +1,6 @@
 'use client';
 
-import Arrow from '/public/icons/arrow_down.svg';
+import Arrow from '/public/icons/gathering/arrow_down.svg';
 import { Location } from '@/lib/definition';
 import useDropdown from '@/hooks/useDropDown';
 import Dropdown from '../Dropdown';

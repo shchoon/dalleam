@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Head from '/public/icons/switch.svg';
+import Head from '/public/icons/gahering/switch.svg';
 import Dropdown from '../Dropdown';
 import useDropdown from '@/hooks/useDropDown';
 import useFilterStore from '@/stores/filterStore';
