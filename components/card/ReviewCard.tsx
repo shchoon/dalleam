@@ -46,7 +46,9 @@ export default function ReviewCard({ isMyPage, ...review }: props) {
               ))}
             </div>
             {/* 설명 */}
-            <span className="text-sm font-base text-gray-700 font-base">{review.comment}</span>
+            <div className="w-311pxr lg:w-full md:500pxr break-words text-sm font-base text-gray-700 font-base">
+              {review.comment}
+            </div>
             {/* 주소 */}
             <div className="flex items-center gap-6pxr">
               <div className="w-198pxr h-4">
