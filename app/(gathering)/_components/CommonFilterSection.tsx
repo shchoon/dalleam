@@ -2,9 +2,10 @@
 
 import React from 'react';
 
-import Person from '/public/icons/black-people2.svg';
-import Umbrella from '/public/icons/umbrella.svg';
-import UnderLineG from '/public/icons/underline-gray.svg';
+import DallaemFit from '/public/icons/gathering/dallaem_fit.svg';
+import Workation from '/public/icons/gathering/workation.svg';
+import UnderLineG from '/public/icons/gathering/underline_gray.svg';
+import UnderLineB from '/public/icons/gathering/underline_black.svg';
 
 import CreateMeetingButton from './CreateMeetingButton';
 import DateFilter from '@/components/filter/DateFilter';
@@ -12,15 +13,36 @@ import TypeFilter from '@/components/filter/TypeFilter';
 import LocationFilter from '@/components/filter/LocationFilter';
 import SortByFilter from '@/components/filter/SortByFilter';
 import useFilterStore from '@/stores/filterStore';
+import clsx from 'clsx';
 
 const CommonFilterSection = () => {
-  const { setType } = useFilterStore();
+  const { setType, type } = useFilterStore();
   return (
     <div className="flex flex-col gap-2 mt-13pxr">
       <div className="flex justify-between">
-        <div className="flex gap-3">
-          <Person className="cursor-pointer" onClick={() => setType('DALLAEMFIT')} />
-          <Umbrella className="cursor-pointer" onClick={() => setType('WORKATION')} />
+        <div className="flex gap-3 relative">
+          <DallaemFit
+            className={clsx(
+              'cursor-pointer transition-colors duration-500 linear',
+              type === 'WORKATION' ? 'text-gray-400' : '',
+            )}
+            onClick={() => setType('DALLAEMFIT')}
+          />
+          <Workation
+            className={clsx(
+              'cursor-pointer transition-colors duration-500 linear',
+              type === 'WORKATION' ? 'text-gray-900' : 'text-gray-400',
+            )}
+            onClick={() => setType('WORKATION')}
+          />
+          <UnderLineB
+            className={clsx(
+              'absolute bottom-0 transition-transform duration-700 ease-in-out',
+              type !== 'WORKATION'
+                ? 'transform translate-x-0'
+                : 'w-100pxr transform translate-x-full',
+            )}
+          />
         </div>
 
         <CreateMeetingButton />

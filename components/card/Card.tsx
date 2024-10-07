@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Person from '/public/icons/person.svg';
-import Bye from '/public/icons/bye.svg';
-import Stroke from '/public/icons/line.svg';
+import Person from '/public/icons/gathering/person.svg';
+import Bye from '/public/icons/gathering/bye.svg';
+import Stroke from '/public/icons/gathering/line.svg';
 
 import Button from '../Button';
 import ChipState from './ChipState';
