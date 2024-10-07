@@ -33,10 +33,10 @@ export default function ReviewScores() {
   const totalReviews =
     newStars[0] + newStars[1] * 2 + newStars[2] * 3 + newStars[3] * 4 + newStars[4] * 5;
   const points = newStars[0] + newStars[1] + newStars[2] + newStars[3] + newStars[4];
-  const averageScore = totalReviews / points || 0;
+  const averageScore = data ? data[0]?.averageScore : 0;
 
   useEffect(() => {
-    const controls = animate(count, averageScore);
+    const controls = animate(0, averageScore);
     return () => controls.stop();
   }, [averageScore, rounded]);
 
@@ -53,7 +53,7 @@ export default function ReviewScores() {
               </>
             ) : (
               <>
-                <motion.span>{Math.round(averageScore)}</motion.span>
+                <motion.span>{Math.round(!averageScore ? 0 : averageScore)}</motion.span>
                 <span className="text-2xl font-semibold text-gray-400">/5</span>
               </>
             )}
@@ -78,9 +78,6 @@ export default function ReviewScores() {
         <div className="flex flex-col items-start gap-4pxr">
           {newStars.reverse().map((el, idx) => (
             <div key={idx} className="flex items-start gap-3">
-              {/* <div className="w-146pxr md:w-302pxr h-20pxr">
-                <Skeleton height="100%" width="100%" />
-              </div> */}
               {isLoading ? (
                 <div className="w-146pxr md:w-302pxr h-20pxr">
                   <Skeleton height="100%" width="100%" />
