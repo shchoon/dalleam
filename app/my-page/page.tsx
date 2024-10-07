@@ -8,7 +8,7 @@ export default async function MyGatheringPage() {
   const myGatherings = await instance('/gatherings/joined', {
     params: {
       limit: 10,
-      sortOrder: 'desc',
+      // sortOrder: 'desc',
     },
   });
 

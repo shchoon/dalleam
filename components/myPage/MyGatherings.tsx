@@ -30,7 +30,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
   const getMyGatheringData = async (offset: number) => {
     const instance = getInstance();
     const res = await instance('/gatherings/joined', {
-      params: { limit: 10, offset: offset, sortOrder: 'desc' },
+      params: { limit: 10, offset: offset /* sortOrder: 'desc' */ },
     });
 
     return res.data;
@@ -46,11 +46,11 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
     initialPageParam: 0,
     initialData: {
       pages: initialMyGatherings,
-      pageParams: [0],
+      pageParams: [10],
     },
     queryFn: ({ pageParam }) => getMyGatheringData(pageParam),
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < 5) {
+      if (lastPage.length < 10) {
         return undefined;
       }
       return allPages.flat().length;
@@ -59,7 +59,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
   });
 
   useEffect(() => {
-    if (inView) {
+    if (inView && gatheringJoined.pages.flat().length >= 10) {
       fetchNextPage();
     }
   }, [inView]);
@@ -67,7 +67,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
   return (
     <>
       <div className="pt-6 min-h-[60vh] flex justify-center ">
-        {initialMyGatherings.length === 0 ? (
+        {gatheringJoined.pages.flat().length === 0 ? (
           <div className="flex items-center">
             <span className="text-sm font-medium text-gray-500">신청한 모임이 아직 없어요</span>
           </div>
