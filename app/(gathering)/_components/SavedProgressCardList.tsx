@@ -26,7 +26,7 @@ const SavedProgressCardList = () => {
         location: location !== '지역 선택' ? location : undefined,
         date: date !== '날짜 선택' ? date : undefined,
         sortBy: sortBy === '마감 임박' ? 'dateTime' : 'participantCount', // 마감임박, 참여 인원 순 기본 값 필요
-        type: type !== '전체' ? type : undefined,
+        type: type !== 'DALLAEMFIT' ? type : undefined,
       });
       console.log(params);
       const response = await getInstance().get<Gathering[]>('gatherings', {

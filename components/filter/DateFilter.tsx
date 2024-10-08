@@ -4,26 +4,19 @@ import './Calendar.css';
 
 import React, { useEffect, useRef, useState } from 'react';
 import { format } from 'date-fns';
-
 import DallaemCalendar from '../calendar/DallaemCalendar';
-import Arrow from '/public/icons/arrow_down.svg';
+import Arrow from '/public/icons/gathering/arrow_down.svg';
 import useFilterStore from '@/stores/filterStore';
-import { reviewStore } from '@/stores/reviewStore';
 
-const DateFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
+const DateFilter = () => {
   const [selectedDate, setSelectedDate] = useState(''); // 선택된 날짜를 저장하는 상태
   const [isOpen, setIsOpen] = useState(false); // 드롭다운 상태
-
   const { setDate, date: currentDate } = useFilterStore();
-  const { setDateTab, dateTab } = reviewStore();
-
   const divRef = useRef<HTMLDivElement | null>(null);
-  let selectDate = '';
-  if (dateTab) selectDate = isReviewPage ? dateTab : currentDate;
 
   const formattedCurrentDate =
-    selectDate !== '날짜 선택' ? format(new Date(selectDate), 'yy/MM/dd') : '날짜 선택';
-  const isDateSelected = selectDate !== '날짜 선택';
+    currentDate !== '날짜 선택' ? format(new Date(currentDate), 'yy/MM/dd') : '날짜 선택';
+  const isDateSelected = currentDate !== '날짜 선택';
 
   const handleClickOutside = (event: MouseEvent) => {
     // divRef의 외부를 클릭했는지 확인
@@ -38,7 +31,7 @@ const DateFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
 
   const handleFilterDate = () => {
     const formattedDate = format(new Date(selectedDate), 'yyyy-MM-dd');
-    isReviewPage ? setDateTab(formattedDate) : setDate(formattedDate);
+    setDate(formattedDate);
   };
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);

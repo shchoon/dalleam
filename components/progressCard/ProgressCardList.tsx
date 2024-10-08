@@ -53,7 +53,7 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   useEffect(() => {
-    if (location === '전체' && date === '' && sortBy === '' && type === '전체') {
+    if (location === '지역 선택' && date === '' && sortBy === '' && type === 'DALLAEMFIT') {
       refetch();
     } else {
       refetch();

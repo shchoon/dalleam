@@ -1,5 +1,5 @@
 import React from 'react';
-import FillHeart from '/public/icons/fill_heart.svg';
+import FillHeart from '/public/icons/gathering/fill_heart.svg';
 import DefaultProfile from '/public/icons/DefaultProfile.svg';
 import Vector from '/public/icons/Vector.svg';
 import Image from 'next/image';
