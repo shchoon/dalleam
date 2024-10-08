@@ -8,8 +8,30 @@ import ReviewDeatilCardList from '@/components/reviewDetailCard/ReviewDeatilCard
 import { fetchDetailGathering, fetchDetailReviews, fetchJoinedGatheringIds } from '@/lib/data';
 import ActionButtons from '../../_components/ActionButtons';
 import { mockGatheringReviews } from '@/lib/placeholder-data';
+import { Metadata } from 'next';
+import { getMetadata } from '@/constants/metadata';
 
-const GatheringDetail = async ({ params }: { params: { id: number } }) => {
+type Props = {
+  params: {
+    id: number;
+  };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = params.id;
+
+  const { data: gatheringData, errorMessage: gatheringErrorMessage } =
+    await fetchDetailGathering(id);
+
+  return getMetadata({
+    title: `${gatheringData?.location} ${gatheringData?.type} 모집`,
+    description: `오는 ${gatheringData?.dateTime.split('T')[0]}에 ${gatheringData?.location}에서 열리는 모임에 참여하세요. 현재 ${gatheringData?.capacity}명 중 ${gatheringData?.participantCount}명이 참여 중입니다.`,
+    asPath: `/gatherings/${id}`,
+    ogImage: gatheringData?.image,
+  });
+}
+
+const GatheringDetail = async ({ params }: Props) => {
   const id = Number(params.id); // 모임 id
 
   const { data: gatheringData, errorMessage: gatheringErrorMessage } =
@@ -60,7 +82,12 @@ const GatheringDetail = async ({ params }: { params: { id: number } }) => {
         <div className="flex flex-col gap-4 md:gap-6">
           <div className="flex flex-col gap-4 md:flex-row">
             <div className="relative w-343pxr h-180pxr md:w-340pxr md:h-240pxr lg:w-486pxr lg:h-270pxr">
-              <Image src="/card-image2.png" alt="Image" fill className="object-cover rounded-3xl" />
+              <Image
+                src={gatheringData.image || '/card-image2.png'}
+                alt="Image"
+                fill
+                className="object-cover rounded-3xl"
+              />
               <DeadlineBadge registrationEnd={gatheringData.registrationEnd} />
             </div>
             <Container gatheringDetails={gatheringData} participants={joinedGathering} />
@@ -82,20 +109,7 @@ const GatheringDetail = async ({ params }: { params: { id: number } }) => {
           </div>
         </div>
       </div>
-      <div className="z-10 flex justify-center w-full px-4 bg-white border-t-2 border-gray-900 border-solid pt-20pxr pb-20pxr md:px-6">
-        <div className="flex justify-between w-full max-w-996pxr">
-          <div className="space-y-1">
-            <p className="text-sm font-semibold text-gray-900">
-              더 건강한 나와 팀을 위한 프로그램 🏃‍️️
-            </p>
-            <p className="text-xs font-medium text-left text-gray-700">
-              국내 최고 웰니스 전문가와 프로그램을
-              <br /> 통해 지친 몸과 마음을 회복해봐요
-            </p>
-          </div>
-          <ActionButtons {...actionButtonProps} />
-        </div>
-      </div>
+      <ActionButtons {...actionButtonProps} />
     </>
   );
 };

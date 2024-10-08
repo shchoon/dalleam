@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Heart from '/public/icons/type_saved.svg';
+import Heart from '/public/icons/gathering/type_saved.svg';
 
 import CommonFilterSection from '../_components/CommonFilterSection';
 import SavedProgressCardList from '../_components/SavedProgressCardList';

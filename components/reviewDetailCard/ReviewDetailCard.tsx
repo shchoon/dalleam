@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Heart from '/public/icons/fill_heart.svg';
+import Heart from '/public/icons/gathering/fill_heart.svg';
 import Profile from '/public/icons/DefaultMyProfile.svg';
-import Stroke from '/public/icons/line.svg';
+import Stroke from '/public/icons/gathering/line.svg';
 
 import { format } from 'date-fns';
 import { Review } from '@/lib/definition';

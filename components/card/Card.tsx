@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Person from '/public/icons/person.svg';
-import Bye from '/public/icons/bye.svg';
-import Stroke from '/public/icons/line.svg';
+import Person from '/public/icons/gathering/person.svg';
+import Bye from '/public/icons/gathering/bye.svg';
+import Stroke from '/public/icons/gathering/line.svg';
 
 import Button from '../Button';
 import ChipState from './ChipState';
@@ -40,7 +40,12 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="relative w-311pxr h-156pxr pt-1pxr pl-1pxr md:w-280pxr">
           <Link href="#">
-            <Image src="/card-image.png" alt="Image" fill className="object-cover rounded-3xl" />
+            <Image
+              src={gathering.image || '/card-image2.png'}
+              alt="Image"
+              fill
+              className="object-cover rounded-3xl"
+            />
           </Link>
         </div>
         <div className="flex flex-col justify-between gap-18pxr">

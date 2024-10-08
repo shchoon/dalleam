@@ -1,6 +1,6 @@
 import React from 'react';
 import { differenceInDays, differenceInHours } from 'date-fns';
-import Alarm from '/public/icons/alarm.svg';
+import Alarm from '/public/icons/gathering/alarm.svg';
 
 type Props = {
   registrationEnd: string;

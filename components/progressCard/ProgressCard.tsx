@@ -2,10 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import Person from '/public/icons/person.svg';
-import Check from '/public/icons/ic_check.svg';
-import Arrow from '/public/icons/arrow_right.svg';
-import Bye from '/public/icons/bye.svg';
+import Person from '/public/icons/gathering/person.svg';
+import Check from '/public/icons/gathering/ic_check.svg';
+import Arrow from '/public/icons/gathering/arrow_right.svg';
+import Bye from '/public/icons/gathering/bye.svg';
 
 import { Gathering } from '@/lib/definition';
 import ExpandLine from '../animation/expandLine/ExpandLine';
@@ -31,7 +31,7 @@ const ProgressCard = ({ gathering }: Props) => {
         <div className="relative h-156pxr w-343pxr md:w-280pxr ">
           <Link href={`/gatherings/${gathering.id}`}>
             <Image
-              src="/card-image2.png"
+              src={gathering.image || '/card-image2.png'}
               alt="Image"
               fill
               className="object-cover rounded-t-3xl md:rounded-t-none"
