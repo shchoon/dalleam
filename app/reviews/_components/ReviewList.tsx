@@ -15,8 +15,13 @@ export default function ReviewList() {
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
     useReviewsInfiniteQuery([['reviews'], { type, location, date, sortBy }], reviewUrl);
   const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.3 });
-
-  if (!isLoading && !data) return <div>불러올 데이터가 없습니다.</div>;
+  console.log(data?.pages[0].length);
+  if (data?.pages[0].length === 0)
+    return (
+      <div className="w-full h-258pxr md:w-696pxr md:h-528pxr lg:w-996pxr lg:h-474pxr flex items-center justify-center">
+        불러올 데이터가 없습니다.
+      </div>
+    );
   if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
   if (isLoading) return <SkeletonList />;
 
