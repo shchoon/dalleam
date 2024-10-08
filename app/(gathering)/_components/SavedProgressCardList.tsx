@@ -6,7 +6,7 @@ import { Gathering } from '@/lib/definition';
 import { getInstance } from '@/utils/axios';
 import { buildFilteredParams } from '@/components/progressCard/ProgressCardList';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import useFilterStore from '@/stores/filterStore';
 import useSavedStore from '@/stores/savedStore';
 import useUserStore from '@/stores/userStore';

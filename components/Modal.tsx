@@ -38,7 +38,12 @@ const Modal = forwardRef<ModalHandles, ModalProp>(({ children }, ref) => {
         onClick={handleModalClose}
         open
       >
-        <div onClick={(e) => e.stopPropagation()}>{children}</div>
+        <div
+          className="w-full h-full md:w-auto md:max-h-[96vh] md:overflow-y-auto lg:max-h-[100vh] bg-white rounded-lg"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {children}
+        </div>
       </dialog>,
       document.getElementById('global-modal')!,
     )

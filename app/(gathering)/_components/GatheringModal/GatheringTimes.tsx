@@ -28,7 +28,7 @@ export default function GatheringTimes({
   };
 
   return (
-    <div className="w-full flex flex-col items-start gap-1 self-stretch">
+    <div className="w-full flex flex-col items-start gap-2 self-stretch">
       <div className="text-sm font-semibold">{timeOfDay}</div>
       {/* 오늘 날짜로 기본값 설정 */}
       <Controller
@@ -51,7 +51,7 @@ export default function GatheringTimes({
                 render={({ field }) => (
                   <Chip
                     {...field}
-                    className="px-2 py-1"
+                    className="px-3 py-6pxr w-60pxr h-32pxr"
                     onClick={() => {
                       field.onChange(time.date);
                       handleTimeClick(time);

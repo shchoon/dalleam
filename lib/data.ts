@@ -2,6 +2,7 @@
 import { getInstance } from '@/utils/axios';
 import axios from 'axios';
 import { Gathering, Participant, Review } from './definition';
+import { gatheringSchema } from '@/constants/formSchema';
 
 export const fetchGatherings = async () => {
   try {
@@ -58,4 +59,12 @@ export const fetchJoinedGatheringIds = async (gatheringId: number) => {
     }
     return { data: null, errorMessage: 'joinedGathering Ids fetch failed' };
   }
+};
+
+export const postGathering = async ({ gathering }: { gathering: gatheringSchema }) => {
+  const response = await getInstance().post('/gatherings', gathering, {
+    headers: { 'Content-Type': 'multipart/form-data', charset: 'utf-8' },
+  });
+
+  return response.data;
 };

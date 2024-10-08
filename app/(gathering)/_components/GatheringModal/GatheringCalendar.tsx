@@ -50,26 +50,28 @@ export default function GatheringCalendar({ control }: props) {
   };
   return (
     <>
-      <div className="flex flex-col items-start gap-1 self-stretch">
-        <div className="text-sm font-semibold">날짜</div>
-        <DallaemCalendar date={date} setDate={setDate} updateTimeSlots={updateTimeSlots} />
+      <div className="flex flex-col gap-4 md:gap-6">
+        <div className="flex flex-col items-start gap-3 self-stretch">
+          <div className="text-base font-semibold">날짜</div>
+          <DallaemCalendar date={date} setDate={setDate} updateTimeSlots={updateTimeSlots} />
+        </div>
+        <GatheringTimes
+          selectTime={selectTime}
+          setSelectTime={setSelectTime}
+          timeSlots={timeSlots}
+          control={control}
+          timeOfDay="오전"
+        />
+        <GatheringTimes
+          selectTime={selectTime}
+          setSelectTime={setSelectTime}
+          timeSlots={timeSlots}
+          control={control}
+          timeOfDay="오후"
+        />
       </div>
-      <GatheringTimes
-        selectTime={selectTime}
-        setSelectTime={setSelectTime}
-        timeSlots={timeSlots}
-        control={control}
-        timeOfDay="오전"
-      />
-      <GatheringTimes
-        selectTime={selectTime}
-        setSelectTime={setSelectTime}
-        timeSlots={timeSlots}
-        control={control}
-        timeOfDay="오후"
-      />
-      <div className="flex flex-col items-start gap-1 self-stretch">
-        <div className="text-sm font-semibold">모집정원</div>
+      <div className="flex flex-col items-start gap-3 self-stretch">
+        <div className="text-base font-semibold">모집정원</div>
         <Controller
           control={control}
           name="capacity"
