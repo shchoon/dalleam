@@ -15,8 +15,7 @@ export default function ReviewList() {
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
     useReviewsInfiniteQuery([['reviews'], { type, location, date, sortBy }], reviewUrl);
   const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.3 });
-  console.log(data?.pages[0].length);
-  if (data?.pages[0].length === 0)
+  if (!data?.pages[0].length)
     return (
       <div className="w-full h-258pxr md:w-696pxr md:h-528pxr lg:w-996pxr lg:h-474pxr flex items-center justify-center">
         불러올 데이터가 없습니다.
