@@ -1,4 +1,4 @@
-import Head from '/public/icons/head.svg';
+import Head from '/public/icons/gathering/head.svg';
 
 import ProgressCardList from '@/components/progressCard/ProgressCardList';
 import CommonFilterSection from './_components/CommonFilterSection';
@@ -21,12 +21,10 @@ const HomePage = async () => {
         <div className="inline-flex items-center gap-4">
           <Head />
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-left text-gray-700">
-              함께 할 사람이 없나요?
-            </span>
-            <span className="text-lg font-semibold text-gray-900 md:text-2xl">
+            <p className="text-sm font-medium text-left text-gray-700">함께 할 사람이 없나요?</p>
+            <h1 className="text-lg font-semibold text-gray-900 md:text-2xl">
               지금 모임에 참여해보세요
-            </span>
+            </h1>
           </div>
         </div>
         <CommonFilterSection />

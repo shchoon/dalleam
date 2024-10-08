@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import FillHeart from '/public/icons/fill_heart.svg';
+import FillHeart from '/public/icons/gathering/fill_heart.svg';
 import { useMotionValue, useTransform, animate, motion } from 'framer-motion';
 import { useScoresQuery } from '@/services/reviews';
 import useFilterStore from '@/stores/filterStore';

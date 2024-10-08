@@ -10,7 +10,7 @@ import GatheringLocation from './GatheringLocation';
 import { gatheringSchema } from '@/constants/formSchema';
 import { getInstance } from '@/utils/axios';
 
-import CloseIcon from '@/public/icons/close.svg';
+import CloseIcon from '@/public/icons/gathering/close.svg';
 
 export default function GatheringModal({ onClose }: { onClose: () => void }) {
   const fetcher = getInstance();

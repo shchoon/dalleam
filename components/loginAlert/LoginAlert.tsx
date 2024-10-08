@@ -2,11 +2,11 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/Button';
-import Close from '/public/icons/close.svg';
+import Close from '/public/icons/gathering/close.svg';
 
 type Props = {
   onClose: () => void;
-  gatheringId?: number; // gatheringId는 선택적 props로 설정
+  gatheringId?: number;
 };
 
 const LoginAlert = ({ onClose, gatheringId }: Props) => {
@@ -14,7 +14,6 @@ const LoginAlert = ({ onClose, gatheringId }: Props) => {
 
   const handleLoginRedirect = () => {
     onClose();
-    // gatheringId가 있으면 해당 값을 사용, 없으면 'alert'를 사용
     const redirectTo = gatheringId
       ? `/login?redirectedFrom=${gatheringId}`
       : '/login?redirectedFrom=alert';

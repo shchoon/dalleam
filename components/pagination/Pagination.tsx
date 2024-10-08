@@ -1,6 +1,6 @@
 import React from 'react';
-import RightArrow from '/public/icons/pagination/pagination-arrow-right.svg';
-import LeftArrow from '/public/icons/pagination/pagination-arrow-left.svg';
+import RightArrow from '/public/icons/pagination/arrow-right.svg';
+import LeftArrow from '/public/icons/pagination/arrow-left.svg';
 
 type Props = {
   currentPage: number;
