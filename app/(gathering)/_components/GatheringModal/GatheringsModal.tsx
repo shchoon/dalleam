@@ -42,12 +42,12 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
   });
 
   return (
-    <div className="w-dvw h-full md:w-520pxr px-4 pb-6 md:px-6 bg-white overflow-auto flex flex-col">
+    <div className="w-dvw h-full md:w-520pxr px-4 py-6 md:px-6 bg-white overflow-auto flex flex-col">
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="w-full flex-grow flex flex-col gap-6"
       >
-        <div className="w-full flex justify-between pt-6">
+        <div className="w-full flex justify-between">
           <span className="text-lg font-semibold">모임만들기</span>
           <span className="cursor-pointer" onClick={() => onClose()}>
             <CloseIcon />
