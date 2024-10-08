@@ -28,6 +28,10 @@ export default function LoginForm() {
   } = useForm<FormData>({
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const { setUser } = useUserStore();
