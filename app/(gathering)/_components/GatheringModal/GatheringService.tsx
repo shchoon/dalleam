@@ -25,13 +25,13 @@ export default function GatheringService({ control }: Props) {
   ];
 
   return (
-    <div className="w-full flex flex-col items-start gap-1">
-      <div className="text-sm font-semibold">선택 서비스</div>
+    <div className="w-full flex flex-col items-start gap-3">
+      <div className="text-base font-semibold">선택 서비스</div>
       <div className="flex items-start w-full gap-2 md:gap-3">
         {GatheringService.map((el, idx) => (
           <div
             className={clsx(
-              'flex flex-col w-1/3 md:w-149pxr h-70pxr pl-4 md:pl-4 pt-3 pr-3 md:pr-5 pb-4 items-start gap-2.5 rounded-lg',
+              'flex flex-col w-1/3 md:w-149pxr h-76pxr md:h-70pxr pl-2 pt-6pxr pb-14pxr md:pl-4 md:pt-3 items-start rounded-lg',
               selectBox === el.value ? 'bg-gray-900 text-white' : 'bg-gray-50',
             )}
             key={idx}
@@ -47,7 +47,7 @@ export default function GatheringService({ control }: Props) {
                       field.onChange(el.value);
                       setSelectBox(el.value);
                     }}
-                    className="flex items-center mt-1 cursor-pointer"
+                    className="flex items-center mt-1 cursor-pointer w-18pxr h-18pxr"
                   >
                     {field.value === el.value ? <CheckBox /> : <Box />}
                     <input
@@ -60,9 +60,15 @@ export default function GatheringService({ control }: Props) {
                   </span>
                 )}
               />
-              <div className="flex flex-col">
-                <span className="text-sm">{el.name.split(':')[0]}</span>
-                <span className="w-11 text-xs">{el.name.split(':')[1]}</span>
+              <div className="flex flex-col justify-center items-start gap-1">
+                <span className="text-sm font-semibold">{el.name.split(':')[0]}</span>
+                {el.value === 'OFFICE_STRETCHING' ? (
+                  <span className="text-xs whitespace-pre-wrap md:whitespace-normal">
+                    {el.name.split(':')[1].replace(' ', '\n')}
+                  </span>
+                ) : (
+                  <span className="text-xs">{el.name.split(':')[1]}</span>
+                )}
               </div>
             </div>
           </div>

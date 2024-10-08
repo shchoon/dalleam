@@ -11,14 +11,14 @@ const SortByFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
   const filters: sortType[] = isReviewPage
     ? ['최신 순', '리뷰 높은 순', '참여 인원 순']
     : ['마감 임박', '참여 인원 순'];
-  const { dropdownRef, handleOpenDropdown } = useDropdown();
+  const { dropdownRef, handleToggleDropdown } = useDropdown();
   const { setSortBy, sortBy, setReviewSortBy, reviewSortBy } = useFilterStore();
 
   return (
     <div>
       <div
         className="dropdown-toggle flex items-center gap-3pxr border-2 justify-center border-gray-100 border-solid cursor-pointer p-6pxr md:py-2 md:px-3 rounded-xl w-9 md:w-130pxr md:h-10"
-        onClick={() => handleOpenDropdown()}
+        onClick={() => handleToggleDropdown()}
       >
         <Head className="size-6" />
         <div className="hidden text-sm font-medium text-gray-800 md:block">
