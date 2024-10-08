@@ -2,7 +2,7 @@
 
 import React, { Suspense, useEffect } from 'react';
 import SkeletonFilter from './SkeletonFilter';
-import SkeletonScores from './SkeletomScores';
+import SkeletonScores from './SkeletonScores';
 import SkeletonList from './SkeletonList';
 import SkeletonTab from './SkeletonTab';
 
