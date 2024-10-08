@@ -1,12 +1,12 @@
 'use client';
 
 import Arrow from '/public/icons/gathering/arrow_down.svg';
-import { Location } from '@/lib/definition';
+import { LocationType } from '@/lib/definition';
 import useDropdown from '@/hooks/useDropDown';
 import Dropdown from '../Dropdown';
 import useFilterStore from '@/stores/filterStore';
 
-const locations: Location[] = ['지역 선택', '을지로3가', '건대입구', '신림', '홍대입구'];
+const locations: LocationType[] = ['지역 선택', '을지로3가', '건대입구', '신림', '홍대입구'];
 
 const LocationFilter = () => {
   const { dropdownRef, handleOpenDropdown } = useDropdown();

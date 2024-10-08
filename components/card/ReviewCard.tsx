@@ -46,7 +46,9 @@ export default function ReviewCard({ isMyPage, ...review }: props) {
               ))}
             </div>
             {/* 설명 */}
-            <span className="text-sm font-base text-gray-700 font-base">{review.comment}</span>
+            <div className="w-311pxr lg:w-full md:500pxr break-words text-sm font-base text-gray-700 font-base">
+              {review.comment}
+            </div>
             {/* 주소 */}
             <div className="flex items-center gap-6pxr">
               <div className="w-198pxr h-4">
@@ -67,7 +69,7 @@ export default function ReviewCard({ isMyPage, ...review }: props) {
             <span className="text-xs font-base text-gray-500">{review.createdAt}</span>
           </div>
         </div>
-        <Vector className="w-311pxr lg:w-644pxr h-2pxr my-3 text-gray-200" />
+        <Vector className="w-full" />
       </div>
     </div>
   );

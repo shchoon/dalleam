@@ -3,25 +3,26 @@
 import React from 'react';
 import ReviewCard from '@/components/card/ReviewCard';
 import { useInfiniteObserver } from '@/hooks/useInfiniteObserver';
-import { useReviewsInfiniteQuery } from '@/services/reviews';
-import { getReviewsUrl } from '@/services/reviews';
+import { useReviewsInfiniteQuery, getReviewsUrl } from '@/services/reviews';
 import LocationFilter from '@/components/filter/LocationFilter';
 import DateFilter from '@/components/filter/DateFilter';
 import SortByFilter from '@/components/filter/SortByFilter';
+import SkeletonList from './skeletonComponents/SkeletonList';
+import SkeletonCard from './skeletonComponents/SkeletonCard';
 
-// 클라이언트로 수정하기
 export default function ReviewList() {
-  const { type, location, reviewUrl, reviewSortBy, date } = getReviewsUrl();
-
+  const { type, location, reviewUrl, reviewSortBy: sortBy, date } = getReviewsUrl();
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
-    useReviewsInfiniteQuery(
-      [['reviews'], { type: type, location: location, sortBy: reviewSortBy, date: date }],
-      reviewUrl,
-    );
-
+    useReviewsInfiniteQuery([['reviews'], { type, location, date, sortBy }], reviewUrl);
   const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.3 });
-
+  if (!data?.pages[0].length)
+    return (
+      <div className="w-full h-258pxr md:w-696pxr md:h-528pxr lg:w-996pxr lg:h-474pxr flex items-center justify-center">
+        불러올 데이터가 없습니다.
+      </div>
+    );
   if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
+  if (isLoading) return <SkeletonList />;
 
   return (
     <div className="flex w-full py-6 px-4 lg:p-6 flex-col items-start gap-10pxr bg-white border-t-2 border-gray-900">
@@ -32,19 +33,15 @@ export default function ReviewList() {
             <LocationFilter />
             <DateFilter />
           </div>
-          <SortByFilter />
+          <SortByFilter isReviewPage={true} />
         </div>
-        {/* 리뷰 리스트 */}
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          <div className="relative flex flex-col items-start gap-6 self-stretch">
-            {data?.pages.map((page) =>
-              page.map((review, idx) => <ReviewCard key={idx} {...review} isMyPage={false} />),
-            )}
-            {isFetchingNextPage && <div className="flex justify-center">Loading...</div>}
-          </div>
-        )}
+
+        <div className="relative flex flex-col items-start gap-6 self-stretch">
+          {data?.pages.map((page) =>
+            page.map((review, idx) => <ReviewCard key={idx} {...review} isMyPage={false} />),
+          )}
+          {isFetchingNextPage && <SkeletonCard />}
+        </div>
         {hasNextPage && (
           <div
             className="absolute w-full left-0 bottom-0 -z-10 h-20 border-2"

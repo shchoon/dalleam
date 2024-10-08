@@ -1,14 +1,14 @@
 import { create } from 'zustand';
-import { GatheringType, Location, sortType } from '@/lib/definition';
+import { GatheringType, LocationType, sortType } from '@/lib/definition';
 
 type FilterState = {
-  location: Location;
+  location: LocationType;
   date: string;
   sortBy: string;
   reviewSortBy: sortType;
   type: GatheringType;
   setType: (type: GatheringType) => void;
-  setLocation: (location: Location) => void;
+  setLocation: (location: LocationType) => void;
   setDate: (date: string) => void;
   setSortBy: (orderBy: string) => void;
   setReviewSortBy: (orderBy: sortType) => void;
@@ -22,10 +22,10 @@ const useFilterStore = create<FilterState>((set) => ({
   reviewSortBy: '최신 순',
   type: 'DALLAEMFIT',
   setType: (type: GatheringType) => set({ type }),
-  setLocation: (location: Location) => set({ location }),
+  setLocation: (location: LocationType) => set({ location }),
   setDate: (date: string) => set({ date }),
   setSortBy: (sortBy) => set({ sortBy }),
-  setReviewSortBy: (sortBy: sortType) => set({ sortBy }),
+  setReviewSortBy: (reviewSortBy: sortType) => set({ reviewSortBy }),
   resetFilters: () =>
     set({
       location: '지역 선택',

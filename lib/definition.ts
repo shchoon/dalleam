@@ -1,8 +1,8 @@
-export type GatheringType = 'OFFICE_STRETCHING' | 'MINDFULNESS' | 'WORKATION' | 'DALLAEMFIT';
+import { gatherings, locations, sortTabs } from './constants';
 
-export type Location = '건대입구' | '을지로3가' | '신림' | '홍대입구' | '지역 선택';
-
-export type sortType = '최신 순' | '참여 인원 순' | '리뷰 높은 순' | '마감 임박';
+export type GatheringType = keyof typeof gatherings;
+export type LocationType = keyof typeof locations;
+export type sortType = keyof typeof sortTabs;
 
 export type Gathering = {
   teamId: string;
@@ -11,7 +11,7 @@ export type Gathering = {
   name: string;
   dateTime: string;
   registrationEnd: string;
-  location: Location;
+  location: LocationType;
   participantCount: number;
   capacity: number;
   image: string;
@@ -46,6 +46,7 @@ export type Points = {
   threeStars: number;
   fourStars: number;
   fiveStars: number;
+  averageScore: number;
 };
 
 export type JoinedGathering = {
@@ -55,7 +56,7 @@ export type JoinedGathering = {
   name: null;
   dateTime: string;
   registrationEnd: string;
-  location: Location;
+  location: LocationType;
   participantCount: number;
   capacity: number;
   image: string;
@@ -83,7 +84,7 @@ export type reviewQueryKeys = [
   ['reviews'],
   {
     type: GatheringType;
-    location?: Location;
+    location?: LocationType;
     sortBy?: sortType;
     date?: string;
   },
@@ -93,7 +94,7 @@ export type reviewScoresQueryKeys = [
   ['reviews', 'scores'],
   {
     type: GatheringType;
-    location?: Location;
+    location?: LocationType;
     sortBy?: sortType;
     date?: string;
   },

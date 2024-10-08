@@ -3,7 +3,6 @@ import Review from '/public/icons/review.svg';
 import ReviewsTabs from './ReviewsTabs';
 import ReviewScores from './ReviewScores';
 import ReviewList from './ReviewList';
-import { useQuery } from '@tanstack/react-query';
 
 // use query로 데이터 받아오기
 export default function Reviews() {
