@@ -12,8 +12,8 @@ const location = ['건대입구', '을지로3가', '신림', '홍대입구'];
 
 export default function GatheringLocation({ control }: Props) {
   return (
-    <div className="flex w-full flex-col items-start gap-1 self-stretch">
-      <div className="text-sm font-semibold">장소</div>
+    <div className="flex w-full flex-col items-start gap-3 self-stretch">
+      <div className="text-base font-semibold">장소</div>
       <Controller
         name="location"
         control={control}

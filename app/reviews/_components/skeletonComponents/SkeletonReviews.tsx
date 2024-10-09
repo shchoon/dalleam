@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useEffect } from 'react';
+import React from 'react';
 import SkeletonFilter from './SkeletonFilter';
 import SkeletonScores from './SkeletonScores';
 import SkeletonList from './SkeletonList';
