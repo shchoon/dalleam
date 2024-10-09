@@ -62,7 +62,6 @@ export const fetchJoinedGatheringIds = async (gatheringId: number) => {
 };
 
 export const postGathering = async ({ gathering }: { gathering: gatheringSchema }) => {
-  console.log('gathering = ', gathering);
   const response = await getInstance().post('/gatherings', gathering, {
     headers: { 'Content-Type': 'multipart/form-data', charset: 'utf-8' },
   });
