@@ -15,7 +15,7 @@ import { AxiosError } from 'axios';
 import useFilterStore from '@/stores/filterStore';
 
 export default function GatheringModal({ onClose }: { onClose: () => void }) {
-  const { sortBy, resetFilters } = useFilterStore();
+  const { resetFilters } = useFilterStore();
   const queryClient = useQueryClient();
   const {
     control,
@@ -28,8 +28,7 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
 
   const mutate = useMutation({
     mutationFn: postGathering,
-    onSuccess: (data, variables) => {
-      console.log('success data = ', data);
+    onSuccess: (_, variables) => {
       const { gathering } = variables;
       queryClient.invalidateQueries({
         queryKey: [
@@ -71,7 +70,6 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
         <GatheringImg control={control} />
         <GatheringService control={control} />
         <GatheringCalendar control={control} />
-
         {/* 버튼 영역 */}
         <div className="w-full mt-auto">
           <Button
