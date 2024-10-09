@@ -9,11 +9,14 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import GatheringLocation from './GatheringLocation';
 import { gatheringSchema } from '@/constants/formSchema';
 import CloseIcon from '@/public/icons/gathering/close.svg';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postGathering } from '@/lib/data';
 import { AxiosError } from 'axios';
+import useFilterStore from '@/stores/filterStore';
 
 export default function GatheringModal({ onClose }: { onClose: () => void }) {
+  const { location, date, sortBy, type } = useFilterStore();
+  const queryClient = useQueryClient();
   const {
     control,
     handleSubmit,
@@ -26,6 +29,7 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
   const mutate = useMutation({
     mutationFn: postGathering,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['gatherings', location, date, sortBy, type] });
       alert('모임이 생성되었습니다.');
       onClose();
     },
