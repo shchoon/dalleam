@@ -15,7 +15,7 @@ import { AxiosError } from 'axios';
 import useFilterStore from '@/stores/filterStore';
 
 export default function GatheringModal({ onClose }: { onClose: () => void }) {
-  const { location, date, sortBy, type } = useFilterStore();
+  const { sortBy, resetFilters } = useFilterStore();
   const queryClient = useQueryClient();
   const {
     control,
@@ -28,14 +28,24 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
 
   const mutate = useMutation({
     mutationFn: postGathering,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['gatherings', location, date, sortBy, type] });
+    onSuccess: (data, variables) => {
+      console.log('success data = ', data);
+      const { gathering } = variables;
+      queryClient.invalidateQueries({
+        queryKey: [
+          'gatherings',
+          '지역 선택',
+          '날짜 선택',
+          '마감 임박',
+          gathering.type === 'WORKATION' ? 'WORKATION' : 'DALLAEMFIT',
+        ],
+      });
+      resetFilters();
       alert('모임이 생성되었습니다.');
       onClose();
     },
     onError: (error: Error) => {
       const defaultMsg = '알 수 없는 오류로 모임 생성에 실패하였습니다.';
-
       if (error instanceof AxiosError) {
         alert(error.response?.data.message ?? defaultMsg);
         return;
