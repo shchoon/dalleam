@@ -29,11 +29,13 @@ export const getReviewsUrl = () => {
   let dateUrl = date === '날짜 선택' ? '' : `&date=${date}`;
   let subUrl = `${locationUrl}${dateUrl}`;
   let reviewUrl = `type=${type}&sortOrder=desc&sortBy=${convertSortUrl}${subUrl}`;
+  let queryKeys: reviewQueryKeys = [['reviews'], { type, location, date, sortBy: reviewSortBy }];
   return {
     type,
     location,
     reviewSortBy,
     reviewUrl,
+    queryKeys,
     date,
   };
 };

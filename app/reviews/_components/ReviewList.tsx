@@ -11,9 +11,9 @@ import SkeletonList from './skeletonComponents/SkeletonList';
 import SkeletonCard from './skeletonComponents/SkeletonCard';
 
 export default function ReviewList() {
-  const { type, location, reviewUrl, reviewSortBy: sortBy, date } = getReviewsUrl();
+  const { reviewUrl, queryKeys } = getReviewsUrl();
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
-    useReviewsInfiniteQuery([['reviews'], { type, location, date, sortBy }], reviewUrl);
+    useReviewsInfiniteQuery(queryKeys, reviewUrl);
   const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.3 });
 
   if (!data?.pages[0].length)
