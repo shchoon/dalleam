@@ -27,8 +27,7 @@ export default function MainTab() {
             <span
               className={clsx(
                 (el === 'DALLAEMFIT' ? type !== 'WORKATION' : type === 'WORKATION') &&
-                  'text-lg font-semibold',
-                'transition-all duration-500 linear',
+                  'text-lg font-semibold transition-all duration-500 linear',
               )}
             >
               {el === 'DALLAEMFIT' ? '달램 핏' : '워케이션'}

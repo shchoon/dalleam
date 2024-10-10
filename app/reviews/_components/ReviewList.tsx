@@ -15,6 +15,7 @@ export default function ReviewList() {
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
     useReviewsInfiniteQuery([['reviews'], { type, location, date, sortBy }], reviewUrl);
   const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.3 });
+
   if (!data?.pages[0].length)
     return (
       <div className="w-full h-258pxr md:w-696pxr md:h-528pxr lg:w-996pxr lg:h-474pxr flex items-center justify-center">
@@ -35,7 +36,6 @@ export default function ReviewList() {
           </div>
           <SortByFilter isReviewPage={true} />
         </div>
-
         <div className="relative flex flex-col items-start gap-6 self-stretch">
           {data?.pages.map((page) =>
             page.map((review, idx) => <ReviewCard key={idx} {...review} isMyPage={false} />),
