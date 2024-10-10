@@ -39,7 +39,7 @@ const Modal = forwardRef<ModalHandles, ModalProp>(({ children }, ref) => {
         open
       >
         <div
-          className="w-full h-full md:w-auto md:max-h-[96vh] md:overflow-y-auto lg:max-h-[100vh] bg-white rounded-lg"
+          className="w-full md:w-auto md:overflow-y-auto bg-white rounded-lg"
           onClick={(e) => e.stopPropagation()}
         >
           {children}

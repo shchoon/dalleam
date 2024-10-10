@@ -26,6 +26,13 @@ export default function RegisterForm() {
   } = useForm<FormData>({
     resolver: zodResolver(registerSchema),
     mode: 'onChange',
+    defaultValues: {
+      email: '',
+      name: '',
+      companyName: '',
+      password: '',
+      passwordCheck: '',
+    },
   });
 
   const mutation = useMutation({
