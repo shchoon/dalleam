@@ -21,7 +21,11 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<gatheringSchema>();
+  } = useForm<gatheringSchema>({
+    defaultValues: {
+      capacity: 5,
+    },
+  });
   const onSubmitHandler: SubmitHandler<gatheringSchema> = async (gathering) => {
     mutate.mutate({ gathering });
   };
@@ -55,7 +59,7 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
   });
 
   return (
-    <div className="scrollbar w-dvw h-full md:w-520pxr px-4 pt-6 pb-3 md:pb-6 md:px-6 bg-white overflow-auto flex flex-col">
+    <div className="scrollbar w-dvw h-dvh md:h-[96vh] lg:h-[100vh] md:w-520pxr px-4 pt-6 pb-3 md:pb-6 md:px-6 bg-white overflow-auto flex flex-col">
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="w-full flex-grow flex flex-col gap-6"
