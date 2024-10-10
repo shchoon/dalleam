@@ -31,7 +31,7 @@ export type gatheringSchema = {
   image: Blob;
   type: string;
   registrationEnd: string;
-  capacity: string;
+  capacity: number;
 };
 
 export const gatheringRules = {
