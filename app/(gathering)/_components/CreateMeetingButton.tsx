@@ -3,7 +3,7 @@
 import React, { Suspense, useEffect } from 'react';
 
 import useUserStore from '@/stores/userStore';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import LoginAlert from '@/components/loginAlert/LoginAlert';
 import Modal from '@/components/Modal';
 import useModal from '@/hooks/useModal';
@@ -14,15 +14,22 @@ const CreateMeetingButton1 = () => {
 
   const searchParams = useSearchParams();
 
-  const isRedirect = searchParams.get('redirectedFrom');
+  const isRedirect = searchParams.get('redirectedFrom'); // isRedirect === alert
 
   const { user } = useUserStore();
+  const { replace } = useRouter();
 
   useEffect(() => {
     if (isRedirect) {
       handleOpenModal();
+      const params = new URLSearchParams(searchParams);
+
+      if (searchParams.has('redirectedFrom')) {
+        params.delete('redirectedFrom');
+        replace('/');
+      }
     }
-  }, []);
+  }, [isRedirect]);
 
   return (
     <>
