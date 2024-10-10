@@ -50,5 +50,6 @@ export const gatheringRules = {
       value: 5,
       message: '최소 5인 이상을 입력해주세요',
     },
+    validate: (value: number) => value >= 5 || '5명 이상이어야 합니다.',
   },
 };

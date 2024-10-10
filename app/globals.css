@@ -49,4 +49,12 @@ body {
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #c0a0b9;
   }
+
+  .scrollShadowTop {
+    background: linear-gradient(356deg, rgba(249, 250, 251, 0) 2.52%, #d7c234 96.76%);
+  }
+
+  .scrollShadowBottom {
+    background: linear-gradient(176deg, rgba(249, 250, 251, 0) 2.52%, #d7c234 96.76%);
+  }
 }
