@@ -26,6 +26,7 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
         date: date !== '날짜 선택' ? date : undefined,
         sortBy: sortBy === '마감 임박' ? 'dateTime' : 'participantCount',
         type: type === 'DALLAEMFIT' ? 'DALLAEMFIT' : type,
+        sortOrder: 'desc',
       });
 
       const response = await axios.get<Gathering[]>('gatherings', {
@@ -56,11 +57,7 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   useEffect(() => {
-    if (location === '지역 선택' && date === '' && sortBy === '' && type === 'DALLAEMFIT') {
-      refetch();
-    } else {
-      refetch();
-    }
+    refetch();
   }, [location, date, sortBy, type]);
 
   useEffect(() => {
@@ -89,7 +86,7 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
       {/* Content */}
       <div className="flex flex-col items-center gap-6 mt-6 relaive">
         <div
-          className={`sticky top-0 w-full h-188pxr rounded-t-3xl ${isScrolling ? 'scrollShadowTop' : 'transparent'}`}
+          className={`sticky top-0 w-full h-188pxr rounded-t-3xl z-0 ${isScrolling ? 'scrollShadowTop' : 'transparent'}`}
         />
         {data?.pages.flat().length > 0 ? (
           <section className="space-y-6 -mt-210pxr -mb-208pxr" aria-label="Gathering List">
@@ -106,7 +103,7 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
           </div>
         )}
         <div
-          className={`sticky bottom-0 w-full h-188pxr rounded-b-3xl ${isScrolling ? 'scrollShadowBottom' : 'transparent'}`}
+          className={`sticky bottom-0 w-full h-188pxr rounded-b-3xl z-0 ${isScrolling ? 'scrollShadowBottom' : 'transparent'}`}
         />
         <div ref={ref} />
       </div>
