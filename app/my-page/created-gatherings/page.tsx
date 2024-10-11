@@ -1,5 +1,5 @@
 import { getInstance } from '@/utils/axios';
-import CreatedGatherings from '@/components/myPage/CreatedGatherings';
+import CreatedGatherings from '@/components/myPage/createdGatherings/CreatedGatherings';
 
 export default async function Created() {
   const instance = getInstance();

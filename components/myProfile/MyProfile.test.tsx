@@ -59,30 +59,4 @@ describe('myProfile component test', () => {
 
     expect(editProfileModal).not.toBeInTheDocument();
   });
-
-  // it.only('프로필 수정 테스트', () => {
-  //   render(
-  //     <QueryClientProvider client={queryClient}>
-  //       <MyProfile />
-  //     </QueryClientProvider>,
-  //   );
-
-  //   const editBtn = screen.getByLabelText('edit');
-  //   expect(editBtn).toBeInTheDocument();
-
-  //   fireEvent.click(editBtn);
-
-  //   const editProfileModal = screen.getByLabelText('editProfileModal');
-  //   expect(editProfileModal).toBeInTheDocument();
-
-  //   const submitBtn = screen.getByText('수정하기');
-
-  //   const imgInput = screen.getByLabelText('profileImg');
-
-  //   expect(submitBtn).toBeInTheDocument();
-  //   expect(imgInput).toBeInTheDocument();
-
-  //   const input = screen.getByPlaceholderText('회사명을 입력해주세요.');
-  //   expect(input).toBeInTheDocument();
-  // });
 });

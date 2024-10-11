@@ -1,9 +1,9 @@
 'use client';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import ReviewCard from '../card/ReviewCard';
+import ReviewCard from '@/components/card/ReviewCard';
 
 import { Review } from '@/lib/definition';
 import { getInstance } from '@/utils/axios';

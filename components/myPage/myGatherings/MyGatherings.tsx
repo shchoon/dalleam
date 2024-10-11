@@ -1,18 +1,17 @@
 'use client';
+import React, { useEffect } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import Modal from '../Modal';
 import useModal from '@/hooks/useModal';
 import { getInstance } from '@/utils/axios';
-import Review from '../modal/review/Review';
-
-import CheckCancel from '../modal/checkCancel/CheckCancel';
-import Card from '../card/Card';
-
 import { JoinedGathering } from '@/lib/definition';
 import useModalType from '@/stores/useModalType';
-import { useEffect } from 'react';
+
+import Modal from '../../Modal';
+import Review from '../../modal/review/Review';
+import CheckCancel from '../../modal/checkCancel/CheckCancel';
+import Card from '../../card/Card';
 
 type Props = {
   initialMyGatherings: JoinedGathering[];
@@ -26,7 +25,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
   const getMyGatheringData = async (offset: number) => {
     const instance = getInstance();
     const res = await instance('/gatherings/joined', {
-      params: { limit: 10, offset: offset /* sortOrder: 'desc' */ },
+      params: { limit: 10, offset: offset, sortOrder: 'desc' },
     });
 
     return res.data;
