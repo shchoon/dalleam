@@ -28,7 +28,7 @@ export default function RootLayout({
           <NavBar />
           <QueryProvider>
             <div className="bg-gray-100 flex items-center flex-col">{children}</div>
-            <ReactQueryDevtools initialIsOpen={true} />
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryProvider>
         </div>
         <div id="global-modal"></div>

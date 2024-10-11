@@ -53,7 +53,6 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
     },
     staleTime: 1000 * 5 * 60,
   });
-  console.log(hasNextPage);
 
   useEffect(() => {
     if (inView) {
