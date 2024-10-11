@@ -1,17 +1,21 @@
 'use client';
+import React, { useEffect } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import Card from '../card/Card';
-import Modal from '../Modal';
-import Review from '../modal/review/Review';
+import Card from '../../card/Card';
+import Modal from '../../Modal';
+import Review from '../../modal/review/Review';
 
 import { JoinedGathering } from '@/lib/definition';
 import { getInstance } from '@/utils/axios';
 import useModal from '@/hooks/useModal';
 
-export default function NewReview({ initialReviews }: { initialReviews: JoinedGathering[] }) {
+type Props = {
+  initialReviews: JoinedGathering[];
+};
+
+export default function NewReview({ initialReviews }: Props) {
   const { ref, inView } = useInView();
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
   const queryClient = useQueryClient();

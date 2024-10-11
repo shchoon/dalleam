@@ -1,9 +1,9 @@
 'use client';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import Card from '../card/Card';
+import Card from '@/components/card/Card';
 
 import { Gathering } from '@/lib/definition';
 import { getInstance } from '@/utils/axios';
@@ -46,7 +46,7 @@ export default function CreatedGatherings({ initialCreatedGatherings, userId }: 
       pageParams: [0],
     },
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < 5) {
+      if (lastPage.length < 10) {
         return undefined;
       }
       return allPages.flat().length;
@@ -63,7 +63,7 @@ export default function CreatedGatherings({ initialCreatedGatherings, userId }: 
   return (
     <>
       <div className="pt-6 min-h-[60vh] flex justify-center">
-        {initialCreatedGatherings.length === 0 ? (
+        {createdGatherings.pages.flat().length === 0 ? (
           <div className="flex items-center">
             <span className="text-sm font-medium text-gray-500">아직 만든 모임이 없어요</span>
           </div>

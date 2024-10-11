@@ -1,6 +1,6 @@
 import { getInstance } from '@/utils/axios';
 
-import NewReview from '@/components/myPage/NewReview';
+import NewReview from '@/components/myPage/newReviews/NewReview';
 
 export default async function New() {
   const instance = getInstance();
