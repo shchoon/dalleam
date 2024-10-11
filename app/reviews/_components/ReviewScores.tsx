@@ -13,26 +13,28 @@ export default function ReviewScores() {
   const rounded = useTransform(count, (latest) => Math.round(latest));
   const { date, type, location, reviewSortBy } = useFilterStore();
 
-  let newStars = [0, 0, 0, 0, 0];
-
   const { data, isLoading } = useScoresQuery(
     [['reviews', 'scores'], { type, date, location, sortBy: reviewSortBy }],
     type,
   );
 
-  if (data) {
-    for (const scores of data) {
-      newStars[0] += scores.oneStar;
-      newStars[1] += scores.twoStars;
-      newStars[2] += scores.threeStars;
-      newStars[3] += scores.fourStars;
-      newStars[4] += scores.fiveStars;
-    }
-  }
+  const newStars: number[] = data
+    ? data.reduce(
+        (acc, cur) => [
+          acc[0] + cur.oneStar,
+          acc[1] + cur.twoStars,
+          acc[2] + cur.threeStars,
+          acc[3] + cur.fourStars,
+          acc[4] + cur.fiveStars,
+        ],
+        [0, 0, 0, 0, 0],
+      )
+    : [0, 0, 0, 0, 0];
 
   const totalReviews =
     newStars[0] + newStars[1] * 2 + newStars[2] * 3 + newStars[3] * 4 + newStars[4] * 5;
   const points = newStars[0] + newStars[1] + newStars[2] + newStars[3] + newStars[4];
+
   const averageScore = data ? data[0]?.averageScore : 0;
 
   useEffect(() => {
@@ -76,7 +78,7 @@ export default function ReviewScores() {
 
         {/* 별점 그래프 */}
         <div className="flex flex-col items-start gap-4pxr">
-          {newStars.reverse().map((el, idx) => (
+          {newStars.toReversed().map((el, idx) => (
             <div key={idx} className="flex items-start gap-3">
               {isLoading ? (
                 <div className="w-146pxr md:w-302pxr h-20pxr">
