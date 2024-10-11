@@ -13,7 +13,7 @@ export type timeSlotProps = { time: string; date: string }; // date가 ISO 8601 
 
 type props = {
   date: string;
-  setDate: Dispatch<SetStateAction<string>>;
+  setDate: (date: string) => void;
   updateTimeSlots?: (newDate: Date) => void;
   onClose?: () => void;
   onUpdate?: () => void;

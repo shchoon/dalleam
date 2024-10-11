@@ -9,6 +9,7 @@ import DateFilter from '@/components/filter/DateFilter';
 import SortByFilter from '@/components/filter/SortByFilter';
 import SkeletonList from './skeletonComponents/SkeletonList';
 import SkeletonCard from './skeletonComponents/SkeletonCard';
+import DeferredComponent from '@/components/DeferredComponent';
 
 export default function ReviewList() {
   const { type, location, reviewUrl, reviewSortBy: sortBy, date } = getReviewsUrl();
@@ -16,14 +17,21 @@ export default function ReviewList() {
     useReviewsInfiniteQuery([['reviews'], { type, location, date, sortBy }], reviewUrl);
   const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.3 });
 
+  if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
   if (!data?.pages[0].length)
     return (
-      <div className="w-full h-258pxr md:w-696pxr md:h-528pxr lg:w-996pxr lg:h-474pxr flex items-center justify-center">
-        불러올 데이터가 없습니다.
-      </div>
+      <DeferredComponent>
+        <div className="w-full h-258pxr md:w-696pxr md:h-528pxr lg:w-996pxr lg:h-474pxr flex items-center justify-center">
+          불러올 데이터가 없습니다.
+        </div>
+      </DeferredComponent>
     );
-  if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
-  if (isLoading) return <SkeletonList />;
+  if (isLoading)
+    return (
+      <DeferredComponent>
+        <SkeletonList />
+      </DeferredComponent>
+    );
 
   return (
     <div className="flex w-full py-6 px-4 lg:p-6 flex-col items-start gap-10pxr bg-white border-t-2 border-gray-900">
