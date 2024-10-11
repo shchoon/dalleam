@@ -20,7 +20,7 @@ export default function ReviewScores() {
     type,
   );
 
-  const newStars: number[] = data
+  const newStars: [number, number, number, number, number] = data
     ? data.reduce(
         (acc, cur) => [
           acc[0] + cur.oneStar,
