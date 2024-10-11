@@ -79,6 +79,18 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
     }
   };
 
+  const handleShare = () => {
+    const shareableLink = `${window.location.origin}/gatherings/${gatheringId}`;
+    navigator.clipboard
+      .writeText(shareableLink)
+      .then(() => {
+        alert('링크가 클립보드에 복사되었습니다!');
+      })
+      .catch((err) => {
+        console.error('클립보드 복사 실패:', err);
+      });
+  };
+
   let content;
   let text = '국내 최고 웰니스 전문가와 프로그램을 통해 지친 몸과 마음을 회복해봐요';
   if (user && hostId === userId) {
@@ -86,27 +98,31 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
     content = (
       <div className="space-x-2 flex">
         <Button
-          className="text-sm  sm:w-1/2 md:!w-110pxr !h-44pxr"
+          className="text-sm  sm:w-1/2 md:w-110pxr h-44pxr"
           fillState="full"
           onClick={() => cancelGathering({ gatheringId })}
         >
           {isGatheringCanceling ? '모임 취소중..' : '모임 취소하기'}
         </Button>
-        <Button className="text-sm sm:w-1/2 md:!w-110pxr !h-44pxr" fillState="empty">
+        <Button
+          className="text-sm sm:w-1/2 md:w-110pxr h-44pxr"
+          fillState="empty"
+          onClick={handleShare}
+        >
           공유하기
         </Button>
       </div>
     );
   } else if (!isJoined && !isFull) {
     content = (
-      <Button className="text-sm !w-115pxr !h-44pxr" fillState="full" onClick={handleJoin}>
+      <Button className="text-sm w-115pxr h-44pxr" fillState="full" onClick={handleJoin}>
         {isJoining ? '참여 요청중..' : '참여하기'}
       </Button>
     );
   } else if (user && isJoined) {
     content = (
       <Button
-        className="text-sm !w-115pxr !h-44pxr"
+        className="text-sm w-115pxr h-44pxr"
         fillState="empty"
         onClick={() => cancelParticipation({ gatheringId })}
       >
@@ -116,7 +132,7 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
   } else if (isFull) {
     content = (
       <Button
-        className="text-sm !w-115pxr !h-44pxr disabled:cursor-not-allowed"
+        className="text-sm w-115pxr h-44pxr disabled:cursor-not-allowed"
         variant="gray"
         fillState="full"
         disabled={true}
