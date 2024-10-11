@@ -57,6 +57,7 @@ export default function CheckCancel({ closeModal }: Props) {
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">예약 취소</span>
         <Delete
+          aria-label="deleteIcon"
           className="cursor-pointer"
           onClick={() => {
             closeModal();
