@@ -30,14 +30,6 @@ export default function GatheringTimes({
   return (
     <div className="w-full flex flex-col items-start gap-2 self-stretch">
       <div className="text-sm font-semibold">{timeOfDay}</div>
-      {/* 오늘 날짜로 기본값 설정 */}
-      <Controller
-        control={control}
-        name="registrationEnd"
-        defaultValue={today} // 여기서 오늘 날짜를 기본값으로 설정
-        render={({ field }) => <input className="hidden" type="text" {...field} />}
-      />
-
       <div className="w-full flex gap-2 flex-wrap">
         {timeSlots &&
           timeSlots

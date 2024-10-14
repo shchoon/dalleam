@@ -3,7 +3,6 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { registerMutationOptions } from '@/services/auths/register';
 import Input from '../input/Input';
 import PasswordInput from '../input/PasswordInput';
 import { registerSchema } from '@/constants/formSchema';
@@ -11,6 +10,8 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button';
 import Link from 'next/link';
+import { toast } from '../toast/ToastManager';
+import { register } from '@/lib/data';
 
 type FormData = z.infer<typeof registerSchema>;
 
@@ -36,8 +37,9 @@ export default function RegisterForm() {
   });
 
   const mutation = useMutation({
-    ...registerMutationOptions,
+    mutationFn: register,
     onSuccess: () => {
+      toast('회원가입에 성공하였습니다.');
       router.push('/login');
     },
   });
