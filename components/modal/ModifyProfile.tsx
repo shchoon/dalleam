@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Input from '../input/Input';
 import Button from '../Button';
 import { getInstance } from '@/utils/axios';
-import { User } from '@/types/user';
+import { User } from '@/lib/definition';
 import useUserStore from '@/stores/userStore';
 
 import Modify from '/public/icons/profileBg/modifyProfile.svg';
