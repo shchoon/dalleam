@@ -2,8 +2,7 @@
 
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { loginMutationOptions } from '@/services/auths/login';
+import { useRouter } from 'next/navigation';
 import Input from '../input/Input';
 import PasswordInput from '../input/PasswordInput';
 import { loginSchema } from '@/constants/formSchema';
@@ -12,9 +11,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../Button';
 import Link from 'next/link';
 import { controllerStyle, labelStyle } from './RegisterForm';
-import { getUserMutationOptions } from '@/services/auths/user';
 import useUserStore from '@/stores/userStore';
 import useSavedStore from '@/stores/savedStore';
+import { toast } from '../toast/ToastManager';
+import { getUser, login } from '@/lib/data';
 
 type FormData = z.infer<typeof loginSchema>;
 
@@ -37,19 +37,20 @@ export default function LoginForm() {
   const { setUser } = useUserStore();
   const { setSavedUserId } = useSavedStore();
 
-  const login = useMutation({
-    ...loginMutationOptions,
+  const loginMutation = useMutation({
+    mutationFn: login,
     onSuccess: (data) => {
       document.cookie = `token=${data.token}; path=/; max-age=3600`;
-      getUser.mutate();
+      getUserMutation.mutate();
     },
   });
 
-  const getUser = useMutation({
-    ...getUserMutationOptions,
+  const getUserMutation = useMutation({
+    mutationFn: getUser,
     onSuccess: (user) => {
       setUser(user);
       setSavedUserId(user.id);
+      toast('로그인에 성공하였습니다.');
       const currentParams = new URLSearchParams(window.location.search);
       const redirectedFrom = currentParams.get('redirectedFrom');
       const redirectUrl =
@@ -61,7 +62,7 @@ export default function LoginForm() {
   });
 
   const submit = handleSubmit(({ email, password }: FormData) => {
-    login.mutate({ email, password });
+    loginMutation.mutate({ email, password });
   });
 
   return (

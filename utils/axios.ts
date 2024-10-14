@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { getServerSideCookie } from './serverSideCookies';
 import { redirect } from 'next/navigation';
 import Cookies from 'js-cookie';
+import { toast } from '@/components/toast/ToastManager';
 
 const ENV_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -25,8 +26,12 @@ instanceForCS.interceptors.request.use(async (config) => {
 instanceForCS.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      window.location.href = '/login';
+    if (error instanceof AxiosError) {
+      console.log('123123123');
+      toast(error.response?.data.message ?? '알 수 없는 오류가 발생하였습니다.');
+      if (error.response?.status === 401 && error.config?.url !== 'auths/signin') {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   },
@@ -41,7 +46,7 @@ instanceForSS.interceptors.request.use(async (config) => {
 instanceForSS.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error instanceof AxiosError && error.response?.status === 401) {
       redirect('/login');
     }
     return Promise.reject(error);
