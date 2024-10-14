@@ -58,3 +58,22 @@ body {
     background: linear-gradient(176deg, rgba(249, 250, 251, 0) 2.52%, #d7c234 96.76%);
   }
 }
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    top: 0;
+  }
+  10% {
+    opacity: 1;
+    top: 7%;
+  }
+  90% {
+    opacity: 1;
+    top: 7%;
+  }
+  100% {
+    opacity: 0;
+    top: 0;
+  }
+}
