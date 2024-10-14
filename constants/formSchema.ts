@@ -30,7 +30,6 @@ export type gatheringSchema = {
   location: string;
   image: Blob;
   type: string;
-  registrationEnd: string;
   capacity: number;
 };
 

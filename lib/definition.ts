@@ -22,9 +22,14 @@ export type Gathering = {
 export type User = {
   teamId: string;
   id: number;
+  email: string;
   name: string;
+  companyName: string;
   image: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
+
 export type Review = {
   teamId: string;
   id: number;
@@ -35,7 +40,12 @@ export type Review = {
     Gathering,
     'registrationEnd' | 'participantCount' | 'capacity' | 'createdBy' | 'canceledAt'
   >;
-  User: User;
+  User: {
+    teamId: string;
+    id: number;
+    name: string;
+    image: string | null;
+  };
 };
 
 export type Points = {
