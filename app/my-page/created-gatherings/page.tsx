@@ -10,7 +10,7 @@ export default async function Created() {
   const initialCreatedGatherings = await instance('/gatherings', {
     params: {
       createdBy: userId,
-      limit: 10,
+      limit: 20,
       sortBy: 'dateTime',
       sortOrder: 'desc',
     },
