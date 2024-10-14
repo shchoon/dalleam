@@ -15,7 +15,7 @@ type ButtonVariantType = VariantProps<typeof buttonVariants>['variant'];
 export default function Button({
   className,
   variant = 'orange',
-  size = 'lg',
+  size,
   fillState,
   children,
   ...props
@@ -59,6 +59,5 @@ const buttonVariants = cva(`font-semibold rounded-xl text-sm md:text-base hover:
   },
   defaultVariants: {
     variant: 'orange',
-    size: 'lg',
   },
 });
