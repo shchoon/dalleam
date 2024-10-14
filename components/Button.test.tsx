@@ -8,7 +8,7 @@ describe('버튼 렌더링 테스트', () => {
     render(<Button fillState="full">테스트하기1</Button>);
     const buttonElement = screen.getByRole('button');
     expect(buttonElement).toHaveTextContent('테스트하기1');
-    expect(buttonElement).toHaveClass('bg-orange-600 text-white hover:brightness-75');
+    expect(buttonElement).toHaveClass('w-[332px] bg-orange-600 text-white hover:brightness-75');
   });
   it('스몰 색상 버튼 렌더링', () => {
     render(
