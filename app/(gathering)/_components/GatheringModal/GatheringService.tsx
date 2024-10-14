@@ -1,28 +1,16 @@
 import React, { useState } from 'react';
-import { Control, Controller } from 'react-hook-form';
-import { gatheringSchema, gatheringRules } from '@/constants/formSchema';
+import { Controller } from 'react-hook-form';
+import { gatheringRules } from '@/constants/formSchema';
 import Box from '@/public/icons/box.svg';
 import CheckBox from '@/public/icons/check_box.svg';
 import clsx from 'clsx';
-import { GatheringType } from '@/types/types';
+import { gatherings } from '@/lib/constants';
+import { ControlProps } from '@/lib/definition';
 
-type Props = {
-  control: Control<gatheringSchema>;
-};
-
-export default function GatheringService({ control }: Props) {
+export default function GatheringService({ control }: ControlProps) {
   const [selectBox, setSelectBox] = useState('');
-
-  type GatheringServiceType = {
-    value: GatheringType;
-    name: '달램핏:오피스 스트레칭' | '달램핏:마인드풀니스' | '워케이션';
-  };
-
-  const GatheringService: GatheringServiceType[] = [
-    { value: 'OFFICE_STRETCHING', name: '달램핏:오피스 스트레칭' },
-    { value: 'MINDFULNESS', name: '달램핏:마인드풀니스' },
-    { value: 'WORKATION', name: '워케이션' },
-  ];
+  const { OFFICE_STRETCHING, MINDFULNESS, WORKATION } = gatherings;
+  const GatheringService = [OFFICE_STRETCHING, MINDFULNESS, WORKATION];
 
   return (
     <div className="w-full flex flex-col items-start gap-3">
@@ -32,8 +20,9 @@ export default function GatheringService({ control }: Props) {
           <div
             className={clsx(
               'flex flex-col w-1/3 md:w-149pxr h-76pxr md:h-70pxr pl-2 pt-6pxr pb-14pxr md:pl-4 md:pt-3 items-start rounded-lg',
-              selectBox === el.value ? 'bg-gray-900 text-white' : 'bg-gray-50',
+              selectBox === el.val ? 'bg-gray-900 text-white' : 'bg-gray-50',
             )}
+            onClick={() => setSelectBox(el.val)}
             key={idx}
           >
             <div className="flex items-start gap-1 md:gap-2 self-stretch">
@@ -44,17 +33,16 @@ export default function GatheringService({ control }: Props) {
                 render={({ field }) => (
                   <span
                     onClick={() => {
-                      field.onChange(el.value);
-                      setSelectBox(el.value);
+                      field.onChange(el.val);
                     }}
                     className="flex items-center mt-1 cursor-pointer w-18pxr h-18pxr"
                   >
-                    {field.value === el.value ? <CheckBox /> : <Box />}
+                    {selectBox === el.val ? <CheckBox /> : <Box />}
                     <input
                       type="radio"
                       className="hidden"
-                      value={el.value}
-                      checked={field.value === el.value}
+                      value={el.val}
+                      checked={field.value === el.val}
                       readOnly
                     />
                   </span>
@@ -62,13 +50,7 @@ export default function GatheringService({ control }: Props) {
               />
               <div className="flex flex-col justify-center items-start gap-1">
                 <span className="text-sm font-semibold">{el.name.split(':')[0]}</span>
-                {el.value === 'OFFICE_STRETCHING' ? (
-                  <span className="text-xs whitespace-pre-wrap md:whitespace-normal">
-                    {el.name.split(':')[1].replace(' ', '\n')}
-                  </span>
-                ) : (
-                  <span className="text-xs">{el.name.split(':')[1]}</span>
-                )}
+                <span className="text-xs">{el.name.split(':')[1]}</span>
               </div>
             </div>
           </div>
