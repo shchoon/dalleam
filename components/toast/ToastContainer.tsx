@@ -6,7 +6,7 @@ import { toastManager } from './ToastManager';
 type Toast = {
   id: number;
   message: string;
-  second: number;
+  seconds: number;
 };
 
 export default function ToastContainer() {
@@ -16,13 +16,13 @@ export default function ToastContainer() {
 
   useEffect(() => {
     //toastManager에 콜백 등록
-    const cleanUp = toastManager.initialToast((message: string, second: number) => {
-      const newToast = { id: Date.now(), message, second };
+    const cleanUp = toastManager.initialToast((message: string, seconds: number) => {
+      const newToast = { id: Date.now(), message, seconds };
       setToasts((prevToasts) => [newToast, ...prevToasts]);
 
       setTimeout(() => {
         setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== newToast.id));
-      }, second * 1000);
+      }, seconds * 1000);
     });
 
     return () => {
@@ -61,7 +61,7 @@ export default function ToastContainer() {
           }}
           className="fixed top-[7%] left-1/2 transform -translate-x-1/2 bg-orange-500 text-white p-4 rounded-lg shadow-md w-72 text-center transition-transform ease-out duration-500 opacity-0"
           style={{
-            animation: `fadeInOut ${toast.second}s ease-in-out forwards`, // 동적 애니메이션 시간 적용
+            animation: `fadeInOut ${toast.seconds}s ease-in-out forwards`, // 동적 애니메이션 시간 적용
           }}
         >
           <div>{toast.message}</div>
@@ -72,7 +72,7 @@ export default function ToastContainer() {
             }}
             style={{
               width: '100%',
-              transition: `width ${toast.second}s linear`, // 동적으로 애니메이션 시간 적용
+              transition: `width ${toast.seconds}s linear`, // 동적으로 애니메이션 시간 적용
             }}
           ></div>
         </div>

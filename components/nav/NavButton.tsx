@@ -5,7 +5,6 @@ import Dropdown from '../Dropdown';
 import Profile from '../profile/Profile';
 import useUserStore from '@/stores/userStore';
 import useDropdown from '@/hooks/useDropDown';
-import Cookies from 'js-cookie';
 
 const logout = () => {
   document.cookie = 'token=; Max-Age=0; path=/';
@@ -16,10 +15,9 @@ const logout = () => {
 export default function NavButton() {
   const { dropdownRef, handleToggleDropdown } = useDropdown();
   const { user, hydrated } = useUserStore();
-  const token = Cookies.get('token');
 
   if (!hydrated) return null;
-  return token ? (
+  return user ? (
     <>
       <button className="dropdown-toggle" onClick={handleToggleDropdown}>
         <Profile image={user?.image} usedIn="navbar" />

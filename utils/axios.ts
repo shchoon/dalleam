@@ -27,7 +27,6 @@ instanceForCS.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error instanceof AxiosError) {
-      console.log('123123123');
       toast(error.response?.data.message ?? '알 수 없는 오류가 발생하였습니다.');
       if (error.response?.status === 401 && error.config?.url !== 'auths/signin') {
         window.location.href = '/login';
