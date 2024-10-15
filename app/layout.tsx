@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Metadata } from 'next';
 import { getMetadata } from '@/constants/metadata';
 import ToastContainer from '@/components/toast/ToastContainer';
+import { TokenMonitor } from '@/components/TokenMonitor';
 
 export const metadata: Metadata = getMetadata();
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           </QueryProvider>
         </div>
         <div id="global-modal"></div>
+        <TokenMonitor />
         <ToastContainer />
       </body>
     </html>
