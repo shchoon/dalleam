@@ -7,9 +7,8 @@ import { gatheringSchema } from '@/constants/formSchema';
 export const fetchGatherings = async () => {
   try {
     const response = await getInstance().get<Gathering[]>('gatherings', {
-      params: { limit: 10 },
+      params: { limit: 10, type: 'DALLAEMFIT', sortOrder: 'desc', sortBy: 'dateTime' },
     });
-
     return { data: response.data, error: null };
   } catch (error) {
     if (axios.isAxiosError(error)) {
