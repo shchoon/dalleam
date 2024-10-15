@@ -19,8 +19,8 @@ export function TokenMonitor() {
       // 페이지 로드 시 남은 시간 확인
       checkCookie();
 
-      // 1초마다 남은 시간 확인
-      const interval = setInterval(checkCookie, 1000);
+      // 1분마다 남은 시간 확인
+      const interval = setInterval(checkCookie, 60 * 1000);
 
       return () => clearInterval(interval); // 컴포넌트 언마운트 시 타이머 정리
     }
