@@ -8,6 +8,7 @@ type UserStore = {
   clearUser: () => void;
   hydrated: boolean;
   setHydrated: (hydrated: boolean) => void;
+  expiresAt: number | null;
 };
 
 const useUserStore = create(
@@ -15,9 +16,14 @@ const useUserStore = create(
     (set) => ({
       user: null,
       hydrated: false,
+      expiresAt: null,
       setHydrated: (hydrated: boolean) => set({ hydrated }),
-      setUser: (user: User) => set({ user }),
-      clearUser: () => set({ user: null }),
+      setUser: (user: User) => {
+        const maxAge = 60 * 60 * 1000;
+        const expiresAt = Date.now() + maxAge;
+        set({ user, expiresAt });
+      },
+      clearUser: () => set({ user: null, expiresAt: null }),
     }),
     {
       name: 'user',
