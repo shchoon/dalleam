@@ -21,6 +21,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
   const { ref, inView } = useInView();
   const { modalRef, handleCloseModal, handleOpenModal } = useModal();
   const { type } = useModalType();
+  const client = useQueryClient();
 
   const getMyGatheringData = async (offset: number) => {
     const instance = getInstance();
@@ -40,7 +41,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
     queryKey: ['gatheringJoined'],
     initialPageParam: 0,
     initialData: {
-      pages: initialMyGatherings,
+      pages: [initialMyGatherings],
       pageParams: [0],
     },
     queryFn: ({ pageParam }) => getMyGatheringData(pageParam),
@@ -67,7 +68,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
             <span className="text-sm font-medium text-gray-500">신청한 모임이 아직 없어요</span>
           </div>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div aria-label="gatheringJoined" className="flex flex-col gap-6">
             {gatheringJoined.pages.flat().map((myGathering) => {
               return (
                 <Card

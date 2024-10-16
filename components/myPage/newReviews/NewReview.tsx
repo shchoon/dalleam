@@ -18,9 +18,6 @@ type Props = {
 export default function NewReview({ initialReviews }: Props) {
   const { ref, inView } = useInView();
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
-  const queryClient = useQueryClient();
-  console.log('gatheringJoined', queryClient.getQueryData(['gatheringJoined']));
-  console.log('writtenReviews', queryClient.getQueryData(['newReviews']));
 
   const getReviews = async (offset: number) => {
     const instance = getInstance();
@@ -31,6 +28,7 @@ export default function NewReview({ initialReviews }: Props) {
         offset: offset,
         reviewed: false,
         completed: true,
+        sortOrder: 'desc',
       },
     });
 
@@ -47,12 +45,12 @@ export default function NewReview({ initialReviews }: Props) {
     queryFn: ({ pageParam }) => getReviews(pageParam),
     initialPageParam: 0,
     initialData: {
-      pages: initialReviews,
+      pages: [initialReviews],
       pageParams: [0],
     },
     enabled: false,
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < 5) {
+      if (lastPage.length < 10) {
         return undefined;
       }
       return allPages.flat().length;
@@ -76,7 +74,7 @@ export default function NewReview({ initialReviews }: Props) {
             </span>
           </div>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div aria-label="newReviews" className="flex flex-col gap-6">
             {newReviews.pages.flat().map((review) => {
               return (
                 <Card

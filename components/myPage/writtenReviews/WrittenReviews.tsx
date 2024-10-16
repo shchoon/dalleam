@@ -14,10 +14,8 @@ type Props = {
 };
 
 export default function WrittenReviews({ initialWrittenReviews, userId }: Props) {
-  console.log(initialWrittenReviews);
   const { ref, inView } = useInView();
   const queryClient = useQueryClient();
-  console.log(queryClient.getQueryData(['writtenReviews']));
   const getWrittenReviews = async (offset: number) => {
     const instance = getInstance();
 
@@ -42,7 +40,7 @@ export default function WrittenReviews({ initialWrittenReviews, userId }: Props)
     queryFn: ({ pageParam }) => getWrittenReviews(pageParam),
     initialPageParam: 0,
     initialData: {
-      pages: initialWrittenReviews,
+      pages: [initialWrittenReviews],
       pageParams: [0],
     },
     enabled: false,
@@ -68,7 +66,7 @@ export default function WrittenReviews({ initialWrittenReviews, userId }: Props)
           <span className="text-sm font-medium text-gray-500">아직 작성한 리뷰가 없어요</span>
         </div>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="w-full flex flex-col gap-6">
           {writtenReviews.pages.flat().map((review, i) => {
             return <ReviewCard key={i} {...review} isMyPage />;
           })}

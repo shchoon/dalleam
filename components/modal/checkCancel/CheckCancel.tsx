@@ -2,12 +2,13 @@
 import React from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from '@/components/toast/ToastManager';
 import Button from '@/components/Button';
+import { getInstance } from '@/utils/axios';
 import useGatheringId from '@/stores/useGatheringId';
 import { JoinedGathering } from '@/lib/definition';
 
 import Delete from '/public/icons/delete.svg';
-import { getInstance } from '@/utils/axios';
 
 type Props = {
   closeModal: () => void;
@@ -33,14 +34,23 @@ export default function CheckCancel({ closeModal }: Props) {
   const { mutate } = useMutation({
     mutationFn: leaveGathering,
     onSuccess: () => {
+      toast('해당 모임 예약이 취소되었습니다.');
       closeModal();
       clearId();
       queryClient.setQueryData(['gatheringJoined'], (oldData: QueryData) => {
         const updateData = oldData.pages.flat().filter((data: JoinedGathering) => data.id !== id);
 
+        const pages = updateData.reduce((acc: JoinedGathering[][], _, i: number) => {
+          if (i % 10 === 0) {
+            acc.push(updateData.slice(i, i + 10));
+          }
+
+          return acc;
+        }, []);
+
         return {
           ...oldData,
-          pages: updateData,
+          pages: pages,
         };
       });
     },
@@ -70,7 +80,6 @@ export default function CheckCancel({ closeModal }: Props) {
       </div>
       <div className="w-full flex gap-4">
         <Button
-          aria-label="cancelBtn"
           onClick={() => {
             closeModal();
             clearId();
@@ -82,7 +91,6 @@ export default function CheckCancel({ closeModal }: Props) {
           취소
         </Button>
         <Button
-          aria-label="submitBtn"
           type="submit"
           className="w-full flex justify-center items-center "
           fillState="full"

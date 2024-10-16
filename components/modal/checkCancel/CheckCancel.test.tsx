@@ -18,7 +18,7 @@ describe('checkCancel component test', () => {
 
     expect(screen.getByText('정말 해당 모임 예약을 취소하시겠습니까?'));
 
-    expect(screen.getByLabelText('cancelBtn')).toBeInTheDocument();
-    expect(screen.getByLabelText('submitBtn')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /취소/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /확인/i })).toBeInTheDocument();
   });
 });

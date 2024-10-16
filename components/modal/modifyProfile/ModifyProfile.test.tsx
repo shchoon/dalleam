@@ -1,7 +1,7 @@
 import React from 'react';
 import ModifyProfile from './ModifyProfile';
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -22,30 +22,30 @@ describe('ModifyProfile component test', () => {
     const title = screen.getByText('프로필 수정하기');
     expect(title).toBeInTheDocument();
 
-    const closeIcon = screen.getByLabelText('closeProfileEditModal');
+    const closeIcon = screen.getByLabelText('closeBtn');
     expect(closeIcon).toBeInTheDocument();
 
     const profileInput = screen.getByLabelText('profileImg');
     expect(profileInput).toBeInTheDocument();
 
-    const companyNameInput = screen.getByLabelText('companyName');
+    const companyNameInput = screen.getByPlaceholderText('회사명을 입력해주세요.');
     expect(companyNameInput).toBeInTheDocument();
 
-    const cancelBtn = screen.getByLabelText('cancelBtn');
+    const cancelBtn = screen.getByRole('button', { name: /취소/i });
     expect(cancelBtn).toBeInTheDocument();
 
-    const modifyBtn = screen.getByLabelText('modifyBtn');
+    const modifyBtn = screen.getByRole('button', { name: /수정하기/i });
     expect(modifyBtn).toBeInTheDocument();
   });
 
-  it('프로필 수정 기능 & 버튼 활성화 테스트', () => {
+  it('버튼 활성화 테스트', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <ModifyProfile closeModal={mockCloseModal} />
       </QueryClientProvider>,
     );
 
-    const modifyBtn = screen.getByLabelText('modifyBtn');
+    const modifyBtn = screen.getByRole('button', { name: /수정하기/i });
 
     // 임의의 이미지 파일 생성
     const testFile = new File(['test img'], 'testImg/png', { type: 'image/png' });
@@ -53,12 +53,12 @@ describe('ModifyProfile component test', () => {
 
     fireEvent.change(profileInput, { target: { files: [testFile] } });
 
-    const previewImg = screen.getByLabelText('previewImg');
+    const previewImg = screen.getByAltText('previewImg');
     expect(previewImg).toBeInTheDocument();
 
     expect(modifyBtn).toBeDisabled();
     // 화사이름 input
-    const companyNameInput = screen.getByLabelText('companyName');
+    const companyNameInput = screen.getByPlaceholderText('회사명을 입력해주세요.');
 
     fireEvent.change(companyNameInput, { target: { value: 'test' } });
 

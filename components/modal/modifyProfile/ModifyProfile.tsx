@@ -70,14 +70,13 @@ export default function ModifyProfile({ closeModal }: Props) {
 
   return (
     <form
-      aria-label="editProfileModal"
       className="w-343pxr h-324pxr md:w-520pxr md:h-328pxr p-6 flex flex-col gap-6 rounded-xl bg-white"
       onSubmit={submit}
     >
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">프로필 수정하기</span>
         <Delete
-          aria-label="closeProfileEditModal"
+          aria-label="closeBtn"
           onClick={() => {
             closeModal();
           }}
@@ -103,7 +102,6 @@ export default function ModifyProfile({ closeModal }: Props) {
       <label htmlFor="profileImg">
         {profileImg?.preview ? (
           <Image
-            aria-label="previewImg"
             src={profileImg.preview}
             width={56}
             height={56}
@@ -123,19 +121,13 @@ export default function ModifyProfile({ closeModal }: Props) {
               <label className="text-base font-semibold text-gray-800" htmlFor="companyName">
                 회사
               </label>
-              <Input
-                aria-label="companyName"
-                id="companyName"
-                placeholder="회사명을 입력해주세요."
-                {...field}
-              />
+              <Input id="companyName" placeholder="회사명을 입력해주세요." {...field} />
             </div>
           )}
         />
       </div>
       <div className="w-full flex gap-4">
         <Button
-          aria-label="cancelBtn"
           className="w-full flex justify-center items-center "
           fillState="empty"
           variant="orange"
@@ -146,7 +138,6 @@ export default function ModifyProfile({ closeModal }: Props) {
           취소
         </Button>
         <Button
-          aria-label="modifyBtn"
           type="submit"
           disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "

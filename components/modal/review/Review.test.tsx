@@ -27,9 +27,9 @@ describe('Review modal test', () => {
       ),
     );
 
-    expect(screen.getByLabelText('cancelBtn'));
+    expect(screen.getByRole('button', { name: /취소/i }));
 
-    expect(screen.getByLabelText('submitBtn'));
+    expect(screen.getByRole('button', { name: /리뷰 등록/i }));
   });
 
   it('별점 클릭 테스트', () => {
@@ -47,7 +47,7 @@ describe('Review modal test', () => {
     expect(fillHearts[0]).not.toHaveClass('hidden');
   });
 
-  it.only('버튼 활성화 테스트', () => {
+  it('버튼 활성화 테스트', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <ReviewModal closeModal={mockCloseModal} />
@@ -57,7 +57,7 @@ describe('Review modal test', () => {
     const reviewInput = screen.getByPlaceholderText(
       '남겨주신 리뷰는 프로그램 운영 및 다른 회원 분들께 큰 도움이 됩니다.',
     );
-    const submitBtn = screen.getByLabelText('submitBtn');
+    const submitBtn = screen.getByRole('button', { name: /리뷰 등록/i });
 
     fireEvent.click(emptyHearts[0]);
 

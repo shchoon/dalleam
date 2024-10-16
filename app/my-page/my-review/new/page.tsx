@@ -9,6 +9,7 @@ export default async function New() {
       limit: 10,
       reviewed: false,
       completed: true,
+      sortOrder: 'desc',
     },
   });
 

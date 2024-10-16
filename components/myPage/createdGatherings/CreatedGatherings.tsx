@@ -14,7 +14,6 @@ type Props = {
 };
 
 export default function CreatedGatherings({ initialCreatedGatherings, userId }: Props) {
-  console.log(initialCreatedGatherings);
   const { ref, inView } = useInView();
 
   const getCreatedGathering = async (offset: number) => {
@@ -42,7 +41,7 @@ export default function CreatedGatherings({ initialCreatedGatherings, userId }: 
     queryFn: ({ pageParam }) => getCreatedGathering(pageParam),
     initialPageParam: 0,
     initialData: {
-      pages: initialCreatedGatherings,
+      pages: [initialCreatedGatherings],
       pageParams: [0],
     },
     getNextPageParam: (lastPage, allPages) => {
@@ -68,7 +67,7 @@ export default function CreatedGatherings({ initialCreatedGatherings, userId }: 
             <span className="text-sm font-medium text-gray-500">아직 만든 모임이 없어요</span>
           </div>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div aria-label="createdGatherings" className="flex flex-col gap-6">
             {createdGatherings.pages.flat().map((gathering) => {
               return <Card normal gathering={gathering} key={gathering.id} />;
             })}
