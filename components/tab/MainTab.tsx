@@ -20,19 +20,19 @@ export default function MainTab() {
         <div key={idx} className="flex flex-col items-start gap-2">
           <div
             onClick={() => {
-              el === 'DALLAEMFIT' ? resetFilters() : setType('WORKATION');
+              el.val === 'DALLAEMFIT' ? resetFilters() : setType('WORKATION');
             }}
             className="flex items-center gap-1 cursor-pointer"
           >
             <span
               className={clsx(
-                (el === 'DALLAEMFIT' ? type !== 'WORKATION' : type === 'WORKATION') &&
+                (el.val === 'DALLAEMFIT' ? type !== 'WORKATION' : type === 'WORKATION') &&
                   'text-lg font-semibold transition-all duration-500 linear',
               )}
             >
-              {el === 'DALLAEMFIT' ? '달램 핏' : '워케이션'}
+              {el.val === 'DALLAEMFIT' ? '달램 핏' : '워케이션'}
             </span>
-            {el === 'DALLAEMFIT' ? (
+            {el.val === 'DALLAEMFIT' ? (
               <DallaemFitIcon
                 className={clsx(
                   type !== 'WORKATION' ? 'text-gray-900' : 'text-gray-400',
