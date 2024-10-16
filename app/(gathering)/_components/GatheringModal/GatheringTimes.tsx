@@ -1,7 +1,8 @@
 import Chip from '@/components/chip/Chip';
 import { gatheringRules, gatheringSchema } from '@/constants/formSchema';
 import { convertDate } from '@/utils/convertDate';
-import React, { Dispatch, SetStateAction } from 'react';
+import clsx from 'clsx';
+import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { Control, Controller } from 'react-hook-form';
 
 type timeSlotProps = { time: string; date: string };
@@ -23,10 +24,6 @@ export default function GatheringTimes({
 }: props) {
   const today = convertDate(new Date());
 
-  const handleTimeClick = (time: timeSlotProps) => {
-    setSelectTime(() => time.date);
-  };
-
   return (
     <div className="w-full flex flex-col items-start gap-2 self-stretch">
       <div className="text-sm font-semibold">{timeOfDay}</div>
@@ -43,10 +40,15 @@ export default function GatheringTimes({
                 render={({ field }) => (
                   <Chip
                     {...field}
-                    className="px-3 py-6pxr w-60pxr h-32pxr"
+                    className={clsx(
+                      'px-3 py-6pxr w-60pxr h-32pxr',
+                      today > time.date ? 'cursor-not-allowed' : 'cursor-pointer',
+                    )}
                     onClick={() => {
-                      field.onChange(time.date);
-                      handleTimeClick(time);
+                      if (today < time.date) {
+                        field.onChange(time.date);
+                        setSelectTime(time.date);
+                      }
                     }}
                     color={
                       today > time.date ? 'disabled' : selectTime === time.date ? 'navy' : 'white'
