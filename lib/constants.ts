@@ -1,8 +1,8 @@
 export const gatherings = {
-  OFFICE_STRETCHING: 'OFFICE_STRETCHING',
-  MINDFULNESS: 'MINDFULNESS',
-  WORKATION: 'WORKATION',
-  DALLAEMFIT: 'DALLAEMFIT',
+  OFFICE_STRETCHING: { val: 'OFFICE_STRETCHING', name: '달램핏:오피스 스트레칭' },
+  MINDFULNESS: { val: 'MINDFULNESS', name: '달램핏:마인드풀니스' },
+  WORKATION: { val: 'WORKATION', name: '워케이션' },
+  DALLAEMFIT: { val: 'DALLAEMFIT', name: '전체' },
 } as const;
 
 export const gatheringsMainTab = [gatherings.DALLAEMFIT, gatherings.WORKATION];

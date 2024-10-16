@@ -1,15 +1,14 @@
 // fetcher 함수 작성 파일
 import { getInstance } from '@/utils/axios';
 import axios from 'axios';
-import { Gathering, Participant, Review } from './definition';
+import { Gathering, Participant, Review, User } from './definition';
 import { gatheringSchema } from '@/constants/formSchema';
 
 export const fetchGatherings = async () => {
   try {
     const response = await getInstance().get<Gathering[]>('gatherings', {
-      params: { limit: 10 },
+      params: { limit: 10, type: 'DALLAEMFIT', sortOrder: 'desc', sortBy: 'dateTime' },
     });
-
     return { data: response.data, error: null };
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -67,4 +66,34 @@ export const postGathering = async ({ gathering }: { gathering: gatheringSchema 
   });
 
   return response.data;
+};
+
+export const login = async (body: { email: string; password: string }) => {
+  const instance = getInstance();
+  const res = await instance.post<{
+    token: string;
+  }>('auths/signin', body);
+
+  return res.data;
+};
+
+export const register = async (body: {
+  email: string;
+  password: string;
+  name: string;
+  companyName: string;
+}) => {
+  const instance = getInstance();
+  const res = await instance.post<{
+    message: string;
+  }>('auths/signup', body);
+
+  return res.data;
+};
+
+export const getUser = async () => {
+  const instance = getInstance();
+  const res = await instance.get<User>('/auths/user');
+
+  return res.data;
 };

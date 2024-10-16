@@ -1,16 +1,11 @@
 import Button from '@/components/Button';
 import Input from '@/components/input/Input';
-import { gatheringSchema } from '@/constants/formSchema';
 import React, { useRef } from 'react';
-import { Control, Controller } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { ControlProps } from '@/lib/definition';
 
-type Props = {
-  control: Control<gatheringSchema>;
-};
-
-export default function GatheringImg({ control }: Props) {
+function GatheringImg({ control }: ControlProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-
   return (
     <div className="flex flex-col items-start gap-3 self-stretch">
       <div className="text-base font-semibold">이미지</div>
@@ -22,6 +17,8 @@ export default function GatheringImg({ control }: Props) {
             <div className="w-full flex items-center justify-center gap-3">
               <div className="flex-grow">
                 <Input
+                  onClick={() => fileInputRef.current?.click()}
+                  className="cursor-pointer"
                   readOnly
                   placeholder="이미지를 첨부해주세요"
                   value={field.value ? (field.value as File).name : ''}
@@ -53,3 +50,5 @@ export default function GatheringImg({ control }: Props) {
     </div>
   );
 }
+
+export default React.memo(GatheringImg);

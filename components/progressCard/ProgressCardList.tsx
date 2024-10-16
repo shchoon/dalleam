@@ -12,11 +12,16 @@ import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { buildFilteredParams } from '@/utils/gathering';
 
 const limit = 10;
+const INITIAL_QUERY_KEY = 'gatherings,지역 선택,날짜 선택,마감 임박,DALLAEMFIT';
 
 const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
   const { location, date, sortBy, type, resetFilters } = useFilterStore();
 
-  const { data, fetchNextPage, hasNextPage, refetch } = useInfiniteQuery({
+  const queryKey = ['gatherings', location, date, sortBy, type];
+
+  const isInitialQuery = queryKey.toString() === INITIAL_QUERY_KEY;
+
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryFn: async ({ pageParam = 0 }) => {
       const axios = getInstance();
       const params = buildFilteredParams({
@@ -26,6 +31,7 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
         date: date !== '날짜 선택' ? date : undefined,
         sortBy: sortBy === '마감 임박' ? 'dateTime' : 'participantCount',
         type: type === 'DALLAEMFIT' ? 'DALLAEMFIT' : type,
+        sortOrder: 'desc',
       });
 
       const response = await axios.get<Gathering[]>('gatherings', {
@@ -38,11 +44,14 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
       return lastPage.length === limit ? allPages.length * limit : undefined;
     },
     initialPageParam: 0,
-    queryKey: ['gatherings', location, date, sortBy, type],
-    initialData: {
-      pages: [gatherings],
-      pageParams: [0],
-    },
+    queryKey: queryKey,
+    initialData: isInitialQuery
+      ? {
+          pages: [gatherings],
+          pageParams: [0],
+        }
+      : undefined,
+    staleTime: 1000 * 5 * 60,
   });
 
   const { ref, inView } = useInView({
@@ -54,14 +63,6 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
-
-  useEffect(() => {
-    if (location === '지역 선택' && date === '' && sortBy === '' && type === 'DALLAEMFIT') {
-      refetch();
-    } else {
-      refetch();
-    }
-  }, [location, date, sortBy, type]);
 
   useEffect(() => {
     resetFilters();
@@ -89,10 +90,10 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
       {/* Content */}
       <div className="flex flex-col items-center gap-6 mt-6 relaive">
         <div
-          className={`sticky top-0 w-full h-188pxr rounded-t-3xl ${isScrolling ? 'scrollShadowTop' : 'transparent'}`}
+          className={`sticky top-0 w-full h-188pxr rounded-t-3xl z-0 ${isScrolling ? 'scrollShadowTop' : 'transparent'}`}
         />
-        {data?.pages.flat().length > 0 ? (
-          <section className="space-y-6 -mt-210pxr -mb-208pxr" aria-label="Gathering List">
+        {data && data.pages.flat().length > 0 ? (
+          <section className="space-y-6 -mt-210pxr -mb-208pxr" data-cy="Gathering List">
             {data.pages.flat().map((gathering) => (
               <ProgressCard key={gathering.id} gathering={gathering} />
             ))}
@@ -106,9 +107,9 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
           </div>
         )}
         <div
-          className={`sticky bottom-0 w-full h-188pxr rounded-b-3xl ${isScrolling ? 'scrollShadowBottom' : 'transparent'}`}
+          className={`sticky bottom-0 w-full h-188pxr rounded-b-3xl z-0 ${isScrolling ? 'scrollShadowBottom' : 'transparent'}`}
         />
-        <div ref={ref} />
+        <div ref={ref} data-cy="loader" className="w-full h-1pxr" />
       </div>
     </div>
   );

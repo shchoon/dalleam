@@ -11,8 +11,8 @@ import { gatheringSchema } from '@/constants/formSchema';
 import CloseIcon from '@/public/icons/gathering/close.svg';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postGathering } from '@/lib/data';
-import { AxiosError } from 'axios';
 import useFilterStore from '@/stores/filterStore';
+import { toast } from '@/components/toast/ToastManager';
 
 export default function GatheringModal({ onClose }: { onClose: () => void }) {
   const { resetFilters } = useFilterStore();
@@ -21,11 +21,8 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<gatheringSchema>({
-    defaultValues: {
-      capacity: 5,
-    },
-  });
+  } = useForm<gatheringSchema>();
+
   const onSubmitHandler: SubmitHandler<gatheringSchema> = async (gathering) => {
     mutate.mutate({ gathering });
   };
@@ -44,17 +41,8 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
         ],
       });
       resetFilters();
-      alert('모임이 생성되었습니다.');
+      toast('모임이 생성되었습니다.');
       onClose();
-    },
-    onError: (error: Error) => {
-      const defaultMsg = '알 수 없는 오류로 모임 생성에 실패하였습니다.';
-      if (error instanceof AxiosError) {
-        alert(error.response?.data.message ?? defaultMsg);
-        return;
-      }
-
-      alert(defaultMsg);
     },
   });
 
@@ -74,7 +62,6 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
         <GatheringImg control={control} />
         <GatheringService control={control} />
         <GatheringCalendar control={control} />
-        {/* 버튼 영역 */}
         <div className="w-full mt-auto">
           <Button
             type="submit"
