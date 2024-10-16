@@ -21,13 +21,11 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useForm<gatheringSchema>();
 
-  console.log('Modal Rendering');
-
   const onSubmitHandler: SubmitHandler<gatheringSchema> = async (gathering) => {
-    // mutate.mutate({ gathering });
+    mutate.mutate({ gathering });
   };
 
   const mutate = useMutation({

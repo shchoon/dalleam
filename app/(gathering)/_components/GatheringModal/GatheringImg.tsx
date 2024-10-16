@@ -6,7 +6,6 @@ import { ControlProps } from '@/lib/definition';
 
 function GatheringImg({ control }: ControlProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  console.log('img rendering');
   return (
     <div className="flex flex-col items-start gap-3 self-stretch">
       <div className="text-base font-semibold">이미지</div>

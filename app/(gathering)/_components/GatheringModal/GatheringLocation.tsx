@@ -8,7 +8,6 @@ import clsx from 'clsx';
 const location = ['건대입구', '을지로3가', '신림', '홍대입구'];
 
 function GatheringLocation({ control }: ControlProps) {
-  console.log('location Rendering');
   return (
     <div className="flex w-full flex-col items-start gap-3 self-stretch">
       <div className="text-base font-semibold">장소</div>

@@ -10,7 +10,6 @@ import { ControlProps } from '@/lib/definition';
 function GatheringService({ control }: ControlProps) {
   const { OFFICE_STRETCHING, MINDFULNESS, WORKATION } = gatherings;
   const GatheringServiceOptions = [OFFICE_STRETCHING, MINDFULNESS, WORKATION];
-  console.log('service Rendering');
 
   return (
     <div className="w-full flex flex-col items-start gap-3">

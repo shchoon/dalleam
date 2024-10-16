@@ -24,10 +24,6 @@ export default function GatheringTimes({
 }: props) {
   const today = convertDate(new Date());
 
-  const handleTimeClick = (time: timeSlotProps) => {
-    setSelectTime(() => time.date);
-  };
-
   return (
     <div className="w-full flex flex-col items-start gap-2 self-stretch">
       <div className="text-sm font-semibold">{timeOfDay}</div>
@@ -49,8 +45,7 @@ export default function GatheringTimes({
                       today > time.date ? 'cursor-not-allowed' : 'cursor-pointer',
                     )}
                     onClick={() => {
-                      field.onChange(time.date);
-                      handleTimeClick(time);
+                      today < time.date && field.onChange(time.date) && setSelectTime(time.date);
                     }}
                     color={
                       today > time.date ? 'disabled' : selectTime === time.date ? 'navy' : 'white'
