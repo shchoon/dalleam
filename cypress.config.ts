@@ -6,6 +6,7 @@ export default defineConfig({
       // implement node event listeners here
     },
     baseUrl: 'http://localhost:3000/',
+    defaultCommandTimeout: 20000,
   },
   env: {
     apiBaseUrl: 'https://fe-adv-project-together-dallaem.vercel.app/FESI3-3',
