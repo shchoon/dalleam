@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postGathering } from '@/lib/data';
 import useFilterStore from '@/stores/filterStore';
 import { toast } from '@/components/toast/ToastManager';
+import GatheringModalButton from './GatheringModalButton';
 
 export default function GatheringModal({ onClose }: { onClose: () => void }) {
   const { resetFilters } = useFilterStore();
@@ -20,10 +21,13 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm<gatheringSchema>();
+
+  console.log('Modal Rendering');
+
   const onSubmitHandler: SubmitHandler<gatheringSchema> = async (gathering) => {
-    mutate.mutate({ gathering });
+    // mutate.mutate({ gathering });
   };
 
   const mutate = useMutation({
@@ -46,7 +50,7 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
   });
 
   return (
-    <div className="w-dvw h-full md:w-520pxr px-4 pt-6 pb-3 md:pb-6 md:px-6 bg-white overflow-auto flex flex-col">
+    <div className="scrollbar w-dvw h-dvh md:h-[96vh] lg:h-[100vh] md:w-520pxr px-4 pt-6 pb-3 md:pb-6 md:px-6 bg-white overflow-auto flex flex-col">
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="w-full flex-grow flex flex-col gap-6"
@@ -62,16 +66,7 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
         <GatheringService control={control} />
         <GatheringCalendar control={control} />
         {/* 버튼 영역 */}
-        <div className="w-full mt-auto">
-          <Button
-            type="submit"
-            className="w-full h-10 min-h-10"
-            variant={isValid ? 'orange' : 'invalidate'}
-            fillState="full"
-          >
-            확인
-          </Button>
-        </div>
+        <GatheringModalButton isValid={isValid} />
       </form>
     </div>
   );
