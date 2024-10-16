@@ -45,7 +45,10 @@ export default function GatheringTimes({
                       today > time.date ? 'cursor-not-allowed' : 'cursor-pointer',
                     )}
                     onClick={() => {
-                      today < time.date && field.onChange(time.date) && setSelectTime(time.date);
+                      if (today < time.date) {
+                        field.onChange(time.date);
+                        setSelectTime(time.date);
+                      }
                     }}
                     color={
                       today > time.date ? 'disabled' : selectTime === time.date ? 'navy' : 'white'
