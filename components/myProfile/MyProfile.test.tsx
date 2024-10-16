@@ -49,13 +49,13 @@ describe('myProfile component test', () => {
     // 모달 열림
     fireEvent.click(editBtn);
 
-    const editProfileModal = screen.getByLabelText('editProfileModal');
+    const editProfileModal = screen.getByText('프로필 수정하기');
     expect(editProfileModal).toBeInTheDocument();
 
-    const closeProfileEditModal = screen.getByLabelText('closeProfileEditModal');
+    const closeBtn = screen.getByLabelText('closeBtn');
 
     // 모달 닫힘
-    fireEvent.click(closeProfileEditModal);
+    fireEvent.click(closeBtn);
 
     expect(editProfileModal).not.toBeInTheDocument();
   });

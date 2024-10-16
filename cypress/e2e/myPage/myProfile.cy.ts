@@ -18,22 +18,27 @@ describe('test myProfile', () => {
     // click closeProfileEditModal
     cy.get('svg[aria-label="edit"]').click();
 
-    cy.get('svg[aria-label="closeProfileEditModal"]').click();
+    cy.get('svg[aria-label="closeBtn"]').click();
 
     // click cancelBtn
     cy.get('svg[aria-label="edit"]').click();
 
-    cy.get('button[aria-label="cancelBtn"]').click();
+    cy.get('form').find('button').contains('취소').click();
   });
 
-  it('should sumbit modified profile', () => {
+  it.only('should sumbit modified profile', () => {
     cy.get('svg[aria-label="edit"]').click();
 
-    cy.get('label[for="profileImg"]').selectFile(
-      'C:\\Users\\acckr\\OneDrive\\사진\\스크린샷\\스크린샷 2024-04-11 230427.png',
-    );
-    cy.get('input[aria-label="companyName"]').type('5sense');
+    cy.fixture('test.png', 'base64').then((fileContent) => {
+      cy.get('input[aria-label="profileImg"]').attachFile({
+        fileContent,
+        filePath: 'test.png',
+        mimeType: 'image/png',
+      });
+    });
 
-    cy.get('button[aria-label="modifyBtn"]').click();
+    cy.get('#companyName').type('5sense');
+
+    cy.get('form').find('button').contains('수정하기').click();
   });
 });

@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from '@/components/toast/ToastManager';
 import Button from '@/components/Button';
 import useGatheringId from '@/stores/useGatheringId';
 import { getInstance } from '@/utils/axios';
@@ -77,9 +78,17 @@ export default function ReviewModal({ closeModal }: Props) {
           }
         });
 
+        const pages = updateData.reduce((acc: JoinedGathering[][], _, i: number) => {
+          if (i % 10 === 0) {
+            acc.push(updateData.slice(i, i + 10));
+          }
+
+          return acc;
+        }, []);
+
         return {
           ...oldData,
-          pages: updateData,
+          pages: pages,
         };
       }
     });
@@ -106,10 +115,12 @@ export default function ReviewModal({ closeModal }: Props) {
   const { mutate } = useMutation({
     mutationFn: postReview,
     onSuccess: () => {
+      toast('리뷰가 등록되었습니다.');
       clearId();
       closeModal();
       updateGateringJoined();
       updateWrittenReviews();
+      updateNewReviews();
     },
   });
 
@@ -128,7 +139,7 @@ export default function ReviewModal({ closeModal }: Props) {
     >
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">리뷰 쓰기</span>
-        <Delete onClick={handleClickDelete} className="cursor-pointer" />
+        <Delete aria-label="deleteIcon" onClick={handleClickDelete} className="cursor-pointer" />
       </div>
       <div className="flex flex-col gap-3">
         <span className="text-base font-semibold text-gray-800">만족스러운 경험이었나요?</span>
@@ -170,7 +181,6 @@ export default function ReviewModal({ closeModal }: Props) {
       </div>
       <div className="w-full flex gap-4">
         <Button
-          aria-label="cancelBtn"
           className="w-full flex justify-center items-center "
           fillState="empty"
           variant="orange"
@@ -179,7 +189,6 @@ export default function ReviewModal({ closeModal }: Props) {
           취소
         </Button>
         <Button
-          aria-label="submitBtn"
           type="submit"
           disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "
