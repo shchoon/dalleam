@@ -13,7 +13,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postGathering } from '@/lib/data';
 import useFilterStore from '@/stores/filterStore';
 import { toast } from '@/components/toast/ToastManager';
-import GatheringModalButton from './GatheringModalButton';
 
 export default function GatheringModal({ onClose }: { onClose: () => void }) {
   const { resetFilters } = useFilterStore();
@@ -63,8 +62,16 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
         <GatheringImg control={control} />
         <GatheringService control={control} />
         <GatheringCalendar control={control} />
-        {/* 버튼 영역 */}
-        <GatheringModalButton isValid={isValid} />
+        <div className="w-full mt-auto">
+          <Button
+            type="submit"
+            className="w-full h-10 min-h-10"
+            variant={isValid ? 'orange' : 'invalidate'}
+            fillState="full"
+          >
+            확인
+          </Button>
+        </div>
       </form>
     </div>
   );
