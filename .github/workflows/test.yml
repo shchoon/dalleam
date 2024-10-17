@@ -27,16 +27,12 @@ jobs:
       - name: Run tests
         run: npx jest --coverage
 
-      - name: Start the application
-        run: npm run start &
-        env:
-          CI: true
-
-      - name: Wait for the application to start
-        run: npx wait-on http://localhost:3000
-
-      - name: Run Cypress tests
-        run: npm run cypress
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm run start
+          browser: chrome
 
       # - name: Upload coverage to Codecov
       #   uses: codecov/codecov-action@v4.4.1
