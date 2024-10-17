@@ -11,6 +11,7 @@ describe('test createdGatherings', () => {
 
     cy.get('button').contains('로그인').click();
 
+    cy.wait(3000);
     cy.url().should('eq', 'http://localhost:3000/');
 
     cy.get('nav').find('button').click();

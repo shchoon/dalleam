@@ -8,15 +8,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [18, 20]
+        # node: [18, 20]
+        containers: [1, 2] # Uses 2 parallel instances
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
+      # - name: Setup node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: ${{ matrix.node }}
 
       - name: Install dependencies
         run: npm ci
@@ -31,9 +32,15 @@ jobs:
         uses: cypress-io/github-action@v6
         env:
           DEBUG: '@cypress/github-action'
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           build: npm run build
           start: npm run start
+          wait-on: 'http://localhost:3000'
+          record: true
+          parallel: true
 
       # - name: Upload coverage to Codecov
       #   uses: codecov/codecov-action@v4.4.1
