@@ -30,9 +30,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: npm run build
           start: npm run start
-          browser: chrome
 
       # - name: Upload coverage to Codecov
       #   uses: codecov/codecov-action@v4.4.1
