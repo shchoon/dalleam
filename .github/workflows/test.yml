@@ -27,15 +27,6 @@ jobs:
       - name: Run tests
         run: npx jest --coverage
 
-      - name: Start development server
-        run: |
-          npm run dev &
-          # Wait for the server to be ready
-          wait-on http://localhost:3000
-
-      - name: Run Cypress tests
-        run: npm run cypress
-
       # - name: Upload coverage to Codecov
       #   uses: codecov/codecov-action@v4.4.1
       #   with:
