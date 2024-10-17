@@ -20,10 +20,9 @@ const SavedProgressCardList = () => {
   const queryClient = useQueryClient();
 
   const queryKey: QueryKey = ['saved-gathering', location, date, sortBy, type];
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey,
     queryFn: async () => {
-      if (savedIds.length === 0) return [];
       if (savedIds.length === 0) return [];
       const params = buildFilteredParams({
         id: savedIds.join(','),
@@ -60,7 +59,6 @@ const SavedProgressCardList = () => {
 
   if (isError) {
     return <div>Error: {error?.message}</div>;
-    return <div>Error: {error?.message}</div>;
   }
 
   let content;
@@ -84,7 +82,6 @@ const SavedProgressCardList = () => {
     );
   }
 
-  return <div className="flex flex-col gap-6 mt-6">{content}</div>;
   return <div className="flex flex-col gap-6 mt-6">{content}</div>;
 };
 
