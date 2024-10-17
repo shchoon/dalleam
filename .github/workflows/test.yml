@@ -27,11 +27,13 @@ jobs:
       - name: Run tests
         run: npx jest --coverage
 
-      - name: Start production server
-        run: |
-          npm run start &
-          # Wait for the server to be ready
-          npx wait-on http://localhost:3000
+      - name: Start the application
+        run: npm run start &
+        env:
+          CI: true
+
+      - name: Wait for the application to start
+        run: npx wait-on http://localhost:3000
 
       - name: Run Cypress tests
         run: npm run cypress
