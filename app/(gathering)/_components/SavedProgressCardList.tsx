@@ -24,6 +24,7 @@ const SavedProgressCardList = () => {
     queryKey,
     queryFn: async () => {
       if (savedIds.length === 0) return [];
+      if (savedIds.length === 0) return [];
       const params = buildFilteredParams({
         id: savedIds.join(','),
         location: location !== '지역 선택' ? location : undefined,
@@ -59,6 +60,7 @@ const SavedProgressCardList = () => {
 
   if (isError) {
     return <div>Error: {error?.message}</div>;
+    return <div>Error: {error?.message}</div>;
   }
 
   let content;
@@ -82,6 +84,7 @@ const SavedProgressCardList = () => {
     );
   }
 
+  return <div className="flex flex-col gap-6 mt-6">{content}</div>;
   return <div className="flex flex-col gap-6 mt-6">{content}</div>;
 };
 
