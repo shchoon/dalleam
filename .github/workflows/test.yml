@@ -31,7 +31,7 @@ jobs:
         run: |
           npm run dev &
           # Wait for the server to be ready
-          wait-on http://localhost:3000
+          npx wait-on http://localhost:3000
 
       - name: Run Cypress tests
         run: npm run cypress
