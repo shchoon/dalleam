@@ -27,9 +27,9 @@ jobs:
       - name: Run tests
         run: npx jest --coverage
 
-      - name: Start development server
+      - name: Start production server
         run: |
-          npm run dev &
+          npm run start &
           # Wait for the server to be ready
           npx wait-on http://localhost:3000
 
