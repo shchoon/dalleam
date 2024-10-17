@@ -16,7 +16,7 @@ const SavedProgressCardList = () => {
   const { saved, hydrated } = useSavedStore();
   const { user } = useUserStore();
 
-  const savedIds = user ? saved[user.id] : [];
+  const savedIds = user ? saved[user.id] || [] : [];
   const queryClient = useQueryClient();
 
   const queryKey: QueryKey = ['saved-gathering', location, date, sortBy, type];
@@ -65,18 +65,18 @@ const SavedProgressCardList = () => {
 
   if (data && data.length > 0) {
     content = (
-      <>
-        {data.map((gathering) => (
+      <div data-cy="SavedGathering List">
+        {data.map((gathering, index) => (
           <ProgressCard key={gathering.id} gathering={gathering} />
         ))}
-      </>
+      </div>
     );
   } else {
     content = (
       <div className="flex items-center justify-center h-full min-h-500pxr md:min-h-696pxr">
         <p className="h-10 text-sm font-medium text-center text-gray-500">
           아직 모임이 없어요. <br />
-          지금 바로 모임을 만들어보세요.
+          지금 바로 모임을 만들어보세요. <br />
         </p>
       </div>
     );
