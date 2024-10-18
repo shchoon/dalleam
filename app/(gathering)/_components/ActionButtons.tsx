@@ -12,7 +12,7 @@ import { getInstance } from '@/utils/axios';
 import { useRouter } from 'next/navigation';
 import useModal from '@/hooks/useModal';
 import useUserStore from '@/stores/userStore';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from '@/components/toast/ToastManager';
 
 type Props = {
@@ -23,6 +23,7 @@ type Props = {
 };
 
 const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Props) => {
+  const queryClient = useQueryClient();
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
   const { user } = useUserStore();
   const router = useRouter();
@@ -37,6 +38,7 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
     },
     onSuccess: () => {
       toast('모임 참여 완료');
+      queryClient.invalidateQueries({ queryKey: ['gatheringJoined'] });
     },
   });
 
@@ -47,6 +49,7 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
     },
     onSuccess: () => {
       toast('참여 취소 완료');
+      queryClient.invalidateQueries({ queryKey: ['gatheringJoined'] });
     },
   });
 
