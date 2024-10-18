@@ -7,7 +7,6 @@ import { Metadata } from 'next';
 import { getMetadata } from '@/constants/metadata';
 import ToastContainer from '@/components/toast/ToastContainer';
 import { TokenMonitor } from '@/components/TokenMonitor';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = getMetadata();
 
@@ -29,7 +28,6 @@ export default function RootLayout({
           <NavBar />
           <QueryProvider>
             <div className="bg-gray-100 flex items-center flex-col">{children}</div>
-            {process.env.NODE_ENV !== 'test' && <SpeedInsights />}
             {/* <ReactQueryDevtools initialIsOpen={true} /> */}
           </QueryProvider>
         </div>
