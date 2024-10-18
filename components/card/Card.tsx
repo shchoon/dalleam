@@ -2,22 +2,29 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Person from '/public/icons/person.svg';
-import Bye from '/public/icons/bye.svg';
-import Stroke from '/public/icons/line.svg';
+import Person from '/public/icons/gathering/person.svg';
+import Bye from '/public/icons/gathering/bye.svg';
+import Stroke from '/public/icons/gathering/line.svg';
 
 import Button from '../Button';
 import ChipState from './ChipState';
 
-import { Gathering } from '@/types/types';
+import { Gathering } from '@/lib/definition';
 import { formatDateTime, isDeadlinePassed } from '@/utils/gathering';
+import useGatheringId from '@/stores/useGatheringId';
+import useModalType from '@/stores/useModalType';
 
 type Props = {
   normal: boolean;
   gathering: Gathering;
+  openModal?: () => void;
+  isReviewed?: boolean;
 };
 
-const Card = ({ normal, gathering }: Props) => {
+const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
+  const { setId } = useGatheringId();
+  const { setType } = useModalType();
+
   const { formattedDate, formattedTime } = formatDateTime(gathering.dateTime) ?? {
     formattedDate: '',
     formattedTime: '',
@@ -32,8 +39,13 @@ const Card = ({ normal, gathering }: Props) => {
     <div className="relative flex flex-col gap-6 bg-white w-311pxr md:w-full md:max-w-948pxr">
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="relative w-311pxr h-156pxr pt-1pxr pl-1pxr md:w-280pxr">
-          <Link href="#">
-            <Image src="/card-image.png" alt="Image" fill className="object-cover rounded-3xl" />
+          <Link href={`/gatherings/${gathering.id}`}>
+            <Image
+              src={gathering.image || '/card-image2.png'}
+              alt="Image"
+              fill
+              className="object-cover rounded-3xl"
+            />
           </Link>
         </div>
         <div className="flex flex-col justify-between gap-18pxr">
@@ -80,12 +92,32 @@ const Card = ({ normal, gathering }: Props) => {
           {/* 버튼 컴포넌트 */}
           <>
             {!normal && !isFinished && (
-              <Button size="sm" fillState="empty" variant="orange">
+              <Button
+                size="sm"
+                fillState="empty"
+                variant="orange"
+                onClick={() => {
+                  setType('cancel');
+                  openModal && openModal();
+                  setId(gathering.id);
+                }}
+              >
                 예약 취소하기
               </Button>
             )}
             {!normal && isFinished && (
-              <Button size="sm" fillState="full" variant="orange">
+              <Button
+                size="sm"
+                fillState="full"
+                variant={`${isReviewed ? 'gray' : 'orange'}`}
+                onClick={() => {
+                  if (!isReviewed) {
+                    setType('review');
+                    openModal && openModal();
+                    setId(gathering.id);
+                  }
+                }}
+              >
                 리뷰 작성하기
               </Button>
             )}

@@ -25,16 +25,15 @@ export const loginSchema = z.object({
   password: z.string().min(1, '비밀번호를 입력해 주세요.'),
 });
 
-export type reviewSchema = {
+export type gatheringSchema = {
   dateTime: string;
   location: string;
   image: Blob;
   type: string;
-  registrationEnd: string;
-  capacity: string;
+  capacity: number;
 };
 
-export const reviewRules = {
+export const gatheringRules = {
   location: {
     required: '장소를 선택해주세요',
   },
@@ -50,5 +49,6 @@ export const reviewRules = {
       value: 5,
       message: '최소 5인 이상을 입력해주세요',
     },
+    validate: (value: number) => value >= 5 || '5명 이상이어야 합니다.',
   },
 };

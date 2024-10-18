@@ -6,49 +6,33 @@ import Saved from '../animation/saved/Saved';
 import ExpandLine from '../animation/expandLine/ExpandLine';
 import Profile from '../profile/Profile';
 import { formatDateTime } from '@/utils/gathering';
-import { Gathering } from '@/types/types';
+import { Gathering, Participant } from '@/lib/definition';
+import CountAnimation from '../animation/count/Count';
 
 import VectorIcon from '/public/icons/Vector.svg';
 import CheckedIcon from '/public/icons/Checked.svg';
 
-export type ParticipantInfo = {
-  teamId: string;
-  userId: number;
-  gatheringId: number;
-  joinedAt: string;
-  User: {
-    id: number;
-    email: string;
-    name: string;
-    companyName: string;
-    image: null | string;
-  };
+type Props = {
+  gatheringDetails: Gathering;
+  participants: Participant[];
 };
 
-export default function Container({ gatheringDetails }: { gatheringDetails: Gathering }) {
-  const [profileImages, setProfileImages] = useState<string[]>([]);
+export default function Container({ gatheringDetails, participants }: Props) {
+  const sortedParticipants = participants.sort((a, b) => {
+    const first = a.User.image !== null ? 1 : 0;
+    const second = b.User.image != null ? 1 : 0;
 
-  useEffect(() => {
-    /* 모임 상세 조회 데이터 요청하고 받은 데이터 아래 코드로 포맷 */
-    // const limitLength = Math.min(testParticipants.length, 4);
-    // const imageList = testParticipants
-    //   .map((data) => data.User.image)
-    //   .filter((image) => image !== null)
-    //   .slice(0, limitLength);
-    // while (imageList.length < limitLength) {
-    //   imageList.push('defaultProfile');
-    // }
-    // setProfileImages(imageList);
-  }, []);
+    return second - first;
+  });
 
   return (
-    <div className="w-343pxr md:w-340pxr lg:w-486pxr min-h-240pxr lg:min-h-270pxr py-6 border-2 border-gray-200 rounded-3xl">
+    <div className="w-347pxr h-244pxr md:w-344pxr lg:w-490pxr lg:h-274pxr py-6 border-2 border-gray-200 rounded-3xl">
       <div className="flex flex-col gap-3 lg:gap-6">
-        <div className="flex flex-col  justify-between">
+        <div className="flex flex-col justify-between min-h-111pxr lg:min-h-129pxr">
           <div className="flex px-6 justify-between">
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-0.5">
-                <span className="text-lg font-semibold ">{gatheringDetails.name}</span>
+                <span className="text-lg font-semibold ">{gatheringDetails.type}</span>
                 <span className="text-sm font-medium max-w-211pxr lg:max-w-374pxr">
                   {gatheringDetails.location}
                 </span>
@@ -64,37 +48,59 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
             </div>
             <Saved gatheringId={gatheringDetails.id} />
           </div>
-          <VectorIcon className="w-full h-1/2" />
+          <VectorIcon className="w-full" />
         </div>
         <div className="px-6 flex flex-col gap-2">
           <div className="flex flex-col gap-3">
             <div className="flex justify-between">
               <div className="flex gap-3 items-center">
                 <div className="flex gap-1.5 text-sm font-semibold">
-                  <span>현재 모집 인원</span>
-                  <span>{gatheringDetails.participantCount}명</span>
+                  <span>모집 정원</span>
+                  <span>
+                    {gatheringDetails.participantCount === 0
+                      ? '0'
+                      : CountAnimation(gatheringDetails.participantCount)}{' '}
+                    명
+                  </span>
                 </div>
                 {/* profile images */}
-                <div className="flex -space-x-2.5">
-                  {profileImages.map((profile, i) => {
+                <div className="group relative flex -space-x-2.5">
+                  {sortedParticipants.slice(0, 4).map((data, i) => {
+                    const profile = data.User.image;
                     return (
-                      <Profile
-                        key={i}
-                        usedIn="container"
-                        image={profile === 'defaultProfile' ? null : profile}
-                      />
+                      <div key={i}>
+                        <Profile
+                          usedIn="container"
+                          image={profile === 'defaultProfile' ? null : profile}
+                        />
+                      </div>
                     );
                   })}
-
                   {gatheringDetails.participantCount > 4 && (
-                    <div className="w-29pxr h-29pxr flex items-center justify-center bg-gray-100 rounded-full -ml-2.5">
-                      <span
-                        className="text-sm font-semibold
+                    <>
+                      <div className="w-29pxr h-29pxr flex items-center justify-center bg-gray-100 rounded-full">
+                        <span
+                          className="text-sm font-semibold
                  text-gray-800"
-                      >
-                        +{gatheringDetails.participantCount - 4}
-                      </span>
-                    </div>
+                        >
+                          +{gatheringDetails.participantCount - 4}
+                        </span>
+                      </div>
+                      <div className="absolute hidden group-hover:block z-10 bottom-29pxr left-50pxr w-150pxr p-2 rounded-md max-h-70pxr lg:max-h-120pxr bg-gray-50 overflow-y-auto scrollbar">
+                        <div className="grid grid-cols-4 gap-1">
+                          {sortedParticipants.map((data, i) => {
+                            const profile = data.User.image;
+                            return (
+                              <Profile
+                                key={i}
+                                usedIn="container"
+                                image={profile === 'defaultProfile' ? null : profile}
+                              />
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </>
                   )}
                 </div>
               </div>
@@ -112,12 +118,12 @@ export default function Container({ gatheringDetails }: { gatheringDetails: Gath
             />
           </div>
           <div className="flex justify-between text-xs font-medium">
-            <div className="flex gap-1.5 text-gray-700">
+            <div className="flex gap-1.5">
               <span>최소인원</span>
               <span>5명</span>
             </div>
             <div
-              className={`flex gap-1.5 ${gatheringDetails.participantCount == gatheringDetails.capacity ? 'text-oranage-400' : 'text-gray-700'}`}
+              className={`flex gap-1.5 ${gatheringDetails.participantCount == gatheringDetails.capacity ? 'text-orange-400' : 'text-gray-700'}`}
             >
               <span>최대인원</span>
               <span>{gatheringDetails.capacity}명</span>

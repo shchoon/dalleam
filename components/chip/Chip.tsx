@@ -23,7 +23,7 @@ Chip.displayName = 'Chip';
 export default Chip;
 
 const chipVariants = cva(
-  'inline-flex px-3 py-2 justify-center items-center rounded-xl cursor-pointer hover:brightness-90 text-sm font-medium',
+  'inline-flex justify-center items-center rounded-xl cursor-pointer hover:brightness-90 text-sm font-medium',
   {
     variants: {
       color: {

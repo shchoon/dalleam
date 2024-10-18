@@ -1,4 +1,4 @@
-import { Gathering } from '@/types/types';
+import { Gathering } from '@/lib/definition';
 import Card from './Card';
 import React from 'react';
 

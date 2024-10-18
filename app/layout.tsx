@@ -1,6 +1,15 @@
 import QueryProvider from '@/components/QueryProvider';
 import './globals.css';
 import localFont from 'next/font/local';
+import NavBar from '@/components/nav/NavBar';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Metadata } from 'next';
+import { getMetadata } from '@/constants/metadata';
+import ToastContainer from '@/components/toast/ToastContainer';
+import { TokenMonitor } from '@/components/TokenMonitor';
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
+export const metadata: Metadata = getMetadata();
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -16,12 +25,17 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={pretendard.className}>
-        <div className="flex flex-col w-full h-full">
-          <div className="w-full h-56pxr md:h-60pxr bg-orange-600 text-center text-3xl">
-            네비게이션 들어가는 곳
-          </div>
-          <QueryProvider>{children}</QueryProvider>
+        <div className="flex flex-col w-full relative">
+          <NavBar />
+          <QueryProvider>
+            <div className="bg-gray-100 flex items-center flex-col">{children}</div>
+            <SpeedInsights />
+            {/* <ReactQueryDevtools initialIsOpen={true} /> */}
+          </QueryProvider>
         </div>
+        <div id="global-modal"></div>
+        <TokenMonitor />
+        <ToastContainer />
       </body>
     </html>
   );

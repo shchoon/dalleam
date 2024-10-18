@@ -46,3 +46,26 @@ export const isDeadlinePassed = (registrationEnd: string): boolean | null => {
 
   return targetDate.getTime() < now.getTime();
 };
+
+/**
+ * 주어진 객체에서 `undefined` 또는 빈 문자열 값을 제거하고 나머지 값을 반환합니다.
+ *
+ * @param {Object} params - 필터링할 파라미터 객체
+ * @returns {Object} - `undefined` 또는 빈 문자열을 제외한 필터링된 파라미터 객체
+ *
+ * @example
+ * const params = {
+ *   location: 'Seoul',
+ *   date: '',
+ *   limit: 10,
+ *   sortBy: undefined,
+ * };
+ *
+ * buildFilteredParams(params); // { location: 'Seoul', limit: 10 }
+ */
+
+export const buildFilteredParams = (params: { [key: string]: string | undefined | number }) => {
+  return Object.fromEntries(
+    Object.entries(params).filter(([_, value]) => value !== undefined && value !== ''),
+  );
+};

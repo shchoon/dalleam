@@ -18,6 +18,7 @@ const config: Config = {
       'expand-line': 'expandLine 2s ease-in-out',
       'heart-stroke': 'heartStroke 2s ease-in-out',
       'fill-heart': 'fillHeart 2s ease-in-out',
+      'fFill-heart': 'fillHeart 1s ease-in-out',
       'saved-bg': 'savedBg 2s ease-in-out',
     },
     keyframes: {
@@ -26,7 +27,7 @@ const config: Config = {
         '100%': { transform: 'translateX(0)' },
       },
       savedBg: {
-        '0%': {},
+        '0%': { border: 'none' },
         '100%': {
           'background-color': '#FFF7ED',
           border: 'none',
@@ -45,7 +46,7 @@ const config: Config = {
     },
     screens: {
       md: '744px',
-      lg: '1128px',
+      lg: '1200px',
     },
     extend: {
       spacing: {
@@ -53,6 +54,13 @@ const config: Config = {
           acc[`${px}pxr`] = pxToRem(px);
           return acc;
         }, {}),
+      },
+      boxShadow: {
+        'progressBar-shadow':
+          '-2px -2px 12px 0px rgba(219, 219, 219, 0.20), 2px 2px 12px 0px rgba(219, 219, 219, 0.20)',
+      },
+      fontFamily: {
+        tmoney: ['Tmoney RoundWind'],
       },
       fontSize: {
         xs: ['12px', '16px'],
@@ -99,6 +107,10 @@ const config: Config = {
         },
         red: {
           600: '#DC2626',
+        },
+        listColor: {
+          fromColor: 'rgba(255, 255, 255 ,1)',
+          toColor: 'rgba(255, 255, 255 ,0)',
         },
       },
     },
