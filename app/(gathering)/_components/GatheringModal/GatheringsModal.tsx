@@ -21,7 +21,7 @@ export default function GatheringModal({ onClose }: { onClose: () => void }) {
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<gatheringSchema>();
+  } = useForm<gatheringSchema>({ defaultValues: { capacity: 5 } });
 
   const onSubmitHandler: SubmitHandler<gatheringSchema> = async (gathering) => {
     mutate.mutate({ gathering });
