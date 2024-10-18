@@ -83,10 +83,7 @@ export default function ReviewList() {
             page.map((review, idx) => (
               <div key={idx} className="relative w-full">
                 {idx === (!topFogOn ? 4 : 0) && (
-                  <div
-                    ref={ref}
-                    className="w-full absolute z-20 top-0 left-0 bg-red-200 bg-opacity-35 h-40 border-2"
-                  ></div>
+                  <div ref={ref} className="w-full absolute z-20 top-0 left-0 h-40"></div>
                 )}
                 <ReviewCard {...review} isMyPage={false} />
               </div>
