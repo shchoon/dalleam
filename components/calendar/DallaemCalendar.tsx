@@ -76,6 +76,7 @@ export default function DallaemCalendar({
         next2Label={null}
         prev2Label={null}
         className="custom-calendar"
+        tileClassName={({ date }) => `calendar-day ${date.getDate()}`}
       />
 
       {/* showButtons가 true일 때만 버튼을 표시 */}
