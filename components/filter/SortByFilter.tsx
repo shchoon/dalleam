@@ -15,7 +15,7 @@ const SortByFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
   const { setSortBy, sortBy, setReviewSortBy, reviewSortBy } = useFilterStore();
 
   return (
-    <div>
+    <div className="z-20">
       <div
         className="dropdown-toggle flex items-center gap-3pxr border-2 justify-center border-gray-100 border-solid cursor-pointer p-6pxr md:py-2 md:px-3 rounded-xl w-9 md:w-130pxr md:h-10"
         onClick={() => handleToggleDropdown()}

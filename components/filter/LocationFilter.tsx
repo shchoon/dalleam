@@ -14,7 +14,7 @@ const LocationFilter = ({ isReviewPage }: { isReviewPage?: boolean }) => {
   const isLocationSelected = currentLocation !== '지역 선택';
 
   return (
-    <div className="relative">
+    <div className="relative z-20">
       <div
         className={`flex items-center justify-between h-10 px-3 border-2 border-gray-100 border-solid cursor-pointer w-110pxr py-6pxr rounded-xl ${
           isLocationSelected ? 'bg-gray-900 text-gray-50' : 'bg-white text-gray-800'

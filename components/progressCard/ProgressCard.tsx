@@ -15,9 +15,10 @@ import DeadlineBadge from './DeadlineBadge';
 
 type Props = {
   gathering: Gathering;
+  priority: boolean;
 };
 
-const ProgressCard = ({ gathering }: Props) => {
+const ProgressCard = ({ gathering, priority }: Props) => {
   const { formattedDate, formattedTime } = formatDateTime(gathering.dateTime) ?? {
     formattedDate: '',
     formattedTime: '',
@@ -26,19 +27,20 @@ const ProgressCard = ({ gathering }: Props) => {
   const minParticipants = gathering.participantCount >= 5;
 
   return (
-    <div className="relative overflow-hidden border-2 border-gray-200 border-solid shadow-progressBar-shadow w-343pxr h-320pxr rounded-3xl md:h-auto md:w-699pxr lg:w-1000pxr">
+    <div className="relative z-10 overflow-hidden border-2 border-gray-200 border-solid shadow-progressBar-shadow w-343pxr h-320pxr rounded-3xl md:h-auto md:w-699pxr lg:w-1000pxr">
       <div className="flex flex-col h-full w-343pxr md:flex-row md:w-full">
-        <div className="relative h-156pxr w-343pxr md:w-280pxr ">
-          <Link href={`/gatherings/${gathering.id}`}>
+        <Link href={`/gatherings/${gathering.id}`}>
+          <div className="relative h-156pxr w-343pxr md:w-280pxr ">
             <Image
               src={gathering.image || '/card-image2.png'}
-              alt="Image"
+              alt={`참여할 수 있는 ${gathering.type} 모임`}
               fill
               className="object-cover rounded-t-3xl md:rounded-t-none"
+              priority={priority}
             />
-          </Link>
-          <DeadlineBadge registrationEnd={gathering.registrationEnd} roundedTopRight={false} />
-        </div>
+            <DeadlineBadge registrationEnd={gathering.registrationEnd} roundedTopRight={false} />
+          </div>
+        </Link>
 
         {/* mobile: bottom md: right*/}
         <div className="flex flex-col mt-4 md:h-156pxr md:grow md:mt-0">

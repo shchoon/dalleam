@@ -12,17 +12,18 @@ import useUserStore from '@/stores/userStore';
 import { buildFilteredParams } from '@/utils/gathering';
 
 const SavedProgressCardList = () => {
-  const { location, date, sortBy, type } = useFilterStore(); // 필터링 상태 가져오기
+  const { location, date, sortBy, type } = useFilterStore();
   const { saved, hydrated } = useSavedStore();
   const { user } = useUserStore();
 
-  const savedIds = user ? saved[user.id] : [];
+  const savedIds = user ? saved[user.id] || [] : [];
   const queryClient = useQueryClient();
 
   const queryKey: QueryKey = ['saved-gathering', location, date, sortBy, type];
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey,
     queryFn: async () => {
+      if (savedIds.length === 0) return [];
       const params = buildFilteredParams({
         id: savedIds.join(','),
         location: location !== '지역 선택' ? location : undefined,
@@ -35,44 +36,53 @@ const SavedProgressCardList = () => {
       });
       return response.data;
     },
-    enabled: savedIds?.length > 0,
+    enabled: hydrated,
   });
 
   useEffect(() => {
-    if (hydrated && savedIds.length > 0) {
-      queryClient.invalidateQueries({ queryKey });
+    if (savedIds.length >= 0) {
+      queryClient.invalidateQueries({
+        queryKey: ['saved-gathering'],
+      });
     }
   }, [savedIds]);
 
-  useEffect(() => {
-    if (hydrated) {
-      refetch();
-    }
-  }, [location, date, sortBy, type, hydrated]);
-
-  if (!hydrated) {
+  if (!hydrated || isLoading) {
     return (
       <div className="flex items-center justify-center h-full min-h-500pxr">
-        <p className="h-10 text-sm font-medium text-center text-gray-500">데이터 로딩 중...</p>
+        <p className="h-10 text-sm font-medium text-center text-gray-500">
+          찜 목록을 가져오는 중...
+        </p>
       </div>
     );
   }
 
+  if (isError) {
+    return <div>Error: {error?.message}</div>;
+  }
+
   let content;
 
-  if (isLoading) {
-    content = <p>Loading...</p>;
+  if (data && data.length > 0) {
+    content = (
+      <div data-cy="SavedGathering List">
+        {data.map((gathering, index) => (
+          <ProgressCard key={gathering.id} gathering={gathering} priority={index === 0} />
+        ))}
+      </div>
+    );
+  } else {
+    content = (
+      <div className="flex items-center justify-center h-full min-h-500pxr md:min-h-696pxr">
+        <p className="h-10 text-sm font-medium text-center text-gray-500">
+          아직 모임이 없어요. <br />
+          지금 바로 모임을 만들어보세요. <br />
+        </p>
+      </div>
+    );
   }
 
-  if (isError) {
-    content = <div>Error: {error?.message}</div>;
-  }
-
-  if (data) {
-    content = data?.map((gathering) => <ProgressCard gathering={gathering} key={gathering.id} />);
-  }
-
-  return <div className="flex flex-col gap-4 mt-6">{content}</div>;
+  return <div className="flex flex-col gap-6 mt-6">{content}</div>;
 };
 
 export default SavedProgressCardList;

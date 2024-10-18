@@ -1,14 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
+import { Metadata } from 'next';
 
 import Container from '@/components/container/Container';
 import DeadlineBadge from '@/components/progressCard/DeadlineBadge';
-import ReviewDeatilCardList from '@/components/reviewDetailCard/ReviewDeatilCardList';
+import ActionButtons from '../../_components/ActionButtons';
+import ReviewDetailCardList from '@/app/(gathering)/_components/review/ReviewDetailCardList';
 
 import { fetchDetailGathering, fetchDetailReviews, fetchJoinedGatheringIds } from '@/lib/data';
-import ActionButtons from '../../_components/ActionButtons';
-import { mockGatheringReviews } from '@/lib/placeholder-data';
-import { Metadata } from 'next';
 import { getMetadata } from '@/constants/metadata';
 
 type Props = {
@@ -32,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const GatheringDetail = async ({ params }: Props) => {
-  const id = Number(params.id); // 모임 id
+  const id = Number(params.id);
 
   const { data: gatheringData, errorMessage: gatheringErrorMessage } =
     await fetchDetailGathering(id);
@@ -65,7 +64,6 @@ const GatheringDetail = async ({ params }: Props) => {
     return <p>모임 정보가 존재하지 않습니다.</p>;
   }
 
-  // 추가 정보 처리
   const gatheringHost = gatheringData.createdBy;
   const isFull = gatheringData.capacity === gatheringData.participantCount;
 
@@ -84,9 +82,10 @@ const GatheringDetail = async ({ params }: Props) => {
             <div className="relative w-343pxr h-180pxr md:w-340pxr md:h-240pxr lg:w-486pxr lg:h-270pxr">
               <Image
                 src={gatheringData.image || '/card-image2.png'}
-                alt="Image"
+                alt={`참여할 수 있는 ${gatheringData.type} 모임`}
                 fill
                 className="object-cover rounded-3xl"
+                priority
               />
               <DeadlineBadge registrationEnd={gatheringData.registrationEnd} />
             </div>
@@ -98,7 +97,7 @@ const GatheringDetail = async ({ params }: Props) => {
             </p>
             {/* 리뷰 데이터가 없으면 목록을 표시하지 않음 */}
             {reviewData ? (
-              <ReviewDeatilCardList reviews={mockGatheringReviews} />
+              <ReviewDetailCardList reviews={reviewData} />
             ) : (
               <div className="flex items-center justify-center h-full min-h-500pxr md:min-h-696pxr">
                 <p className="h-10 text-sm font-medium text-center text-gray-500">

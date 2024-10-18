@@ -13,7 +13,7 @@ export type timeSlotProps = { time: string; date: string }; // date가 ISO 8601 
 
 type props = {
   date: string;
-  setDate: Dispatch<SetStateAction<string>>;
+  setDate: (date: string) => void;
   updateTimeSlots?: (newDate: Date) => void;
   onClose?: () => void;
   onUpdate?: () => void;
@@ -76,6 +76,7 @@ export default function DallaemCalendar({
         next2Label={null}
         prev2Label={null}
         className="custom-calendar"
+        tileClassName={({ date }) => `calendar-day ${date.getDate()}`}
       />
 
       {/* showButtons가 true일 때만 버튼을 표시 */}

@@ -24,13 +24,13 @@ export default function SubTab() {
                 <Chip
                   key={idx}
                   className="transition-colors duration-500 linear"
-                  onClick={() => setType(el)}
-                  color={type === el ? 'navy' : 'gray'}
+                  onClick={() => setType(el.val)}
+                  color={type === el.val ? 'navy' : 'gray'}
                   size="lg"
                 >
-                  {el === 'DALLAEMFIT'
+                  {el.val === 'DALLAEMFIT'
                     ? '전체'
-                    : el === 'MINDFULNESS'
+                    : el.val === 'MINDFULNESS'
                       ? '마인드풀니스'
                       : '오피스 스트레칭'}
                 </Chip>

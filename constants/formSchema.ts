@@ -4,10 +4,7 @@ import REGEX from './regex';
 export const registerSchema = z
   .object({
     name: z.string().min(1, '이름을 입력해 주세요.'),
-    email: z
-      .string()
-      .email('올바른 이메일 주소를 입력해 주세요.')
-      .regex(REGEX.email, '올바른 이메일 형식이 아닙니다.'),
+    email: z.string().regex(REGEX.email, '올바른 이메일 형식이 아닙니다.'),
     companyName: z.string().min(1, '회사 이름을 입력해 주세요.'),
     password: z
       .string()
@@ -21,7 +18,10 @@ export const registerSchema = z
   });
 
 export const loginSchema = z.object({
-  email: z.string().min(1, '이메일을 입력해 주세요.'),
+  email: z
+    .string()
+    .min(1, '이메일을 입력해 주세요.')
+    .regex(REGEX.email, '올바른 이메일 형식이 아닙니다.'),
   password: z.string().min(1, '비밀번호를 입력해 주세요.'),
 });
 
@@ -30,7 +30,6 @@ export type gatheringSchema = {
   location: string;
   image: Blob;
   type: string;
-  registrationEnd: string;
   capacity: number;
 };
 

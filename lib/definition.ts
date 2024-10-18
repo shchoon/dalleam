@@ -1,8 +1,14 @@
+import { gatheringSchema } from '@/constants/formSchema';
 import { gatherings, locations, sortTabs } from './constants';
+import { Control } from 'react-hook-form';
 
 export type GatheringType = keyof typeof gatherings;
 export type LocationType = keyof typeof locations;
 export type sortType = keyof typeof sortTabs;
+
+export type ControlProps = {
+  control: Control<gatheringSchema>;
+};
 
 export type Gathering = {
   teamId: string;
@@ -22,9 +28,14 @@ export type Gathering = {
 export type User = {
   teamId: string;
   id: number;
+  email: string;
   name: string;
+  companyName: string;
   image: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
+
 export type Review = {
   teamId: string;
   id: number;
@@ -35,7 +46,12 @@ export type Review = {
     Gathering,
     'registrationEnd' | 'participantCount' | 'capacity' | 'createdBy' | 'canceledAt'
   >;
-  User: User;
+  User: {
+    teamId: string;
+    id: number;
+    name: string;
+    image: string | null;
+  };
 };
 
 export type Points = {

@@ -22,6 +22,7 @@ const CommonFilterSection = () => {
       <div className="flex justify-between">
         <div className="flex gap-3 relative">
           <DallaemFit
+            data-cy="dallaem-fit-filter"
             className={clsx(
               'cursor-pointer transition-colors duration-500 linear',
               type === 'WORKATION' ? 'text-gray-400' : '',
@@ -29,6 +30,7 @@ const CommonFilterSection = () => {
             onClick={() => setType('DALLAEMFIT')}
           />
           <Workation
+            data-cy="workation-filter"
             className={clsx(
               'cursor-pointer transition-colors duration-500 linear',
               type === 'WORKATION' ? 'text-gray-900' : 'text-gray-400',
