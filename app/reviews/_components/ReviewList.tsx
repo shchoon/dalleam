@@ -17,7 +17,7 @@ import { cva } from 'class-variance-authority';
 export default function ReviewList() {
   const convertColor = (type: 'before' | 'after') => {
     const fogVariants = cva(
-      `${type}:w-full ${type}:sticky ${type}:left-0 ${type}:z-20 ${type}:h-[70px] ${type}:bg-gradient-to-t`,
+      `${type}:content-[''] ${type}:w-full ${type}:sticky ${type}:left-0 ${type}:z-20 ${type}:h-[70px] ${type}:bg-gradient-to-t`,
       {
         variants: {
           direction: {
