@@ -29,11 +29,13 @@ export const getReviewsUrl = () => {
   let dateUrl = date === '날짜 선택' ? '' : `&date=${date}`;
   let subUrl = `${locationUrl}${dateUrl}`;
   let reviewUrl = `type=${type}&sortOrder=desc&sortBy=${convertSortUrl}${subUrl}`;
+  let queryKeys: reviewQueryKeys = [['reviews'], { type, location, date, sortBy: reviewSortBy }];
   return {
     type,
     location,
     reviewSortBy,
     reviewUrl,
+    queryKeys,
     date,
   };
 };
@@ -45,7 +47,7 @@ export const getReviews = async ({
   pageParam: number;
   reviewUrl?: string;
 }): Promise<Review[]> => {
-  const limit = 3;
+  const limit = 10;
   const offset = pageParam * limit;
   const result = await fetcher.get(`reviews?limit=${limit}&offset=${offset}&${reviewUrl}`);
   return result.data; // 필요한 데이터만 반환

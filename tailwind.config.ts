@@ -108,6 +108,10 @@ const config: Config = {
         red: {
           600: '#DC2626',
         },
+        listColor: {
+          fromColor: 'rgba(255, 255, 255 ,1)',
+          toColor: 'rgba(255, 255, 255 ,0)',
+        },
       },
     },
   },

@@ -39,7 +39,7 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
     <div className="relative flex flex-col gap-6 bg-white w-311pxr md:w-full md:max-w-948pxr">
       <div className="flex flex-col gap-4 md:flex-row">
         <div className="relative w-311pxr h-156pxr pt-1pxr pl-1pxr md:w-280pxr">
-          <Link href="#">
+          <Link href={`/gatherings/${gathering.id}`}>
             <Image
               src={gathering.image || '/card-image2.png'}
               alt="Image"
