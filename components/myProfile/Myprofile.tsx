@@ -4,7 +4,7 @@ import useUserStore from '@/stores/userStore';
 import Profile from '../profile/Profile';
 import Modal from '../Modal';
 import useModal from '@/hooks/useModal';
-import ModifyProfile from '../modal/ModifyProfile';
+import ModifyProfile from '../modal/modifyProfile/ModifyProfile';
 
 import Mobile from '/public/icons/profileBg/mobile.svg';
 import Tablet from '/public/icons/profileBg/tablet.svg';
@@ -28,7 +28,7 @@ export default function MyProfile() {
           <Desktop className="absolute right-155pxr top-11pxr hidden lg:block md:hidden" />
           <Edit
             aria-label="edit"
-            className="absolute top-4 right-22pxr md:top-18pxr md:right-25pxr lg:top-14pxr lg:right-6"
+            className="absolute top-4 right-22pxr md:top-18pxr md:right-25pxr lg:top-14pxr lg:right-6 cursor-pointer"
             onClick={() => {
               handleOpenModal();
             }}

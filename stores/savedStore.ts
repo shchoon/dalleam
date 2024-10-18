@@ -21,10 +21,11 @@ const useSavedStore = create(
       setSaved: (userId: number, gatheringId: number) =>
         set((state) => {
           const currentSaved = state.saved;
+          const updateSaved = new Set([...(currentSaved[userId] || []), gatheringId]);
           return {
             saved: {
               ...currentSaved, // 기존 상태 유지
-              [userId]: [...(currentSaved[userId] || []), gatheringId],
+              [userId]: [...updateSaved],
             },
           };
         }),
