@@ -29,6 +29,7 @@ function GatheringService({ control }: ControlProps) {
                     field.value === el.val ? 'bg-gray-900 text-white' : 'bg-gray-50',
                   )}
                   onClick={() => field.onChange(el.val)} // field의 onChange 사용
+                  data-cy={`service-${el.val}`}
                 >
                   <div className="flex items-start gap-1 md:gap-2 self-stretch">
                     <span className="flex items-center mt-1 cursor-pointer w-18pxr h-18pxr">

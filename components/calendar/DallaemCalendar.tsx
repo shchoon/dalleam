@@ -1,7 +1,6 @@
 'use client';
 
 import { convertDate } from '@/utils/convertDate';
-import React, { Dispatch, SetStateAction } from 'react';
 import Calendar from 'react-calendar';
 import clsx from 'clsx';
 import useFilterStore from '@/stores/filterStore';
@@ -59,6 +58,7 @@ export default function DallaemCalendar({
       onUpdate();
     }
   };
+
   return (
     <div
       className={clsx(
@@ -76,6 +76,7 @@ export default function DallaemCalendar({
         next2Label={null}
         prev2Label={null}
         className="custom-calendar"
+        tileClassName={({ date }) => `calendar-day ${date.getDate()}`}
       />
 
       {/* showButtons가 true일 때만 버튼을 표시 */}

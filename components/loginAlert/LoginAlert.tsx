@@ -27,7 +27,7 @@ const LoginAlert = ({ onClose, gatheringId }: Props) => {
         로그인이 필요해요
       </div>
       <Button
-        className="self-center md:self-end !w-120pxr"
+        className="self-center md:self-end w-[120px]"
         fillState="full"
         onClick={handleLoginRedirect}
       >

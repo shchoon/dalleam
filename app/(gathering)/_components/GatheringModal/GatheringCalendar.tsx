@@ -79,6 +79,7 @@ function GatheringCalendar({ control }: ControlProps) {
               placeholderColor="gray"
               outlineColor="none"
               placeholder="최소 5인 이상 입력해주세요"
+              min={5}
             />
           )}
         />
