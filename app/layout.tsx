@@ -7,6 +7,7 @@ import { Metadata } from 'next';
 import { getMetadata } from '@/constants/metadata';
 import ToastContainer from '@/components/toast/ToastContainer';
 import { TokenMonitor } from '@/components/TokenMonitor';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = getMetadata();
 
@@ -34,6 +35,7 @@ export default function RootLayout({
         <div id="global-modal"></div>
         <TokenMonitor />
         <ToastContainer />
+        <SpeedInsights />
       </body>
     </html>
   );
