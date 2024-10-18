@@ -12,18 +12,27 @@ import SkeletonCard from './skeletonComponents/SkeletonCard';
 import DeferredComponent from '@/components/DeferredComponent';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/utils/className';
+import { cva } from 'class-variance-authority';
 
 export default function ReviewList() {
-  const topFogColor =
-    'before:w-full before:sticky before:top-0 before:left-0 before:z-20 before:h-[70px] before:bg-gradient-to-t before:from-listColor-toColor before:to-listColor-fromColor';
-  const bottomFogColor =
-    'after:w-full after:sticky after:bottom-0 after:left-0 after:z-10 after:h-[70px] after:bg-gradient-to-t after:from-listColor-fromColor after:to-listColor-toColor ';
+  const convertColor = (type: 'before' | 'after') => {
+    const fogVariants = cva(
+      `${type}:w-full ${type}:sticky ${type}:left-0 ${type}:z-20 ${type}:h-[70px] ${type}:bg-gradient-to-t`,
+      {
+        variants: {
+          direction: {
+            before: `${type}:from-listColor-toColor ${type}:to-listColor-fromColor ${type}:top-0`,
+            after: `${type}:from-listColor-fromColor ${type}:to-listColor-toColor ${type}:bottom-0`,
+          },
+        },
+      },
+    );
+    return fogVariants({ direction: type });
+  };
+
   const [topFogOn, setTopFogOn] = useState(false);
   const { ref, inView } = useInView({
     threshold: 0.5,
-  });
-  const { ref: bottomRef, inView: bottomView } = useInView({
-    threshold: 0.9,
   });
 
   useEffect(() => {
@@ -66,7 +75,7 @@ export default function ReviewList() {
         </div>
         <div
           className={cn(
-            `${topFogOn && topFogColor} ${bottomFogColor} relative flex flex-col items-start gap-6 self-stretch`,
+            `${topFogOn && convertColor('before')} ${convertColor('after')} relative flex flex-col items-start gap-6 self-stretch`,
           )}
         >
           {/* inView로 감지할 타겟 요소 */}
