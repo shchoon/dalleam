@@ -18,7 +18,6 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
   const { location, date, sortBy, type, resetFilters } = useFilterStore();
 
   const queryKey = ['gatherings', location, date, sortBy, type];
-
   const isInitialQuery = queryKey.toString() === INITIAL_QUERY_KEY;
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
@@ -34,10 +33,7 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
         sortOrder: 'desc',
       });
 
-      const response = await axios.get<Gathering[]>('gatherings', {
-        params,
-      });
-
+      const response = await axios.get<Gathering[]>('gatherings', { params });
       return response.data;
     },
     getNextPageParam: (lastPage, allPages) => {
@@ -67,13 +63,13 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
   useEffect(() => {
     resetFilters();
     return () => resetFilters();
-  }, []);
+  }, [resetFilters]);
 
   const { scrollY } = useScroll();
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
   const [isScrolling, setIsScrolling] = useState(false);
 
-  useMotionValueEvent(scrollY, 'change', (latest) => {
+  useMotionValueEvent(scrollY, 'change', () => {
     setIsScrolling(true);
 
     if (scrollTimeout.current) {
