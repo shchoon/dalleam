@@ -26,13 +26,13 @@ describe('HomePage', () => {
     const targetDay = targetDate.getDate();
 
     cy.get('a[href="/login"]').click();
-    cy.wait(1000); // 페이지 로딩 대기
+    cy.wait(1000); // 페이지 로딩 대기(필수)
     cy.get('input[name="email"]').type(USER_ID);
     cy.get('input[name="password"]').type(PASSWORD);
     cy.get('button').contains('로그인').click();
 
     cy.get('button').contains('모임 만들기').click();
-    cy.get('[data-cy="modal"]').should('be.visible'); // 모달 확인
+    cy.get('[data-cy="modal"]').should('be.visible');
 
     cy.contains('장소를 선택 해주세요').click({ force: true });
     cy.get('select').select('건대입구', { force: true }).should('have.value', '건대입구');
