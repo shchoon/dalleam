@@ -32,10 +32,10 @@ describe('test new review', () => {
   });
 
   it('should close review modal when deleteIcon and cancelBtn are clicked', () => {
-    cy.get('button').contains('리뷰 작성하기').click();
+    cy.get('div').should('have.text', '10월 13일').find('button').click();
     cy.get('svg[aria-label="deleteIcon"]').click();
 
-    cy.get('button').contains('리뷰 작성하기').click();
+    cy.get('div').should('have.text', '10월 13일').find('button').click();
     cy.get('button').contains('취소').click();
   });
 
