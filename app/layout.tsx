@@ -29,7 +29,7 @@ export default function RootLayout({
           <NavBar />
           <QueryProvider>
             <div className="bg-gray-100 flex items-center flex-col">{children}</div>
-            <SpeedInsights />
+            {process.env.NODE_ENV !== 'test' && <SpeedInsights />}
             {/* <ReactQueryDevtools initialIsOpen={true} /> */}
           </QueryProvider>
         </div>
