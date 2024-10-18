@@ -19,9 +19,8 @@ const DateFilter = () => {
   const isDateSelected = currentDate !== '날짜 선택';
 
   const handleClickOutside = (event: MouseEvent) => {
-    // divRef의 외부를 클릭했는지 확인
     if (divRef.current && !divRef.current.contains(event.target as Node)) {
-      setIsOpen(false); // 외부 클릭 시 닫기
+      setIsOpen(false);
     }
   };
 
