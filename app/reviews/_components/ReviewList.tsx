@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReviewCard from '@/components/card/ReviewCard';
 import { useInfiniteObserver } from '@/hooks/useInfiniteObserver';
 import { useReviewsInfiniteQuery, getReviewsUrl } from '@/services/reviews';
@@ -10,12 +10,32 @@ import SortByFilter from '@/components/filter/SortByFilter';
 import SkeletonList from './skeletonComponents/SkeletonList';
 import SkeletonCard from './skeletonComponents/SkeletonCard';
 import DeferredComponent from '@/components/DeferredComponent';
+import { useInView } from 'react-intersection-observer';
+import { cn } from '@/utils/className';
 
 export default function ReviewList() {
+  const topFogColor =
+    'before:w-full before:sticky before:top-0 before:left-0 before:z-20 before:h-[70px] before:bg-gradient-to-t before:from-listColor-toColor before:to-listColor-fromColor';
+  const bottomFogColor =
+    'after:w-full after:sticky after:bottom-0 after:left-0 after:z-10 after:h-[70px] after:bg-gradient-to-t after:from-listColor-fromColor after:to-listColor-toColor ';
+  const [topFogOn, setTopFogOn] = useState(false);
+  const { ref, inView } = useInView({
+    threshold: 0.5,
+  });
+  const { ref: bottomRef, inView: bottomView } = useInView({
+    threshold: 0.9,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      setTopFogOn((prev) => !prev);
+    }
+  }, [inView]);
+
   const { reviewUrl, queryKeys } = getReviewsUrl();
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
     useReviewsInfiniteQuery(queryKeys, reviewUrl);
-  const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.3 });
+  const observerRef = useInfiniteObserver(fetchNextPage, { threshold: 0.2 });
 
   if (isError) return <div>데이터를 불러올 수 없습니다.</div>;
   if (!data?.pages[0].length)
@@ -44,9 +64,24 @@ export default function ReviewList() {
           </div>
           <SortByFilter isReviewPage={true} />
         </div>
-        <div className="relative flex flex-col items-start gap-6 self-stretch">
+        <div
+          className={cn(
+            `${topFogOn && topFogColor} ${bottomFogColor} relative flex flex-col items-start gap-6 self-stretch`,
+          )}
+        >
+          {/* inView로 감지할 타겟 요소 */}
           {data?.pages.map((page) =>
-            page.map((review, idx) => <ReviewCard key={idx} {...review} isMyPage={false} />),
+            page.map((review, idx) => (
+              <div key={idx} className="relative w-full">
+                {idx === (!topFogOn ? 4 : 0) && (
+                  <div
+                    ref={ref}
+                    className="w-full absolute z-20 top-0 left-0 bg-red-200 bg-opacity-35 h-40 border-2"
+                  ></div>
+                )}
+                <ReviewCard {...review} isMyPage={false} />
+              </div>
+            )),
           )}
           {isFetchingNextPage && <SkeletonCard />}
         </div>

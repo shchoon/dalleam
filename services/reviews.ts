@@ -47,7 +47,7 @@ export const getReviews = async ({
   pageParam: number;
   reviewUrl?: string;
 }): Promise<Review[]> => {
-  const limit = 3;
+  const limit = 10;
   const offset = pageParam * limit;
   const result = await fetcher.get(`reviews?limit=${limit}&offset=${offset}&${reviewUrl}`);
   return result.data; // 필요한 데이터만 반환
