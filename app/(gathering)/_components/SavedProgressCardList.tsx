@@ -67,7 +67,7 @@ const SavedProgressCardList = () => {
     content = (
       <div data-cy="SavedGathering List">
         {data.map((gathering, index) => (
-          <ProgressCard key={gathering.id} gathering={gathering} />
+          <ProgressCard key={gathering.id} gathering={gathering} priority={index === 0} />
         ))}
       </div>
     );

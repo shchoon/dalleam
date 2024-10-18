@@ -94,8 +94,8 @@ const ProgressCardList = ({ gatherings }: { gatherings: Gathering[] }) => {
         />
         {data && data.pages.flat().length > 0 ? (
           <section className="space-y-6 -mt-210pxr -mb-208pxr" data-cy="Gathering List">
-            {data.pages.flat().map((gathering) => (
-              <ProgressCard key={gathering.id} gathering={gathering} />
+            {data.pages.flat().map((gathering, index) => (
+              <ProgressCard key={gathering.id} gathering={gathering} priority={index === 0} />
             ))}
           </section>
         ) : (
