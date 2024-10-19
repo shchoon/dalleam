@@ -15,9 +15,9 @@ import { cn } from '@/utils/className';
 
 export default function ReviewList() {
   const topFog =
-    'before:w-full before:sticky before:left-0 before:z-20 before:h-[70px] before:bg-gradient-to-t before:from-listColor-toColor before:to-listColor-fromColor before:top-0';
+    'before:w-full before:sticky before:left-0 before:z-20 before:h-[120px] before:bg-gradient-to-t before:from-listColor-toColor before:to-listColor-fromColor before:top-0';
   const bottomFog =
-    'after:w-full after:sticky after:left-0 after:z-20 after:h-[70px] after:bg-gradient-to-t after:from-listColor-fromColor after:to-listColor-toColor after:bottom-0';
+    'after:w-full after:sticky after:left-0 after:z-20 after:h-[100px] after:bg-gradient-to-t after:from-listColor-fromColor after:to-listColor-toColor after:bottom-0';
 
   const [topFogOn, setTopFogOn] = useState(false);
   const [bottomFogOn, setBottomFogOn] = useState(false);
