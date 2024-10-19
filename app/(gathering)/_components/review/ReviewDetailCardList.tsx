@@ -6,7 +6,7 @@ import ReviewDetailCard from './ReviewDetailCard';
 import { Review } from '@/lib/definition';
 import CustomPagination from '../Pagination';
 
-const REVIEWS_PER_PAGE = 4;
+const REVIEWS_PER_PAGE = 3;
 
 const ReviewDetailCardList = ({ reviews }: { reviews: Review[] }) => {
   const [currentPage, setCurrentPage] = useState(1);
