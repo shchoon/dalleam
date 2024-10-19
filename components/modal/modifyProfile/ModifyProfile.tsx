@@ -5,8 +5,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { useState } from 'react';
 import Image from 'next/image';
 
-import Input from '../input/Input';
-import Button from '../Button';
+import { toast } from '@/components/toast/ToastManager';
+import Input from '../../input/Input';
+import Button from '../../Button';
 import { getInstance } from '@/utils/axios';
 import { User } from '@/lib/definition';
 import useUserStore from '@/stores/userStore';
@@ -30,7 +31,18 @@ type Props = {
 
 export default function ModifyProfile({ closeModal }: Props) {
   const { setUser } = useUserStore();
+  const { handleSubmit, control, watch } = useForm();
+
   const [profileImg, setProfileImg] = useState<profileImg>();
+  const companyName = watch('companyName');
+
+  const isAvtiveButton = () => {
+    if (profileImg && companyName) {
+      return true;
+    }
+
+    return false;
+  };
 
   const updateProfile = async (body: FormData) => {
     const instance = getInstance();
@@ -43,12 +55,11 @@ export default function ModifyProfile({ closeModal }: Props) {
     setUser(res.data);
   };
 
-  const { handleSubmit, control } = useForm();
-
   const mutation = useMutation({
     mutationFn: updateProfile,
     onSuccess: () => {
       closeModal();
+      toast('프로필 수정이 완료되었습니다.');
     },
   });
 
@@ -61,14 +72,13 @@ export default function ModifyProfile({ closeModal }: Props) {
 
   return (
     <form
-      aria-label="editProfileModal"
       className="w-343pxr h-324pxr md:w-520pxr md:h-328pxr p-6 flex flex-col gap-6 rounded-xl bg-white"
       onSubmit={submit}
     >
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">프로필 수정하기</span>
         <Delete
-          aria-label="closeProfileEditModal"
+          aria-label="closeBtn"
           onClick={() => {
             closeModal();
           }}
@@ -131,9 +141,10 @@ export default function ModifyProfile({ closeModal }: Props) {
         </Button>
         <Button
           type="submit"
+          disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "
           fillState="full"
-          variant="gray"
+          variant={isAvtiveButton() ? 'orange' : 'gray'}
         >
           수정하기
         </Button>

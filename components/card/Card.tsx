@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { format, addHours } from 'date-fns';
 
 import Person from '/public/icons/gathering/person.svg';
 import Bye from '/public/icons/gathering/bye.svg';
@@ -30,7 +31,12 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
     formattedTime: '',
   };
 
-  const isFinished = isDeadlinePassed(gathering.registrationEnd);
+  new Date(gathering.dateTime);
+
+  const isFinishedRegisterEnd = isDeadlinePassed(gathering.registrationEnd);
+  const isFinishedDateTime = isDeadlinePassed(
+    addHours(new Date(gathering.dateTime), -9).toDateString(),
+  );
 
   // 개설확정 충족 조건
   const minParticipants = gathering.participantCount >= 5;
@@ -45,6 +51,7 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
               alt="Image"
               fill
               className="object-cover rounded-3xl"
+              priority
             />
           </Link>
         </div>
@@ -52,7 +59,7 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
           <div className="flex flex-col gap-3">
             {!normal && (
               <div className="flex items-center gap-2">
-                {isFinished ? (
+                {isFinishedDateTime ? (
                   <ChipState status="이용 완료" />
                 ) : (
                   <>
@@ -91,7 +98,7 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
           </div>
           {/* 버튼 컴포넌트 */}
           <>
-            {!normal && !isFinished && (
+            {!normal && !isFinishedRegisterEnd && (
               <Button
                 size="sm"
                 fillState="empty"
@@ -105,7 +112,7 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
                 예약 취소하기
               </Button>
             )}
-            {!normal && isFinished && (
+            {!normal && isFinishedRegisterEnd && (
               <Button
                 size="sm"
                 fillState="full"
@@ -132,10 +139,10 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
           <p className="h-10 text-sm font-medium text-center text-white w-132pxr">
             모집 취소된 모임이에요, 다음 기회에 만나요 🙏
           </p>
-          <button className="flex items-center justify-center gap-2 px-3 py-6pxr rounded-xl bg-orange-50 md:flex md:absolute top-6 right-6 md:rounded-full md:size-12">
+          <div className="flex items-center justify-center gap-2 px-3 py-6pxr rounded-xl bg-orange-50 md:flex md:absolute top-6 right-6 md:rounded-full md:size-12">
             <Bye />
             <span className="text-xs font-semibold text-orange-600 md:hidden">모임 보내주기</span>
-          </button>
+          </div>
         </div>
       )}
     </div>

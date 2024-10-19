@@ -1,15 +1,16 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import Button from '../Button';
+import { toast } from '@/components/toast/ToastManager';
+import Button from '@/components/Button';
 import useGatheringId from '@/stores/useGatheringId';
+import { getInstance } from '@/utils/axios';
+import { JoinedGathering, Review } from '@/lib/definition';
 
 import Delete from '/public/icons/delete.svg';
 import EmptyHeart from '/public/icons/reviewEmptyHeart.svg';
 import FillHeart from '/public/icons/reviewFillHeart.svg';
-import { getInstance } from '@/utils/axios';
-import { JoinedGathering, Review } from '@/lib/definition';
 
 type Props = {
   closeModal: () => void;
@@ -38,6 +39,14 @@ export default function ReviewModal({ closeModal }: Props) {
   });
   const [review, setReview] = useState('');
 
+  const isAvtiveButton = () => {
+    const scores = Object.values(score).filter((data) => data).length;
+    if (scores >= 1 && review !== '') {
+      return true;
+    }
+    return false;
+  };
+
   const postReview = async () => {
     const scores = Object.values(score).filter((data) => data).length;
 
@@ -52,6 +61,7 @@ export default function ReviewModal({ closeModal }: Props) {
     return res;
   };
 
+  // 해당 모임의 review 값 변경
   const updateGateringJoined = () => {
     queryClient.setQueryData(['gatheringJoined'], (oldData: queryGatheringJoined) => {
       if (oldData) {
@@ -68,41 +78,56 @@ export default function ReviewModal({ closeModal }: Props) {
           }
         });
 
+        const pages = updateData.reduce((acc: JoinedGathering[][], _, i: number) => {
+          if (i % 10 === 0) {
+            acc.push(updateData.slice(i, i + 10));
+          }
+
+          return acc;
+        }, []);
+
         return {
           ...oldData,
-          pages: updateData,
+          pages: pages,
         };
       }
     });
   };
 
+  // 작성 가능한 리뷰 데이터 변경
   const updateNewReviews = () => {
     queryClient.setQueryData(['newReviews'], (oldData: queryGatheringJoined) => {
       if (oldData) {
         const updateData = oldData.pages.flat().filter((data: JoinedGathering) => data.id !== id);
 
+        const pages = updateData.reduce((acc: JoinedGathering[][], _, i: number) => {
+          if (i % 10 === 0) {
+            acc.push(updateData.slice(i, i + 10));
+          }
+
+          return acc;
+        }, []);
+
         return {
           ...oldData,
-          pages: updateData,
+          pages: pages,
         };
       }
     });
   };
 
-  // const updatewrittenReviews = () => {
-  //   queryClient.setQueryData(['writtenReviews'], (oldData: queryWrittenReviews) => {
-  //     if(oldData) {
-  //       const updateData = oldData.pages.
-  //     }
-  //   })
-  // }
+  const updateWrittenReviews = () => {
+    queryClient.invalidateQueries({ queryKey: ['writtenReviews'] });
+  };
 
   const { mutate } = useMutation({
     mutationFn: postReview,
     onSuccess: () => {
+      toast('리뷰가 등록되었습니다.');
       clearId();
       closeModal();
       updateGateringJoined();
+      updateWrittenReviews();
       updateNewReviews();
     },
   });
@@ -122,7 +147,7 @@ export default function ReviewModal({ closeModal }: Props) {
     >
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">리뷰 쓰기</span>
-        <Delete onClick={handleClickDelete} className="cursor-pointer" />
+        <Delete aria-label="deleteIcon" onClick={handleClickDelete} className="cursor-pointer" />
       </div>
       <div className="flex flex-col gap-3">
         <span className="text-base font-semibold text-gray-800">만족스러운 경험이었나요?</span>
@@ -139,8 +164,9 @@ export default function ReviewModal({ closeModal }: Props) {
                   }));
                 }}
               >
-                <EmptyHeart className={`absolute`} />
+                <EmptyHeart aria-label="emptyHeart" className={`absolute`} />
                 <FillHeart
+                  aria-label="fillHeart"
                   className={`absolute  ${score[i] ? 'animate-fFill-heart' : 'hidden'} `}
                 />
               </div>
@@ -172,9 +198,10 @@ export default function ReviewModal({ closeModal }: Props) {
         </Button>
         <Button
           type="submit"
+          disabled={isAvtiveButton() ? false : true}
           className="w-full flex justify-center items-center "
           fillState="full"
-          variant="gray"
+          variant={isAvtiveButton() ? 'orange' : 'gray'}
         >
           리뷰 등록
         </Button>

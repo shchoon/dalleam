@@ -5,7 +5,7 @@ import useUserStore from '@/stores/userStore';
 import useSavedStore from '@/stores/savedStore';
 
 import HeartStroke from '/public/icons/HeartStroke.svg';
-import FillHeart from '/public/icons/FillHeart.svg';
+import FillHeart from '/public/hea.svg';
 import SaveActive from '/public/icons/SaveActive.svg';
 
 export default function Saved({ gatheringId }: { gatheringId: number }) {
@@ -22,7 +22,7 @@ export default function Saved({ gatheringId }: { gatheringId: number }) {
     setWorkanimation(true);
     setTimeout(() => {
       setIsSaved(true);
-    }, 1950);
+    }, 1000);
   };
 
   const handleClickCancelSaved = () => {
@@ -54,13 +54,13 @@ export default function Saved({ gatheringId }: { gatheringId: number }) {
           onClick={() => {
             handleClickSaved();
           }}
-          className={`relative w-12 h-12 flex justify-center items-center rounded-full border-2 border-gray-200 ${workAnimation && 'animate-saved-bg'} cursor-pointer`}
+          className={`relative w-12 h-12 flex justify-center items-center rounded-full  ${workAnimation ? 'bg-[#FFF7ED]' : 'border-2 border-gray-200'} cursor-pointer`}
         >
           <HeartStroke
-            className={`absolute w-6 h-6 stroke-2 ${workAnimation && 'animate-heart-stroke'} stroke-gray-400`}
+            className={`absolute w-6 h-6 stroke-2 ${workAnimation && 'hidden'} stroke-gray-400`}
           />
           <FillHeart
-            className={`absolute w-18pxr h-15pxr scale-0 ${workAnimation && 'animate-fill-heart'}`}
+            className={`absolute w-6 h-6 ${workAnimation ? 'animate-fill-heart' : 'hidden'}`}
           />
         </span>
       )}
