@@ -1,0 +1,16 @@
+[
+  {
+    "teamId": "FESI3-3",
+    "id": 101, 
+    "type": "WORKATION",
+    "name": "워크케이션 모임 1",
+    "dateTime": "2024-09-25T09:00:00Z",
+    "registrationEnd": "2024-09-24T08:00:00Z",
+    "location": "홍대입구",
+    "participantCount": 6,
+    "capacity": 6,
+    "image": "/card-image2.png",
+    "createdBy": 4,
+    "canceledAt": null
+  } 
+]
