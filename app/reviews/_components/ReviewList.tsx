@@ -20,13 +20,26 @@ export default function ReviewList() {
     'after:w-full after:sticky after:left-0 after:z-20 after:h-[70px] after:bg-gradient-to-t after:from-listColor-fromColor after:to-listColor-toColor after:bottom-0';
 
   const [topFogOn, setTopFogOn] = useState(false);
-  const { ref } = useInView({
+  const [bottomFogOn, setBottomFogOn] = useState(false);
+
+  const { ref: topRef } = useInView({
     threshold: 0, // 최소한으로 걸쳤을 때 감지
     onChange: (inView) => {
       if (!inView) {
         setTopFogOn(true);
       } else {
         setTopFogOn(false);
+      }
+    },
+  });
+
+  const { ref: bottomRef } = useInView({
+    threshold: 0, // 최소한으로 걸쳤을 때 감지
+    onChange: (inView) => {
+      if (!inView) {
+        setBottomFogOn(true);
+      } else {
+        setBottomFogOn(false);
       }
     },
   });
@@ -65,7 +78,7 @@ export default function ReviewList() {
         </div>
         <div
           className={cn(
-            `${topFogOn && topFog} ${bottomFog} relative flex flex-col items-start gap-6 self-stretch`,
+            `${topFogOn && topFog} ${bottomFogOn && bottomFog} relative flex flex-col items-start gap-6 self-stretch`,
           )}
         >
           {/* inView로 감지할 타겟 요소 */}
@@ -73,17 +86,16 @@ export default function ReviewList() {
             page.map((review, idx) => (
               <div key={idx} className="relative w-full">
                 {idx === 0 && (
-                  <div
-                    ref={ref}
-                    className="w-full absolute bg-opacity-35 z-20 -top-28 left-0 h-40"
-                  ></div>
+                  <div ref={topRef} className="w-full absolute z-20 -top-6 left-0 h-6"></div>
                 )}
                 <ReviewCard {...review} isMyPage={false} />
               </div>
             )),
           )}
+          <div ref={bottomRef} className="w-full z-20 bottom-6 left-0 h-6"></div>
           {isFetchingNextPage && <SkeletonCard />}
         </div>
+
         {hasNextPage && (
           <div
             className="absolute w-full left-0 bottom-0 -z-10 h-20 border-2"
