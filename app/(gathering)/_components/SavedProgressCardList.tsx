@@ -65,7 +65,7 @@ const SavedProgressCardList = () => {
 
   if (data && data.length > 0) {
     content = (
-      <div data-cy="SavedGathering List">
+      <div data-cy="SavedGathering List" className="space-y-6">
         {data.map((gathering, index) => (
           <ProgressCard key={gathering.id} gathering={gathering} priority={index === 0} />
         ))}
@@ -82,7 +82,7 @@ const SavedProgressCardList = () => {
     );
   }
 
-  return <div className="flex flex-col gap-6 mt-6">{content}</div>;
+  return <>{content}</>;
 };
 
 export default SavedProgressCardList;
