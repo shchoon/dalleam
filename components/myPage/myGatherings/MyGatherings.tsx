@@ -1,31 +1,27 @@
 'use client';
+import React, { useEffect } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import Modal from '../Modal';
 import useModal from '@/hooks/useModal';
 import { getInstance } from '@/utils/axios';
-import Review from '../modal/Review';
-
-import CheckCancel from '../modal/CheckCancel';
-import Card from '../card/Card';
-
 import { JoinedGathering } from '@/lib/definition';
 import useModalType from '@/stores/useModalType';
-import { useEffect } from 'react';
+
+import Modal from '../../Modal';
+import Review from '../../modal/review/Review';
+import CheckCancel from '../../modal/checkCancel/CheckCancel';
+import Card from '../../card/Card';
 
 type Props = {
   initialMyGatherings: JoinedGathering[];
 };
 
 export default function MyGatherings({ initialMyGatherings }: Props) {
-  const queryClient = useQueryClient();
-  console.log('queryClient', queryClient.getQueryData(['gatheringJoined']));
-  console.log('queryClient', queryClient.getQueryData(['newReviews']));
-
   const { ref, inView } = useInView();
   const { modalRef, handleCloseModal, handleOpenModal } = useModal();
   const { type } = useModalType();
+  const client = useQueryClient();
 
   const getMyGatheringData = async (offset: number) => {
     const instance = getInstance();
@@ -45,12 +41,12 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
     queryKey: ['gatheringJoined'],
     initialPageParam: 0,
     initialData: {
-      pages: initialMyGatherings,
+      pages: [initialMyGatherings],
       pageParams: [0],
     },
     queryFn: ({ pageParam }) => getMyGatheringData(pageParam),
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < 5) {
+      if (lastPage.length < 10) {
         return undefined;
       }
       return allPages.flat().length;
@@ -67,12 +63,12 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
   return (
     <>
       <div className="pt-6 min-h-[60vh] flex justify-center ">
-        {initialMyGatherings.length === 0 ? (
+        {gatheringJoined.pages.flat().length === 0 ? (
           <div className="flex items-center">
             <span className="text-sm font-medium text-gray-500">신청한 모임이 아직 없어요</span>
           </div>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div aria-label="gatheringJoined" className="flex flex-col gap-6">
             {gatheringJoined.pages.flat().map((myGathering) => {
               return (
                 <Card

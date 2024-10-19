@@ -1,0 +1,17 @@
+{
+  "teamId": "FESI3-3",
+  "id": 1,
+  "type": "OFFICE_STRETCHING",
+  "name": null,
+  "dateTime": "2024-09-30T04:36:42.335Z",
+  "registrationEnd": "2024-09-30T04:36:42.335Z",
+  "location": "건대입구",
+  "participantCount": 1,
+  "capacity": 5,
+  "image": "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/together-dallaem/1727670982771_SmartSelectImage_2022-03-22-22-52-45.png",
+  "createdBy": 681,
+  "canceledAt": null,
+  "joinedAt": "2024-09-30T04:36:42.335Z",
+  "isCompleted": true,
+  "isReviewed": false
+}

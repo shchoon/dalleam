@@ -1,12 +1,14 @@
 'use client';
+import React from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import Button from '../Button';
+import { toast } from '@/components/toast/ToastManager';
+import Button from '@/components/Button';
+import { getInstance } from '@/utils/axios';
 import useGatheringId from '@/stores/useGatheringId';
 import { JoinedGathering } from '@/lib/definition';
 
 import Delete from '/public/icons/delete.svg';
-import { getInstance } from '@/utils/axios';
 
 type Props = {
   closeModal: () => void;
@@ -32,14 +34,23 @@ export default function CheckCancel({ closeModal }: Props) {
   const { mutate } = useMutation({
     mutationFn: leaveGathering,
     onSuccess: () => {
+      toast('해당 모임 예약이 취소되었습니다.');
       closeModal();
       clearId();
       queryClient.setQueryData(['gatheringJoined'], (oldData: QueryData) => {
         const updateData = oldData.pages.flat().filter((data: JoinedGathering) => data.id !== id);
 
+        const pages = updateData.reduce((acc: JoinedGathering[][], _, i: number) => {
+          if (i % 10 === 0) {
+            acc.push(updateData.slice(i, i + 10));
+          }
+
+          return acc;
+        }, []);
+
         return {
           ...oldData,
-          pages: updateData,
+          pages: pages,
         };
       });
     },
@@ -56,6 +67,7 @@ export default function CheckCancel({ closeModal }: Props) {
       <div className="flex justify-between">
         <span className="text-lg font-semibold text-gray-900">예약 취소</span>
         <Delete
+          aria-label="deleteIcon"
           className="cursor-pointer"
           onClick={() => {
             closeModal();

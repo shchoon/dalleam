@@ -9,6 +9,7 @@ import ReviewDetailCardList from '@/app/(gathering)/_components/review/ReviewDet
 
 import { fetchDetailGathering, fetchDetailReviews, fetchJoinedGatheringIds } from '@/lib/data';
 import { getMetadata } from '@/constants/metadata';
+import { mockGatheringReviews } from '@/lib/placeholder-data';
 
 type Props = {
   params: {
@@ -97,7 +98,7 @@ const GatheringDetail = async ({ params }: Props) => {
             </p>
             {/* 리뷰 데이터가 없으면 목록을 표시하지 않음 */}
             {reviewData ? (
-              <ReviewDetailCardList reviews={reviewData} />
+              <ReviewDetailCardList reviews={mockGatheringReviews} />
             ) : (
               <div className="flex items-center justify-center h-full min-h-500pxr md:min-h-696pxr">
                 <p className="h-10 text-sm font-medium text-center text-gray-500">

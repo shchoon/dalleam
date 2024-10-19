@@ -1,22 +1,23 @@
 'use client';
+import React, { useEffect } from 'react';
 import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import Card from '../card/Card';
-import Modal from '../Modal';
-import Review from '../modal/Review';
+import Card from '../../card/Card';
+import Modal from '../../Modal';
+import Review from '../../modal/review/Review';
 
 import { JoinedGathering } from '@/lib/definition';
 import { getInstance } from '@/utils/axios';
 import useModal from '@/hooks/useModal';
 
-export default function NewReview({ initialReviews }: { initialReviews: JoinedGathering[] }) {
+type Props = {
+  initialReviews: JoinedGathering[];
+};
+
+export default function NewReview({ initialReviews }: Props) {
   const { ref, inView } = useInView();
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
-  const queryClient = useQueryClient();
-  console.log('gatheringJoined', queryClient.getQueryData(['gatheringJoined']));
-  console.log('writtenReviews', queryClient.getQueryData(['newReviews']));
 
   const getReviews = async (offset: number) => {
     const instance = getInstance();
@@ -27,6 +28,7 @@ export default function NewReview({ initialReviews }: { initialReviews: JoinedGa
         offset: offset,
         reviewed: false,
         completed: true,
+        sortOrder: 'desc',
       },
     });
 
@@ -43,12 +45,12 @@ export default function NewReview({ initialReviews }: { initialReviews: JoinedGa
     queryFn: ({ pageParam }) => getReviews(pageParam),
     initialPageParam: 0,
     initialData: {
-      pages: initialReviews,
+      pages: [initialReviews],
       pageParams: [0],
     },
     enabled: false,
     getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.length < 5) {
+      if (lastPage.length < 10) {
         return undefined;
       }
       return allPages.flat().length;
@@ -65,14 +67,14 @@ export default function NewReview({ initialReviews }: { initialReviews: JoinedGa
   return (
     <>
       <div className="flex justify-center min-h-[60vh] bg-white">
-        {initialReviews.length === 0 ? (
+        {newReviews.pages.flat().length === 0 ? (
           <div className="flex items-center">
             <span className="text-sm font-medium text-gray-500">
               아직 작성 가능한 리뷰가 없어요
             </span>
           </div>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div aria-label="newReviews" className="flex flex-col gap-6">
             {newReviews.pages.flat().map((review) => {
               return (
                 <Card

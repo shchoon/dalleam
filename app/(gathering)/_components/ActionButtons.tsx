@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
 import Button from '@/components/Button';
 import LoginAlert from '@/components/loginAlert/LoginAlert';
@@ -12,8 +11,10 @@ import { getInstance } from '@/utils/axios';
 import { useRouter } from 'next/navigation';
 import useModal from '@/hooks/useModal';
 import useUserStore from '@/stores/userStore';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from '@/components/toast/ToastManager';
+import useFilterStore from '@/stores/filterStore';
+import { GatheringType } from '@/lib/definition';
 
 type Props = {
   isFull: boolean;
@@ -22,12 +23,20 @@ type Props = {
   joinedGatheringIds: number[];
 };
 
-const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Props) => {
+const ActionButtons = ({
+  isFull,
+  hostId,
+  gatheringId,
+  joinedGatheringIds: initialJoinedGatheringIds,
+}: Props) => {
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
   const { user } = useUserStore();
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const { type } = useFilterStore();
 
   const userId = user?.id as number;
+  const [joinedGatheringIds, setJoinedGatheringIds] = useState(initialJoinedGatheringIds);
   const isJoined = joinedGatheringIds.includes(userId);
 
   const { mutate: joinGathering, isPending: isJoining } = useMutation({
@@ -36,7 +45,9 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
       return response.data;
     },
     onSuccess: () => {
+      setJoinedGatheringIds((prev) => [...prev, userId]);
       toast('모임 참여 완료');
+      queryClient.invalidateQueries({ queryKey: ['gatheringJoined'] });
     },
   });
 
@@ -46,16 +57,28 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
       return response.data;
     },
     onSuccess: () => {
+      setJoinedGatheringIds((prev) => prev.filter((id) => id !== userId));
       toast('참여 취소 완료');
+      queryClient.invalidateQueries({ queryKey: ['gatheringJoined'] });
     },
   });
 
   const { mutate: cancelGathering, isPending: isGatheringCanceling } = useMutation({
-    mutationFn: async ({ gatheringId }: { gatheringId: number }) => {
+    mutationFn: async ({ gatheringId, type }: { gatheringId: number; type: GatheringType }) => {
       const response = await getInstance().put(`gatherings/${gatheringId}/cancel`);
       return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
+      const { type } = variables;
+      queryClient.invalidateQueries({
+        queryKey: [
+          'gatherings',
+          '지역 선택',
+          '날짜 선택',
+          '마감 임박',
+          type === 'WORKATION' ? 'WORKATION' : 'DALLAEMFIT',
+        ],
+      });
       toast('모임 취소 완료');
       router.back();
     },
@@ -90,7 +113,7 @@ const ActionButtons = ({ isFull, hostId, gatheringId, joinedGatheringIds }: Prop
         <Button
           className="text-sm  sm:w-1/2 md:w-[110px] h-[44px]"
           fillState="full"
-          onClick={() => cancelGathering({ gatheringId })}
+          onClick={() => cancelGathering({ gatheringId, type })}
         >
           {isGatheringCanceling ? '모임 취소중..' : '모임 취소하기'}
         </Button>
