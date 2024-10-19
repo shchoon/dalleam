@@ -12,34 +12,37 @@ import SkeletonCard from './skeletonComponents/SkeletonCard';
 import DeferredComponent from '@/components/DeferredComponent';
 import { useInView } from 'react-intersection-observer';
 import { cn } from '@/utils/className';
-import { cva } from 'class-variance-authority';
 
 export default function ReviewList() {
-  const convertColor = (type: 'before' | 'after') => {
-    const fogVariants = cva(
-      `${type}:w-full ${type}:sticky ${type}:left-0 ${type}:z-20 ${type}:h-[70px] ${type}:bg-gradient-to-t`,
-      {
-        variants: {
-          direction: {
-            before: `${type}:from-listColor-toColor ${type}:to-listColor-fromColor ${type}:top-0`,
-            after: `${type}:from-listColor-fromColor ${type}:to-listColor-toColor ${type}:bottom-0`,
-          },
-        },
-      },
-    );
-    return fogVariants({ direction: type });
-  };
+  const topFog =
+    'before:w-full before:sticky before:left-0 before:z-20 before:h-[120px] before:bg-gradient-to-t before:from-listColor-toColor before:to-listColor-fromColor before:top-0';
+  const bottomFog =
+    'after:w-full after:sticky after:left-0 after:z-20 after:h-[100px] after:bg-gradient-to-t after:from-listColor-fromColor after:to-listColor-toColor after:bottom-0';
 
   const [topFogOn, setTopFogOn] = useState(false);
-  const { ref, inView } = useInView({
-    threshold: 0.5,
+  const [bottomFogOn, setBottomFogOn] = useState(false);
+
+  const { ref: topRef } = useInView({
+    threshold: 0, // 최소한으로 걸쳤을 때 감지
+    onChange: (inView) => {
+      if (!inView) {
+        setTopFogOn(true);
+      } else {
+        setTopFogOn(false);
+      }
+    },
   });
 
-  useEffect(() => {
-    if (inView) {
-      setTopFogOn((prev) => !prev);
-    }
-  }, [inView]);
+  const { ref: bottomRef } = useInView({
+    threshold: 0, // 최소한으로 걸쳤을 때 감지
+    onChange: (inView) => {
+      if (!inView) {
+        setBottomFogOn(true);
+      } else {
+        setBottomFogOn(false);
+      }
+    },
+  });
 
   const { reviewUrl, queryKeys } = getReviewsUrl();
   const { data, fetchNextPage, isLoading, isError, isFetchingNextPage, hasNextPage } =
@@ -75,22 +78,24 @@ export default function ReviewList() {
         </div>
         <div
           className={cn(
-            `${topFogOn && convertColor('before')} ${convertColor('after')} relative flex flex-col items-start gap-6 self-stretch`,
+            `${topFogOn && topFog} ${bottomFogOn && bottomFog} relative flex flex-col items-start gap-6 self-stretch`,
           )}
         >
           {/* inView로 감지할 타겟 요소 */}
           {data?.pages.map((page) =>
             page.map((review, idx) => (
               <div key={idx} className="relative w-full">
-                {idx === (!topFogOn ? 4 : 0) && (
-                  <div ref={ref} className="w-full absolute z-20 top-0 left-0 h-40"></div>
+                {idx === 0 && (
+                  <div ref={topRef} className="w-full absolute z-20 -top-6 left-0 h-6"></div>
                 )}
                 <ReviewCard {...review} isMyPage={false} />
               </div>
             )),
           )}
+          <div ref={bottomRef} className="w-full z-20 bottom-6 left-0 h-6"></div>
           {isFetchingNextPage && <SkeletonCard />}
         </div>
+
         {hasNextPage && (
           <div
             className="absolute w-full left-0 bottom-0 -z-10 h-20 border-2"
