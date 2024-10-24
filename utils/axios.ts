@@ -8,11 +8,11 @@ const ENV_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 // 클라이언트 컴포넌트에서 사용하는 axios 인스턴스
 const instanceForCS = axios.create({
-  baseURL: 'https://fe-adv-project-together-dallaem.vercel.app/FESI3-3/',
+  baseURL: ENV_BASE_URL,
 });
 // 서버 컴포넌트에서 사용하는 axios 인스턴스
 const instanceForSS = axios.create({
-  baseURL: 'https://fe-adv-project-together-dallaem.vercel.app/FESI3-3/',
+  baseURL: ENV_BASE_URL,
 });
 
 // Request 인터셉터
