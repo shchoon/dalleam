@@ -63,6 +63,13 @@ describe('test cancel gathering in myGathering', () => {
     cy.get('div[aria-label="gatheringJoined"]').children().should('have.length', 10);
     cy.scrollTo('bottom', { duration: 1000 });
 
+    cy.intercept('GET', `${API_BASE_URL}/gatherings/joined*`, (req) => {
+      req.reply({
+        statusCode: 200,
+        body: [],
+      });
+    }).as('cancelGathering');
+
     cy.get('div[aria-label="gatheringJoined"]').children().should('have.length', 11);
     cy.wait('@cancelGathering');
     cy.scrollTo('bottom', { duration: 1000 });
