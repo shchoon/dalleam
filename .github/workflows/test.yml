@@ -16,6 +16,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         env:
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
           DEBUG: '@cypress/github-action'
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Creating a token https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
