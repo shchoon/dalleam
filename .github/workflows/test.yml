@@ -26,7 +26,7 @@ jobs:
           start: npm run start
           browser: chrome
           record: true
-          parallel: true
+          # parallel: true
 
       - name: Setup node
         uses: actions/setup-node@v4
