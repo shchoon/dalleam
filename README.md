@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#회원가입
 
-## Getting Started
+![회원 가입](https://github.com/user-attachments/assets/56d01363-bf39-484d-ba12-fb066c0fefae)
 
-First, run the development server:
+#로그인
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![로그인](https://github.com/user-attachments/assets/af29dc4f-84fd-407f-9320-d6d3cb2b99f8)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#모임 생성
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![모임 생성](https://github.com/user-attachments/assets/89be5717-9f94-45e7-b83c-bbe797ab78dc)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#모임 찾기
 
-## Learn More
+![모임 찾기](https://github.com/user-attachments/assets/526de7c6-4e95-4ab2-8d4a-d89fa7f587f6)
 
-To learn more about Next.js, take a look at the following resources:
+#찜한 모임
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![찜한 모임](https://github.com/user-attachments/assets/98d83933-09dc-4c1a-b0ec-a2543465b4f3)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#모든 리뷰
 
-## Deploy on Vercel
+![모든 리뷰](https://github.com/user-attachments/assets/060545c6-be89-4546-91ee-225e04e314c6)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#마이페이지
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![마이 페이지](https://github.com/user-attachments/assets/b68fed8b-6365-461a-9e71-4f6df8e29314)
