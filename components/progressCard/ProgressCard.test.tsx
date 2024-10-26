@@ -21,7 +21,7 @@ const mockGathering: Gathering = {
 
 describe('ProgressCard', () => {
   it('gathering 데이터에 대한 기본 정보 렌더링 ', () => {
-    render(<ProgressCard gathering={mockGathering} />);
+    render(<ProgressCard priority={true} gathering={mockGathering} />);
 
     // 모임 제목이 제대로 렌더링되는지 확인
     expect(screen.getByText('WORKATION')).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe('ProgressCard', () => {
       participantCount: 5, // participantCount 값을 5로 수정(개설 확정 조건)
     };
 
-    render(<ProgressCard gathering={updatedMockGathering} />);
+    render(<ProgressCard priority={true} gathering={updatedMockGathering} />);
 
     // 개설 확정 텍스트와 체크 아이콘이 렌더링되는지 확인
     expect(screen.getByText('개설 확정')).toBeInTheDocument();
@@ -45,21 +45,21 @@ describe('ProgressCard', () => {
 
   it('참가자가 5명 미만일 경우 개설 확정 텍스트 보이지 않음을 렌더링', () => {
     const mockGatheringLessParticipants = { ...mockGathering, participantCount: 3 };
-    render(<ProgressCard gathering={mockGatheringLessParticipants} />);
+    render(<ProgressCard priority={true} gathering={mockGatheringLessParticipants} />);
 
     expect(screen.queryByText('개설 확정')).toBeNull();
   });
 
-  it('취소시간이 있는 경우 오버레이 텍스트 렌더링', () => {
-    const canceledGathering = { ...mockGathering, canceledAt: '2024-09-20T09:00:00Z' };
-    render(<ProgressCard gathering={canceledGathering} />);
+  it('마감된 경우 오버레이 텍스트 렌더링', () => {
+    render(<ProgressCard priority={true} gathering={mockGathering} />);
 
     expect(screen.getByText('마감된 챌린지에요,')).toBeInTheDocument();
     expect(screen.getByText('다음 기회에 만나요 🙏')).toBeInTheDocument();
   });
 
-  it('취소시간이 없는 경우 오버레이 텍스트가 렌더링되지 않음', () => {
-    render(<ProgressCard gathering={mockGathering} />);
+  it('마감되지 않은 경우 오버레이 텍스트가 렌더링되지 않음', () => {
+    const canceledGathering = { ...mockGathering, registrationEnd: '2030-09-24T09:00:00Z' };
+    render(<ProgressCard priority={true} gathering={canceledGathering} />);
 
     expect(screen.queryByText('마감된 챌린지에요,')).toBeNull();
     expect(screen.queryByText('다음 기회에 만나요 🙏')).toBeNull();
