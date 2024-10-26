@@ -1,5 +1,7 @@
+![test](https://github.com/user-attachments/assets/b2efcc9f-3dc1-4d7a-8476-13f205dbf224)
 
-![찜한 모임](https://github.com/user-attachments/assets/6fa382ad-0ae9-428d-8bbb-d6b6170d2069)
+
+찜한 모임](https://github.com/user-attachments/assets/6fa382ad-0ae9-428d-8bbb-d6b6170d2069)
 
 
 #회원가입
