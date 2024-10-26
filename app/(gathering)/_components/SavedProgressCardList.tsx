@@ -65,7 +65,7 @@ const SavedProgressCardList = () => {
 
   if (data && data.length > 0) {
     content = (
-      <div data-cy="SavedGathering List" className="space-y-6">
+      <div data-cy="SavedGathering List" className="space-y-6 mt-6">
         {data.map((gathering, index) => (
           <ProgressCard key={gathering.id} gathering={gathering} priority={index === 0} />
         ))}
