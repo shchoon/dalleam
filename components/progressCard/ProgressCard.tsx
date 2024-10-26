@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { differenceInHours } from 'date-fns';
 
 import Person from '/public/icons/gathering/person.svg';
 import Check from '/public/icons/gathering/ic_check.svg';
@@ -19,6 +20,9 @@ type Props = {
 };
 
 const ProgressCard = ({ gathering, priority }: Props) => {
+  const now = new Date();
+  const hoursDiff = differenceInHours(gathering.registrationEnd, now);
+
   const { formattedDate, formattedTime } = formatDateTime(gathering.dateTime) ?? {
     formattedDate: '',
     formattedTime: '',
@@ -102,7 +106,7 @@ const ProgressCard = ({ gathering, priority }: Props) => {
         </div>
       </div>
       {/* 오버레이 */}
-      {gathering.canceledAt && (
+      {hoursDiff <= 0 && (
         <div className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full gap-6 text-sm opacity-100 rounded-xl bg-black/80 md:flex-row md:h-full md:rounded-3xl">
           <div>
             <p className="text-sm font-medium text-center text-white">마감된 챌린지에요,</p>
