@@ -1,3 +1,7 @@
+
+![찜한 모임](https://github.com/user-attachments/assets/6fa382ad-0ae9-428d-8bbb-d6b6170d2069)
+
+
 #회원가입
 
 ![회원 가입](https://github.com/user-attachments/assets/56d01363-bf39-484d-ba12-fb066c0fefae)
