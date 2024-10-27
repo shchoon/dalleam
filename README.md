@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/421ff487-2472-4b00-bd7c-cc37202a982a)
 
-배포 링크 https://next-media-mate.vercel.app/
+배포 링크 https://dalleam.vercel.app/
 
 ## 프로젝트 소개
 
