@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/421ff487-2472-4b00-bd7c-cc37202a982a)
 
-[배포 사이트 ](https://next-media-mate.vercel.app/)
+배포 링크 https://next-media-mate.vercel.app/
 
 ## 프로젝트 소개
 
@@ -62,9 +62,21 @@
 
 ### 홈 페이지
 
+#### 필터링
+
 ![홈페이지1](https://github.com/user-attachments/assets/147751b7-f720-4f2d-87c3-76270586eb0e)
+
+#### 모임 생성
+
 ![모임만들기](https://github.com/user-attachments/assets/69d9117d-3dce-4dd1-8d79-27848d4ae0f7)
+
+#### 무한 스크롤
+
 ![무한스크롤](https://github.com/user-attachments/assets/319baca3-a35c-4488-ac61-3796d26f8637)
+
+#### 로그인 알림
+
+![리다이렉션](https://github.com/user-attachments/assets/44b761b0-a47d-448b-8549-ba61f9ea631c)
 
 - 모임 만들기
 
@@ -72,7 +84,12 @@
 
 ### 상세 페이지
 
+#### 페이지네이션, 모임 취소
+
 ![상세페이지1](https://github.com/user-attachments/assets/387e1b55-ed9c-4167-981d-6f4687c8ede5)
+
+#### 모임 참여 및 취소
+
 ![상세페이지2](https://github.com/user-attachments/assets/2038fc7f-e02f-4d11-8f92-b3b44e4fc849)
 
 - 특정 모임 리뷰 확인
@@ -99,7 +116,12 @@
 
 ### 마이 페이지
 
+#### 프로필 수정
+
 ![마이페이지수정](https://github.com/user-attachments/assets/ad3963b3-d781-40e1-ae1c-982825733cc8)
+
+#### 리뷰 작성
+
 ![마이페이지리뷰작성](https://github.com/user-attachments/assets/855df6ad-5566-4af7-953b-293a1a6cd826)
 
 - 프로필 수정 하기
