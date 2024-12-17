@@ -35,7 +35,7 @@ const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
 
   const isFinishedRegisterEnd = isDeadlinePassed(gathering.registrationEnd);
   const isFinishedDateTime = isDeadlinePassed(
-    addHours(new Date(gathering.dateTime), -9).toDateString(),
+    addHours(new Date(gathering.dateTime), 0).toDateString(),
   );
 
   // 개설확정 충족 조건
