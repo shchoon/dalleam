@@ -27,7 +27,7 @@ describe('로그인 e2e test', () => {
     cy.get('button[type="submit"]').click();
 
     // 서버에서 응답한 에러 메시지 확인
-    cy.contains('잘못된 이메일 또는 비밀번호입니다').should('be.visible'); // 실패 메시지 확인
+    cy.contains('존재하지 않는 아이디입니다다').should('be.visible'); // 실패 메시지 확인
   });
 
   it('유효한 이메일 비밀번호 입력', () => {
