@@ -41,14 +41,18 @@ describe('DetailPage', () => {
 
     cy.get('[data-cy="Gathering List"]').children().first().find('img').click();
 
-    cy.get('button').then(($btn) => {
-      if ($btn.text().includes('참여 취소하기')) {
-        cy.get('button').contains('참여 취소하기').click();
-        cy.get('button').contains('참여하기').click();
-      } else {
-        cy.get('button').contains('참여하기').click();
-        cy.get('button').contains('참여 취소하기').click();
-      }
-    });
+    cy.get('button')
+      .contains(/참여 취소하기|참여하기/)
+      .then(($btn) => {
+        const buttonText = $btn.text();
+
+        if (buttonText.includes('참여 취소하기')) {
+          cy.wrap($btn).click(); // "참여 취소하기" 클릭
+          cy.contains('button', '참여하기').should('be.visible').click(); // "참여하기" 버튼이 보일 때 클릭
+        } else if (buttonText.includes('참여하기')) {
+          cy.wrap($btn).click(); // "참여하기" 클릭
+          cy.contains('button', '참여 취소하기').should('be.visible').click(); // "참여 취소하기" 버튼이 보일 때 클릭
+        }
+      });
   });
 });
