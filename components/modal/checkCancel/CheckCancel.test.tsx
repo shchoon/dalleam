@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import CheckCancel from './CheckCancel';
+import { CancelGathering } from './CancelGathering';
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -20,5 +21,15 @@ describe('checkCancel component test', () => {
 
     expect(screen.getByRole('button', { name: /취소/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /확인/i })).toBeInTheDocument();
+  });
+});
+
+describe('낙관적 업데이트 로직 테스트', () => {
+  const data = require('./gathering.json');
+  const targetIndex = Math.floor(Math.random() * 15) + 1;
+
+  it('로직 테스트', () => {
+    const updateData = CancelGathering(data, targetIndex);
+    expect(updateData.find((data) => data.id === targetIndex)).toBe(undefined);
   });
 });

@@ -20,9 +20,10 @@ type Props = {
   gathering: Gathering;
   openModal?: () => void;
   isReviewed?: boolean;
+  priority: boolean;
 };
 
-const Card = ({ normal, gathering, openModal, isReviewed }: Props) => {
+const Card = ({ normal, gathering, openModal, isReviewed, priority }: Props) => {
   const { setId } = useGatheringId();
   const { setType } = useModalType();
 

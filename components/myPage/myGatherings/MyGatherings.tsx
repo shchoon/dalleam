@@ -23,10 +23,10 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
   const { type } = useModalType();
   const client = useQueryClient();
 
-  const getMyGatheringData = async (offset: number) => {
+  const getMyGatheringData = async (limit: number, offset: number) => {
     const instance = getInstance();
     const res = await instance('/gatherings/joined', {
-      params: { limit: 10, offset: offset, sortOrder: 'desc' },
+      params: { limit: limit, offset: offset, sortOrder: 'desc' },
     });
 
     return res.data;
@@ -44,7 +44,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
       pages: [initialMyGatherings],
       pageParams: [0],
     },
-    queryFn: ({ pageParam }) => getMyGatheringData(pageParam),
+    queryFn: ({ pageParam }) => getMyGatheringData(10, pageParam),
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.length < 10) {
         return undefined;
@@ -56,6 +56,7 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
 
   useEffect(() => {
     if (inView) {
+      console.log('inview');
       fetchNextPage();
     }
   }, [inView]);
@@ -69,9 +70,10 @@ export default function MyGatherings({ initialMyGatherings }: Props) {
           </div>
         ) : (
           <div aria-label="gatheringJoined" className="flex flex-col gap-6">
-            {gatheringJoined.pages.flat().map((myGathering) => {
+            {gatheringJoined.pages.flat().map((myGathering, index) => {
               return (
                 <Card
+                  priority={index === 0 || index === 1}
                   normal={false}
                   gathering={myGathering}
                   key={myGathering.id}
