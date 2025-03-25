@@ -5,8 +5,8 @@ import React from 'react';
 const CardList = ({ gatherings }: { gatherings: Gathering[] }) => {
   return (
     <div className="flex flex-col items-center gap-6">
-      {gatherings.map((gathering) => (
-        <Card gathering={gathering} normal={false} key={gathering.id} />
+      {gatherings.map((gathering, index) => (
+        <Card priority={index === 0} gathering={gathering} normal={false} key={gathering.id} />
       ))}
     </div>
   );
