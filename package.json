@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "jest",
     "prepare": "husky",
-    "cypress": "cypress run --browser chrome"
+    "cypress": "cypress run --browser chrome --spec"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",

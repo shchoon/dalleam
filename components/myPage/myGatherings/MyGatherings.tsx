@@ -18,6 +18,7 @@ type Props = {
 };
 
 export default function MyGatherings({ initialMyGatherings }: Props) {
+  console.log(initialMyGatherings);
   const { ref, inView } = useInView();
   const { modalRef, handleCloseModal, handleOpenModal } = useModal();
   const { type } = useModalType();

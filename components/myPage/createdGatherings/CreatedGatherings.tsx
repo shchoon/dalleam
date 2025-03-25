@@ -14,6 +14,7 @@ type Props = {
 };
 
 export default function CreatedGatherings({ initialCreatedGatherings, userId }: Props) {
+  console.log(initialCreatedGatherings);
   const { ref, inView } = useInView();
 
   const getCreatedGathering = async (offset: number) => {
@@ -68,8 +69,15 @@ export default function CreatedGatherings({ initialCreatedGatherings, userId }: 
           </div>
         ) : (
           <div aria-label="createdGatherings" className="flex flex-col gap-6">
-            {createdGatherings.pages.flat().map((gathering) => {
-              return <Card normal gathering={gathering} key={gathering.id} />;
+            {createdGatherings.pages.flat().map((gathering, index) => {
+              return (
+                <Card
+                  normal
+                  gathering={gathering}
+                  priority={index === 0 || index === 1}
+                  key={gathering.id}
+                />
+              );
             })}
           </div>
         )}

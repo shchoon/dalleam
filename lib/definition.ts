@@ -69,13 +69,13 @@ export type JoinedGathering = {
   teamId: string;
   id: number;
   type: GatheringType;
-  name: null;
+  name: null | string;
   dateTime: string;
   registrationEnd: string;
   location: LocationType;
   participantCount: number;
   capacity: number;
-  image: string;
+  image: string | null;
   createdBy: number;
   canceledAt: string | null;
   joinedAt: string;

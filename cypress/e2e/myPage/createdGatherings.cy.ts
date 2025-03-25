@@ -3,21 +3,6 @@ describe('test createdGatherings', () => {
   const USER_ID = Cypress.env('userId');
   const PASSWORD = Cypress.env('password');
 
-  beforeEach(() => {
-    cy.visit('/login');
-    cy.get('input[type="email"]').type(USER_ID);
-
-    cy.get('input[type="password"]').type(PASSWORD);
-
-    cy.get('button').contains('로그인').click();
-
-    cy.url().should('eq', 'http://localhost:3000/');
-
-    cy.get('nav').find('button').click();
-    cy.contains('마이페이지').click();
-    cy.url().should('include', 'my-page');
-  });
-
   it('should work infite scroll', () => {
     cy.get('div').contains('내가 만든 모임').click();
 

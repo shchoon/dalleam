@@ -75,9 +75,10 @@ export default function NewReview({ initialReviews }: Props) {
           </div>
         ) : (
           <div aria-label="newReviews" className="flex flex-col gap-6">
-            {newReviews.pages.flat().map((review) => {
+            {newReviews.pages.flat().map((review, index) => {
               return (
                 <Card
+                  priority={index === 0 || index === 1}
                   openModal={handleOpenModal}
                   normal={false}
                   gathering={review}

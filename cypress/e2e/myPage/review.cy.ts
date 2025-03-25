@@ -4,21 +4,16 @@ describe('test new review', () => {
   const PASSWORD = Cypress.env('password');
 
   beforeEach(() => {
-    cy.visit('/login');
-    cy.get('input[type="email"]').type(USER_ID);
-
-    cy.get('input[type="password"]').type(PASSWORD);
-
-    cy.get('button').contains('로그인').click();
-
-    cy.url().should('eq', 'http://localhost:3000/');
-
-    cy.get('nav').find('button').click();
-    cy.contains('마이페이지').click();
-    cy.url().should('include', 'my-page');
-
     cy.contains('나의 리뷰').click();
     cy.url().should('include', 'my-review');
+    cy.fixture('myPage/getGathering.json').then((data) => {
+      cy.intercept('GET', `${API_BASE_URL}/gatherings/joined*`, (req) => {
+        req.reply({
+          statusCode: 200,
+          body: new Array(1).fill(data),
+        });
+      }).as('review');
+    });
 
     cy.fixture('myPage/postReview.json').then((data) => {
       data.id = 1365;
@@ -50,7 +45,7 @@ describe('test new review', () => {
     cy.get('button').contains('취소').click();
   });
 
-  it.only('should submit post request when submitBtn is clicked', () => {
+  it('should submit post request when submitBtn is clicked', () => {
     cy.scrollTo('bottom', { duration: 1000 });
     cy.get('div[aria-label="newReviews"]')
       .children()
