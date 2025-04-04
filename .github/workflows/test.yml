@@ -28,7 +28,7 @@ jobs:
           browser: chrome
           spec: 'cypress/e2e/myPage/**/*'
           # record: true
-          parallel: true
+          # parallel: true
 
       - name: Setup node
         uses: actions/setup-node@v4
